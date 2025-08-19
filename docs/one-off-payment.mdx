@@ -1,0 +1,65 @@
+---
+title: "One Off Payment"
+description: "ONLY use this API endpoint if your processor uses One Off Payments. Revolv3 will inform you if this is an option. You will receive an error message if you try to use one off payments without the correct processor."
+---
+
+\{\{Api Root}}/api/Invoices/one-off-payment
+
+<CodeGroup>
+  ```bash bash
+  {
+  	"PaymentMethod": {
+          "IpAddress" : "1.1.1.1",
+          "Email" : "[email protected]",
+          "PhoneNumber" : "323-555-1234",
+  		"BillingAddress": {
+                      "AddressLine1": "123 Main St.",
+                      "City": "Los Angeles",
+                      "State": "CA",
+                      "PostalCode": "90210",
+                      "Country": "USA"
+                  },
+  		"BillingFirstName": "John",
+  		"BillingLastName": "Doe",
+          "CreditCard":{
+              "PaymentAccountNumber": "2222400010000008",
+              "ExpirationDate": "0330",
+              "SecurityCode": "123"
+          }
+  	},
+  	"Invoice": {
+  		"MerchantInvoiceRefId": "12345",
+  		"InvoiceLineItems": [
+  			{
+  				"InvoiceLineItemId": 0,
+  				"Name": "One Time Charge",
+  				"Description": "Test of 1.01",
+  				"Value": 1.01,
+  				"ValueType": "Standard"
+  			}
+  		]
+  	}
+  }
+  ```
+</CodeGroup>
+
+Response
+
+<CodeGroup>
+  ```bash bash
+  {
+      "invoiceId": 440119,
+      "merchantInvoiceRefId": "12345",
+      "invoiceStatus": "Paid",
+      "invoiceAttemptStatus": "Success",
+      "message": "Transaction complete.",
+      "subtotal": 1.04,
+      "taxAmount": 0.0,
+      "total": 1.04
+  }
+  ```
+</CodeGroup>
+
+***
+
+[Order Processing Channel](/docs/order-processing-channel)

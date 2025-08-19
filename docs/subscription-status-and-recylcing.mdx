@@ -1,0 +1,56 @@
+---
+title: "Subscription Status and Recylcing"
+description: "Once a  is created, it can exist in one of several statuses. Additionally, Revolv3 provides  to handle failed payments and optimize recurring billing."
+---
+
+1. **Subscription Status Types**
+
+| **Status**               | **Description**                                                                                                                                                                   |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Current**              | The subscription is **active** and will continue billing at scheduled intervals.                                                                                                  |
+| **Cancelled**            | The subscription has been **terminated** and will not be billed again.                                                                                                            |
+| **Pending Cancellation** | The subscription is **marked for cancellation** but is still within an active billing cycle. It will be fully cancelled at the end of the period if no further payments are made. |
+
+📌 **For details on a cancellation**, refer to the **status of the last invoice** to determine whether the subscription was ended due to failed payments, manual cancellation, or another reason.
+
+1. **Subscription Payment Recycling and Retries**
+
+**Automatic Retry Process**
+
+* **Retries occur immediately on different processors** if available.
+
+* **Revolv3 will retry payment attempts** based on a **predefined schedule**.
+
+* If **multiple payment methods** are enabled, Revolv3 will **attempt additional cards** upon a failed transaction.
+
+**Soft Decline vs. Hard Decline**
+
+| **Decline Type** | **Behavior**                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| **Soft Decline** | The system **retries the payment** using the same or other available payment methods. |
+| **Hard Decline** | The payment is **not retried**, and the subscription remains **unpaid or cancelled**. |
+
+**Default Retry Behavior**
+
+* Revolv3 will **attempt up to 15 retries** to process a **failed invoice**.
+
+* The retry process **only applies to card-based payments** (ACH payments and one-time invoices are **not retried**).
+
+* The **Recycle Strategy** follows rules configured in the **Recurring Strategies settings**.
+
+1. **Summary of Subscription Status and Recycling**
+
+| **Feature**                  | **Behavior**                                                            |
+| ---------------------------- | ----------------------------------------------------------------------- |
+| **Active Subscription**      | Continues billing normally.                                             |
+| **Cancelled Subscription**   | Will not be billed again.                                               |
+| **Pending Cancellation**     | Still within the active period but will end at the next cycle.          |
+| **Soft Decline Handling**    | Retries payment attempts up to **15 times** based on strategy settings. |
+| **Hard Decline Handling**    | Subscription remains unpaid, no further attempts are made.              |
+| **Multiple Payment Methods** | Revolv3 tries alternative cards if available.                           |
+
+Revolv3’s **subscription recycling process** ensures a higher success rate for recurring payments, reducing churn and optimizing customer retention. 🚀
+
+***
+
+[Create a Subscription](/docs/create-subscription)

@@ -1,0 +1,85 @@
+---
+title: "Invoice API Reference"
+description: "The  retrieves a list of invoices associated with your account. This endpoint provides detailed invoice information, including IDs, amounts, statuses, and dates, and supports pagination for efficient data retrieval."
+---
+
+## Endpoint
+
+**GET** `/api/invoices`
+
+<CodeGroup>
+  ```bash bash
+  [
+      {
+          "invoiceId": 388815,
+          "customerId": null,
+          "merchantInvoiceRefId": "1234-5678-9101",
+          "binNumber": "444433",
+          "last4Digit": "1111",
+          "invoiceStatus": "Paid",
+          "subtotal": 150.0000,
+          "tax": 0.0000,
+          "total": 150.0000,
+          "billingDate": "12-15-2024",
+          "merchantLegalName": "Test Merchant",
+          "merchantCustomerRefId": null,
+          "customerFirstName": null,
+          "customerLastName": null
+      },
+  .... Additional array values
+    ]
+  ```
+</CodeGroup>
+
+***
+
+## Request Parameters
+
+All parameters are optional and can be used to filter or paginate the list of invoices.
+
+| Parameter    | Type    | Description                                                                    | Default |
+| ------------ | ------- | ------------------------------------------------------------------------------ | ------- |
+| `start_date` | String  | Filter invoices issued on or after this date (ISO 8601 format: `YYYY-MM-DD`).  | None    |
+| `end_date`   | String  | Filter invoices issued on or before this date (ISO 8601 format: `YYYY-MM-DD`). | None    |
+| `status`     | String  | Filter by invoice status (`open`, `paid`, `voided`, `draft`).                  | None    |
+| `page`       | Integer | Page number to retrieve (1-based indexing).                                    | 1       |
+| `page_size`  | Integer | Number of invoices per page (max: 100).                                        | 25      |
+
+### Example Request
+
+StartDate and EndDate filter values are based on BillingDate in UTC. The result is sorted by invoice billing date in descending order and secondary invoiceId ascending order. Example order:
+
+1. 12-13-2024 12347
+2. 12-11-2024 12345
+3. 12-11-2024 12346
+
+Pages are limited to 100 items per page.
+
+An example call with filters would be
+
+```
+{{Api Root}}/api/Invoices?startDate=01-05-2024&endDate=12-12-2024&page=2&pageSize=10
+```
+
+## Response
+
+The API returns a JSON array of invoice objects.
+
+### Response Fields
+
+| Field        | Type   | Description                                                        |
+| ------------ | ------ | ------------------------------------------------------------------ |
+| `id`         | String | Unique identifier for the invoice.                                 |
+| `amount`     | Number | Total invoice amount (in cents, e.g., 15075 = $150.75).            |
+| `currency`   | String | Currency code (e.g., `USD`).                                       |
+| `status`     | String | Current status of the invoice (`open`, `paid`, `voided`, `draft`). |
+| `issue_date` | String | Date the invoice was issued (ISO 8601).                            |
+| `due_date`   | String | Date the invoice is due (ISO 8601).                                |
+| `created_at` | String | Date the invoice was created (ISO 8601).                           |
+| `updated_at` | String | Date the invoice was last updated (ISO 8601).                      |
+
+To get more information about the invoices including invoiceAttempts\[] check the documentation for Get Details of Invoice Attempts
+
+***
+
+[Invoice Attempts & Details](/docs/get-details-of-invoice-attempts)

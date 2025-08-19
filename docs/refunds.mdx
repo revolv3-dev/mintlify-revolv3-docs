@@ -1,0 +1,166 @@
+---
+title: "Refunds"
+description: "If you need to return funds to your subscriber for any reason, you can refund the payment. A refund can be processed through the Revolv3 Portal or via the API. The outcome of the refund request is received synchronously for card payments and asynchronously for ACH payments (please contact Revolv3 support for more details)."
+---
+
+You can refund a transaction for any amount up to the original payment amount. Additionally, you can partially refund a transaction multiple times, as long as the combined partial amounts do not exceed the original transaction amount.
+
+A refund is not available if the transaction has already been fully refunded or if the requested refund amount exceeds the original transaction amount.
+
+**Note**: Currently, we support refunds only for transactions processed by Revolv3. Refunds are not supported for transactions processed by another PSP.
+
+## API
+
+To perform a refund via REST API, send a [Refund Invoice](https://docs.revolv3.com/reference/post_api-invoices-invoiceid-refund#/) API request with the following parameters:
+
+* **invoiceId (REQUIRED)**: This is the invoice ID of the original payment transaction.
+
+* **refundAmount (⚠️ excluding taxes)**:
+
+  * The amount must not exceed the original amount (excluding taxes).
+  * The sum of this amount plus all previous partial refunds must not exceed the original amount (excluding taxes).
+  * If no amount is provided, the value defaults to the invoice total.
+
+## Revolv3 Portal
+
+To refund a payment:
+
+1. On the Invoices screen, select relevant invoice of Subscription payment type.
+2. Click **Refund** in the Invoice section – the Refund window opens.
+3. You can return the original amount or issue a partial refund by entering a different amount. When you refund a transaction, the original amount of the transaction (excluding taxes) is displayed.
+4. Press **Refund** to have Revolv3 process the refund for the original amount of the transaction or for the amount entered.
+
+## Taxes
+
+When creating a subscription using the create subscription endpoint, you can specify the tax amount, which will be added to the primary payment amount. If the tax amount is not specified for the payment method, it is considered zero, and the payment will be made for the primary amount. If the tax amount is specified, the payment will be made for the primary amount plus the tax amount specified for the payment method used.
+
+In cases where the tax amount was not specified in the request, the refund is processed for the full amount specified in the API request or on the portal. If the tax amount was included in the subscription created request, the refund amount must be specified excluding taxes. The tax amount to be refunded will be calculated automatically and will equal the full tax amount for a full refund or will be proportional to the refund amount for a partial refund. If the refund amount is not specified in the refund request, the refund will be processed for the full amount, including taxes.
+
+## Reasons for failed refund validation
+
+* The requested refund amount is more than the original amount (excluding taxes).
+* Partial refund(s) has(/have) been processed, and the requested refund amount is more than the original amount (excluding taxes).
+* Full refund has been processed, and the remaining amount is zero.
+* The refund amount was too low. The amount must be greater than 0.01 in any currency.
+
+## Example
+
+`POST /api/Invoices/{{InvoiceId}}/refund` 237058 InvoiceId used below. This creates a new refund InvoiceId 237059.
+
+### Request
+
+<CodeGroup>
+  ```bash bash
+  {
+      "amount": 1.03
+  }
+  ```
+</CodeGroup>
+
+### Response
+
+<CodeGroup>
+  ```bash bash
+  {
+      "invoice": {
+          "invoiceId": 237059,
+          "parentInvoiceId": 237058,
+          "customerId": null,
+          "merchantInvoiceRefId": null,
+          "paymentMethod": {
+              "paymentMethodId": 6469,
+              "billingAddressId": 7551,
+              "billingFirstName": "Joe",
+              "billingLastName": "Smith",
+              "merchantPaymentMethodRefId": null,
+              "billingAddress": {
+                  "addressId": 7551,
+                  "addressLine1": "381 Forest Ave. Suite C",
+                  "addressLine2": null,
+                  "city": "Laguna Beach",
+                  "state": "CA",
+                  "postalCode": "92651",
+                  "phoneNumber": null,
+                  "email": null,
+                  "country": "US"
+              },
+              "paymentMethodAchDetails": null,
+              "paymentMethodCreditCardDetails": {
+                  "binNumber": "444433",
+                  "paymentLast4Digit": "1111",
+                  "paymentExpirationDate": "0330"
+              }
+          },
+          "invoiceStatus": "Refund",
+          "subtotal": 1.03,
+          "tax": 0.0,
+          "total": 1.03,
+          "billingDate": "7/11/2024",
+          "merchantLegalName": "[TEST] House Account",
+          "merchantCustomerRefId": null,
+          "customerFirstName": null,
+          "customerLastName": null,
+          "subscriptionId": null,
+          "installmentId": null,
+          "eligibilityFailReason": null,
+          "merchantSubscriptionRefId": null,
+          "networkTransactionId": null,
+          "invoiceLineItems": [
+              {
+                  "invoiceId": 237059,
+                  "invoiceLineItemId": 220037,
+                  "name": "Parent Invoice [237058]",
+                  "description": null,
+                  "value": 1.03,
+                  "valueType": "Standard"
+              }
+          ],
+          "invoiceAttempts": null
+      },
+      "refunds": [
+          {
+              "invoiceAttemptId": 114130,
+              "amount": -1.03,
+              "invoiceAttemptStatus": "Success",
+              "invoiceAttemptDate": "2024-07-11T18:19:28.6971789Z",
+              "paymentProcessor": "WorldPay",
+              "processorTransactionId": "84082561857760470",
+              "responseCode": "000",
+              "responseMessage": "Approved",
+              "paymentMethod": {
+                  "paymentMethodId": 6469,
+                  "billingAddressId": 7551,
+                  "billingAddress": {
+                      "addressId": 7551,
+                      "addressLine1": "381 Forest Ave. Suite C",
+                      "addressLine2": null,
+                      "city": "Laguna Beach",
+                      "state": "CA",
+                      "postalCode": "92651",
+                      "phoneNumber": null,
+                      "email": null,
+                      "country": "US"
+                  },
+                  "billingFirstName": "Joe",
+                  "billingLastName": "Smith",
+                  "merchantPaymentMethodRefId": null,
+                  "paymentMethodAchDetails": null,
+                  "paymentMethodCreditCardDetails": {
+                      "binNumber": "444433",
+                      "paymentLast4Digit": "1111",
+                      "paymentExpirationDate": "0330"
+                  }
+              },
+              "eligibilityCheckOrderCode": null
+          }
+      ],
+      "refundedSubtotal": 1.03,
+      "refundedTax": 0.0000,
+      "refundedTotal": 1.03
+  }
+  ```
+</CodeGroup>
+
+***
+
+[Canceling a Subscription](/docs/canceling-a-subscription)

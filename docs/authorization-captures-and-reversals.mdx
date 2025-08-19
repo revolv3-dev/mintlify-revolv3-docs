@@ -1,0 +1,46 @@
+---
+title: "Authorization, Captures and Reversals"
+---
+
+## Authorization
+
+To create an authorization use the API call . In this response you will get an PaymentMethodAuthorizationId. You can then use this ID for the capture or a reversal
+
+## Capture
+
+For a Capture (charge the customer after authorization) , use either the One Time Payment API or Subscription API call and use the PaymentMethodAuthorizationId instead of PaymentMethod
+
+\{Api Root}}/api/Customers/\{\{Customer Id}}/subscriptions
+
+```
+{
+	"MerchantSubscriptionRefId": "1234-5678-9101",
+	"BillingFrequencyType": "Monthly",
+  "PaymentMethodAuthorizationId": 1234,
+	"SubscriptionBillingPlans": [
+		{
+			"Name": "Billing Plan 1",
+			"Value": 10.99,
+			"CycleCount": -1,
+			"ValueType": "Standard",
+			"StartCycleDelay": 0
+		}
+	]
+}
+```
+
+## Authorization Reversal
+
+To do a Reversal of an authorization use the API call ,use the PaymentMethodAuthorizationId from the previous API call
+
+\{\{Api Root}}/api/PaymentMethod/reverse-auth
+
+```
+{
+	"PaymentMethodAuthorizationId": 1234
+}
+```
+
+***
+
+[Reusing the PaymentMethod](/docs/reusing-the-paymentmethodid-for-one-time-payments)

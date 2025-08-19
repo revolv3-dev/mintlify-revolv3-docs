@@ -1,0 +1,163 @@
+---
+title: "Processor Raw Response"
+description: "Each processor differs in their response and codes. To see the raw response from the processor, you can include an optional parameter."
+---
+
+```
+"IncludeRawProcessorResponse": true,
+```
+
+\{\{Api Root}}/api/payments/sale
+
+<CodeGroup>
+  ```bash bash
+  {
+      "IncludeRawProcessorResponse": true,
+      "NetworkProcessing": {
+          "processingType": "initialInstallment",
+          "originalNetworkTransactionId": null
+      },
+      "CustomerId": null, //optional add a customer ID - otherwise no customer is created
+      "PaymentMethod": {
+          "BillingAddress": {
+              "AddressLine1": "100 Main St",
+              "City": "Los Angeles",
+              "State": "CA",
+              "PostalCode": "90210",
+              "Country": "USA"
+          },
+          "BillingFirstName": "John",
+          "BillingLastName": "Doe",
+          "creditCard": {
+              "paymentAccountNumber": "4444333322221111",
+              "expirationDate": "1130",
+              "securityCode": "214"
+          }
+      },
+      "Invoice": {
+          "MerchantInvoiceRefId": "ABC12345DProbVs1",
+          "Amount": {
+              "value": 0.13
+          }
+      }
+  }
+  ```
+</CodeGroup>
+
+Response - here rawResponse contains the json of the raw response of the processor
+
+```
+{
+    "customerId": null,
+    "invoiceId": 319214,
+    "merchantInvoiceRefId": "ABC12345DProbVs1",
+    "merchantPaymentMethodRefId": null,
+    "networkTransactionId": "241815930449764",
+    "invoiceStatus": "Paid",
+    "invoiceAttemptStatus": "Success",
+    "message": "Approved",
+    "amount": {
+        "currency": "USD",
+        "value": 0.13
+    },
+    "paymentMethodId": 12310,
+    "paymentMethodTypeId": 1,
+    "rawResponse": "{\"cnpTxnId\":84083493722313344,\"orderId\":\"319214\",\"response\":\"000\",\"responseTime\":\"2024-11-19T19:12:16\",\"cardProductId\":null,\"postDate\":\"2024-11-19T00:00:00\",\"postDateSpecified\":true,\"message\":\"Approved\",\"location\":\"florence\",\"cardSuffix\":\"1111\",\"authCode\":\"123457\",\"authorizationResponseSubCode\":null,\"approvedAmount\":null,\"accountInformation\":null,\"fraudResult\":{\"advancedFraudResults\":null,\"avsResult\":\"00\",\"cardValidationResult\":null,\"authenticationResult\":null,\"advancedAVSResult\":null},\"billMeLaterResponseData\":null,\"tokenResponse\":null,\"enhancedAuthResponse\":null,\"accountUpdater\":null,\"recyclingResponse\":null,\"recurringResponse\":null,\"giftCardResponse\":null,\"applepayResponse\":null,\"androidpayResponse\":null,\"sepaDirectDebitResponse\":null,\"idealResponse\":null,\"giropayResponse\":null,\"sofortResponse\":null,\"duplicateSpecified\":false,\"networkTransactionId\":\"241815930449764\",\"pinlessDebitResponse\":null,\"authMax\":null,\"paymentAccountReferenceNumber\":null,\"checkoutId\":null,\"reportGroup\":\"Revolv3\",\"id\":\"202411191912155138881631fe4f1594\",\"customerId\":null}"
+}
+```
+
+You can also use this in the GET request for an invoice
+
+`{{Api Root}}/api/Invoices/319214?includeRawProcessorResponse=true`
+
+Response
+
+```
+{
+    "invoiceId": 319214,
+    "parentInvoiceId": null,
+    "customerId": null,
+    "merchantInvoiceRefId": "ABC12345DProbVs1",
+    "paymentMethod": {
+        "paymentMethodId": 12310,
+        "billingAddressId": 13576,
+        "billingFirstName": "John",
+        "billingLastName": "Doe",
+        "merchantPaymentMethodRefId": null,
+        "billingAddress": {
+            "addressId": 13576,
+            "addressLine1": "100 Main St",
+            "addressLine2": null,
+            "city": "Los Angeles",
+            "state": "CA",
+            "postalCode": "90210",
+            "phoneNumber": null,
+            "email": null,
+            "country": "US"
+        },
+        "paymentMethodAchDetails": null,
+        "paymentMethodCreditCardDetails": {
+            "binNumber": "444433",
+            "paymentLast4Digit": "1111",
+            "paymentExpirationDate": "1130"
+        }
+    },
+    "invoiceStatus": "Paid",
+    "subtotal": 0.13,
+    "tax": 0.00,
+    "total": 0.13,
+    "billingDate": "11/19/2024",
+    "merchantLegalName": "[TEST] Revolv3 Merchant",
+    "merchantCustomerRefId": null,
+    "customerFirstName": null,
+    "customerLastName": null,
+    "subscriptionId": null,
+    "installmentId": null,
+    "eligibilityFailReason": null,
+    "merchantSubscriptionRefId": null,
+    "networkTransactionId": "241815930449764",
+    "invoiceLineItems": [],
+    "invoiceAttempts": [
+        {
+            "invoiceAttemptId": 150033,
+            "amount": 0.13,
+            "invoiceAttemptStatus": "Success",
+            "invoiceAttemptDate": "2024-11-19T19:12:16.85",
+            "paymentProcessor": "WorldPay",
+            "processorTransactionId": "84083493722313344",
+            "responseCode": "000",
+            "responseMessage": "Approved",
+            "processorRawResponse": "{\"cnpTxnId\":84083493722313344,\"orderId\":\"319214\",\"response\":\"000\",\"responseTime\":\"2024-11-19T19:12:16\",\"cardProductId\":null,\"postDate\":\"2024-11-19T00:00:00\",\"postDateSpecified\":true,\"message\":\"Approved\",\"location\":\"florence\",\"cardSuffix\":\"1111\",\"authCode\":\"123457\",\"authorizationResponseSubCode\":null,\"approvedAmount\":null,\"accountInformation\":null,\"fraudResult\":{\"advancedFraudResults\":null,\"avsResult\":\"00\",\"cardValidationResult\":null,\"authenticationResult\":null,\"advancedAVSResult\":null},\"billMeLaterResponseData\":null,\"tokenResponse\":null,\"enhancedAuthResponse\":null,\"accountUpdater\":null,\"recyclingResponse\":null,\"recurringResponse\":null,\"giftCardResponse\":null,\"applepayResponse\":null,\"androidpayResponse\":null,\"sepaDirectDebitResponse\":null,\"idealResponse\":null,\"giropayResponse\":null,\"sofortResponse\":null,\"duplicateSpecified\":false,\"networkTransactionId\":\"241815930449764\",\"pinlessDebitResponse\":null,\"authMax\":null,\"paymentAccountReferenceNumber\":null,\"checkoutId\":null,\"reportGroup\":\"Revolv3\",\"id\":\"202411191912155138881631fe4f1594\",\"customerId\":null}",
+            "paymentMethod": {
+                "paymentMethodId": 12310,
+                "billingAddressId": 13576,
+                "billingAddress": {
+                    "addressId": 13576,
+                    "addressLine1": "100 Main Str",
+                    "addressLine2": null,
+                    "city": "Los Angeles",
+                    "state": "CA",
+                    "postalCode": "90210",
+                    "phoneNumber": null,
+                    "email": null,
+                    "country": "US"
+                },
+                "billingFirstName": "John",
+                "billingLastName": "Doe",
+                "merchantPaymentMethodRefId": null,
+                "paymentMethodAchDetails": null,
+                "paymentMethodCreditCardDetails": {
+                    "binNumber": "444433",
+                    "paymentLast4Digit": "1111",
+                    "paymentExpirationDate": "1130"
+                }
+            },
+            "eligibilityCheckOrderCode": null
+        }
+    ]
+}
+```
+
+***
+
+[Error Responses](/docs/error-responses)

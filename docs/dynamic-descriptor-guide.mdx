@@ -1,0 +1,90 @@
+---
+title: "Descriptor Guide"
+description: "Descriptor allows the merchant to define a static or dynamic descriptor, which appears in the payment statement."
+---
+
+<Warning>
+  ### Please note that....
+
+  * **Special configuration is required** to use static or dynamic descriptor. For more information, please contact Revolv3 Support Team.
+</Warning>
+
+# Static Descriptor
+
+Static descriptor is easy to set up and maintain, requiring no dynamic updates or customizations for each transaction. Ideal for merchants offering a single product or service with no need for varied descriptions.
+
+## Processors supporting Static Descriptor
+
+<Info>
+  ### Important clarification
+
+  Actually every payment processor supports a static descriptor, since we can't leave it empty or unfilled for real transactions, it should at least contain legal or DBA names. Usually this functionality can be provided by the payment processor itself.
+
+  Despite this Revolv3 also provides the ability to configure a static descriptor on our side, but only for some processors.
+</Info>
+
+Static Descriptor currently can be configured in Revolv3 Portal for the following processors:
+
+* WorldPay
+* Nuvei
+* Adyen
+* Paymentech
+* PaymentLync
+
+# Dynamic Descriptor
+
+The primary purpose of a dynamic descriptor, like a static descriptor, is to provide clear and specific transaction details to cardholders on their bank statements, improving transparency and reducing chargebacks.
+
+However, a dynamic descriptor allows merchants to customize the information that appears on a cardholder's statement for each transaction, dynamically tailoring it to reflect the specific purchase.
+
+The following object is used to **specify the dynamic descriptor**:
+
+<CodeGroup>
+  ```bash bash
+  "DynamicDescriptor":{
+       "SubMerchantId": "98765",
+       "SubMerchantName": "Test",
+       "SubMerchantPhone": "408-555-1212",
+       "CountryCode": "US",
+       "City": "Oakland"
+  },
+  ```
+</CodeGroup>
+
+There several parameters, each of which is optional, as is the parent DynamicDescriptor object.
+
+The following table provides a description of each parameter:
+
+| Name             | Description                                                                                                                                                                      |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SubMerchantId    | The internal merchant’s ID, which is sent to the relevant card scheme                                                                                                            |
+| SubMerchantName  | The merchant name, as is displayed for the transaction on the consumer’s card statement.                                                                                         |
+| SubMerchantPhone | The merchant (sub-merchant for payment facilitators) contact information, as is displayed for the transaction on the consumer’s card statement. It can also be an email address. |
+| CountryCode      | The merchant (sub-merchant for payment facilitators) contact information, as is displayed for the transaction on the consumer’s card statement. It can also be an email address. |
+| City             | The payment facilitator’s sub-merchant’s city name                                                                                                                               |
+
+## Endpoints supporting Dynamic Descriptor
+
+Not all endpoints include the ability to define the **DynamicDescriptor** object, so the following list will help you when you are planning an integration or to understand if you can use this feature in your current integration.
+
+* [/api/payments/sale](https://docs.revolv3.com/reference/post_api-payments-sale#/)
+* [/api/payments/sale/`{paymentMethodId}`](https://docs.revolv3.com/reference/post_api-payments-sale-paymentmethodid)
+* [/api/payments/capture/`{paymentMethodAuthorizationId}`](https://docs.revolv3.com/reference/post_api-payments-capture-paymentmethodauthorizationid)
+* [/api/payments/authorization](https://docs.revolv3.com/reference/post_api-payments-authorization)
+* [/api/payments/authorization/`{paymentMethodId}`](https://docs.revolv3.com/reference/post_api-payments-authorization-paymentmethodid)
+* [/api/invoices/payment](https://docs.revolv3.com/reference/post_api-payments-sale-paymentmethodid#/) obsolete
+
+## Processors supporting Dynamic Descriptor
+
+Dynamic Descriptor currently can be configured for the following processors:
+
+* WorldPay
+* Nuvei
+* Paymentech
+* PaymentLync
+
+This means that if the request contains a **DynamicDescriptor** object, this data will be passed to the corresponding processor, otherwise it will not.
+
+***
+
+[Network Processing Types](/docs/network-processing-types)

@@ -1,0 +1,201 @@
+---
+title: "Overview"
+description: "PaymentMethod – Creating and Reusing in Revolv3 API"
+---
+
+Revolv3 allows merchants to create **Payment Methods** and reuse them for multiple invoices and transactions. This guide explains how to:
+
+1. **Create a Payment Method** (generate a PaymentMethodId for future transactions).
+
+2. **Use an existing Payment Method** (reference a stored PaymentMethodId to process payments).
+
+Each section includes **API endpoints, request examples, and detailed explanations of request and response fields**.
+
+1. **Creating a Payment Method**
+
+A **Payment Method** represents a stored customer payment credential (e.g., credit card or ACH) that can be reused across multiple transactions. Merchants can either:
+
+✔ **Create a Payment Method before creating an invoice** and store the returned PaymentMethodId.
+
+✔ **Automatically generate a Payment Method when processing an invoice**.
+
+**API Endpoint for Creating a Payment Method**
+
+```
+https://api.revolv3.com/api/PaymentMethod
+```
+
+**Sample API Request**
+
+<CodeGroup>
+  ```bash bash
+  {
+    "BillingAddress": {
+      "AddressLine1": "100 Main Street",
+      "AddressLine2": "",
+      "City": "Santa Ana",
+      "State": "CA",
+      "PostalCode": "90000",
+      "Country": "US"
+    },
+    "BillingFirstName": "John",
+    "BillingLastName": "Smith",
+    "CreditCard": {
+      "PaymentAccountNumber": "4111111111111111",
+      "ExpirationDate": "1025",
+      "SecurityCode": 123
+    },
+    "MerchantPaymentMethodRefId": "payment-method-ref-id_hgays-213-4rf4"
+  }
+  ```
+</CodeGroup>
+
+*Explanation of API Request Fields*\*
+
+| **Field**                                                    | **Description**                                                              |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| BillingAddress                                               | Object containing the customer’s billing address.                            |
+| AddressLine1, AddressLine2, City, State, PostalCode, Country | Full billing address details.                                                |
+| BillingFirstName, BillingLastName                            | The name associated with the payment method.                                 |
+| CreditCard.PaymentAccountNumber                              | The **credit card number** (must be securely transmitted).                   |
+| CreditCard.ExpirationDate                                    | Card **expiration date** (Format: MMYY).                                     |
+| CreditCard.SecurityCode                                      | The **CVV/CVC security code** for authentication.                            |
+| MerchantPaymentMethodRefId                                   | A unique reference assigned by the merchant for tracking the payment method. |
+
+1. **Response When Creating a Payment Method**
+
+Upon successfully creating a Payment Method, the API returns a PaymentMethodId, which can be referenced in future payment requests.
+
+**Sample API Response**
+
+```
+{
+    "paymentMethodId": 16336,
+    "billingAddressId": 17683,
+    "billingAddress": {
+        "addressId": 17683,
+        "addressLine1": "100 Main Street",
+        "addressLine2": "",
+        "city": "Santa Ana",
+        "state": "CA",
+        "postalCode": "90000",
+        "phoneNumber": null,
+        "email": null,
+        "country": "US"
+    },
+    "billingFirstName": "John",
+    "billingLastName": "Smith",
+    "merchantPaymentMethodRefId": "payment-method-ref-id_hgays-213-4rf4",
+    "paymentMethodAchDetails": null,
+    "paymentMethodCreditCardDetails": {
+        "binNumber": "411111",
+        "paymentLast4Digit": "1111",
+        "paymentExpirationDate": "1025"
+    }
+}
+```
+
+**Explanation of API Response Fields**
+
+| **Field**                                            | **Description**                                                                     |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| paymentMethodId                                      | The unique ID assigned to the stored payment method (used for future transactions). |
+| billingAddressId                                     | ID assigned to the billing address associated with the payment method.              |
+| billingAddress                                       | Object containing full billing details.                                             |
+| paymentMethodCreditCardDetails.binNumber             | The **first six digits** of the stored card (Bank Identification Number).           |
+| paymentMethodCreditCardDetails.paymentLast4Digit     | The **last four digits** of the stored card.                                        |
+| paymentMethodCreditCardDetails.paymentExpirationDate | The card’s expiration date in MMYY format.                                          |
+| merchantPaymentMethodRefId                           | The merchant-provided reference ID for the payment method.                          |
+
+1. **Reusing an Existing Payment Method for a Transaction**
+
+Once a PaymentMethodId has been created, it can be referenced in future transactions instead of passing full payment details again.
+
+**API Endpoint for Processing a Payment with a Stored Payment Method**
+
+```
+https://api.revolv3.com/api/Payments/sale/\{paymentMethodId\}
+```
+
+**Sample API Request**
+
+<CodeGroup>
+  ```bash bash
+  {
+      "NetworkProcessing": {
+          "processingType": "initialInstallment", //initialRecurring, initialInstallment , installment, recurring
+          "originalNetworkTransactionId": null
+      },
+      "CustomerId": null, //optional add a customer ID - otherwise no customer is created
+      "Invoice": {
+          "MerchantInvoiceRefId": "ABC309500654810",
+          "Amount": {
+              "value": 1.03
+          }
+      }
+  }
+  ```
+</CodeGroup>
+
+**Explanation of API Request Fields**
+
+| **Field**                                      | **Description**                                                            |
+| ---------------------------------------------- | -------------------------------------------------------------------------- |
+| NetworkProcessing.processingType               | Defines the transaction type (initialInstallment, initialRecurring).       |
+| NetworkProcessing.originalNetworkTransactionId | Used for referencing previous transactions (set to null for new payments). |
+| CustomerId                                     | Optional customer identifier (set to null if not used).                    |
+| Invoice.MerchantInvoiceRefId                   | A unique identifier for tracking the invoice.                              |
+| Invoice.Amount.value                           | The total transaction amount in USD.                                       |
+
+1. **Payment Response for a Successful Transaction**
+
+When a payment is successfully processed using a stored PaymentMethodId, the API returns transaction details, including invoice status and payment authorization.
+
+**Sample API Response**
+
+<CodeGroup>
+  ```bash bash
+  {
+      "customerId": null,
+      "invoiceId": 186011,
+      "merchantInvoiceRefId": "ABC309500654810",
+      "merchantPaymentMethodRefId": null,
+      "networkTransactionId": "583676276256324",
+      "invoiceStatus": "Paid",
+      "invoiceAttemptStatus": "Success",
+      "message": "Approved",
+      "amount": {
+          "currency": "USD",
+          "value": 1.03
+      },
+      "paymentMethodId": 6061,
+      "paymentMethodTypeId": 1
+  }
+  ```
+</CodeGroup>
+
+**Explanation of API Response Fields**
+
+| **Field**            | **Description**                                                              |
+| -------------------- | ---------------------------------------------------------------------------- |
+| invoiceId            | The unique invoice ID generated by Revolv3.                                  |
+| merchantInvoiceRefId | The merchant’s reference ID for tracking the invoice.                        |
+| networkTransactionId | The transaction ID assigned by the payment network.                          |
+| invoiceStatus        | Status of the invoice (Paid, Pending, Failed).                               |
+| invoiceAttemptStatus | Outcome of the payment attempt (Success, Failed).                            |
+| message              | A response message indicating **approval or failure reason**.                |
+| amount.currency      | The currency of the transaction (USD).                                       |
+| amount.value         | The total transaction amount processed.                                      |
+| paymentMethodId      | The stored Payment Method ID used for the transaction.                       |
+| paymentMethodTypeId  | The type of payment method. 1= Credit Card; 2= ACH; 3= GooglePay; 4=ApplePay |
+
+1. **Summary of API Calls**
+
+| **Action**                                         | **API Endpoint**                           | **Purpose**                                                       |
+| -------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------- |
+| **Create a Payment Method**                        | POST /api/PaymentMethod                    | Generates a PaymentMethodId for future transactions.              |
+| **Process a Payment with a Stored Payment Method** | POST /api/Payments/sale/\{paymentMethodId} | Charges the stored payment method without requiring full details. |
+
+***
+
+[One Off Payment](/docs/one-off-payment)

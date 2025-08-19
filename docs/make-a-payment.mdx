@@ -1,0 +1,138 @@
+---
+title: "Overview"
+description: "Before initiating a payment request, ensure your  is properly configured with:"
+---
+
+* A **supported payment processor**.
+* A valid **API key** included in the request header for authentication.
+
+**API Endpoint**
+
+Use the following endpoint to process a payment:
+
+```
+{{Api Root}}/api/payments/sale
+```
+
+Depending on your environment, replace \{\{Api Root}} with one of the following URLs:
+
+* Production: [https://api.revolv3.com](https://api.revolv3.com)
+* Sandbox: [https://api-sandbox.revolv3.com](https://api-sandbox.revolv3.com)
+
+This endpoint accepts **POST** requests. The sample payload below demonstrates a typical request structure. Additional details and variations can be found in the Revolv3 API documentation.
+
+Sample Request Payload
+
+<CodeGroup>
+  ```bash bash
+  {
+      "NetworkProcessing": {
+          "processingType": "initialInstallment", //initialRecurring, initialInstallment, installment, recurring
+          "originalNetworkTransactionId": null
+      },
+      "CustomerId": null, //optional add a customer ID - otherwise no customer is created
+      "PaymentMethod": {
+          "BillingAddress": {
+              "AddressLine1": "381 Forest Ave. Suite C",
+              "City": "Laguna Beach",
+              "State": "CA",
+              "PostalCode": "92651",
+              "Country": "USA"
+          },
+          "BillingFullName": "John Doe",
+          "CreditCard": {
+              "PaymentAccountNumber": "4444333322221111",
+              "ExpirationDate": "0330",
+              "SecurityCode": "737"
+          }
+      },
+      "Invoice": {
+          "MerchantInvoiceRefId": "ABC309500654810",
+          "Amount": {
+              "value": 1.03
+          }
+      }
+  }
+  ```
+</CodeGroup>
+
+**Key Fields Explained**
+
+* NetworkProcessing
+
+  * processingType: Determines whether this payment is an initialInstallment, initialRecurring, installment, or recurringtransaction.
+  * originalNetworkTransactionId: Used for referencing previous network transactions, if applicable.
+
+* CustomerId: Optional. Provide an existing customer ID if available; otherwise, a new customer profile may be created.
+
+* PaymentMethod:
+
+  * BillingAddress: Contains address details for billing.
+  * CreditCard: Includes the card number, expiration date, and CVV.
+
+* Invoice:
+
+  * MerchantInvoiceRefId: A unique reference for your invoice, useful for tracking and reconciliation.
+  * Amount: The charge in USD.
+
+**Sample Response**
+
+<CodeGroup>
+  ```bash bash
+  {
+      "customerId": null,
+      "invoiceId": 185317,
+      "merchantInvoiceRefId": "ABC309500654810",
+      "merchantPaymentMethodRefId": null,
+      "networkTransactionId": "538302743384089",
+      "invoiceStatus": "Paid",
+      "invoiceAttemptStatus": "Success",
+      "message": "Approved",
+      "amount": {
+          "currency": "USD",
+          "value": 1.03
+      },
+      "paymentMethodId": 6061,
+      "paymentMethodTypeId": 1
+  }
+  ```
+</CodeGroup>
+
+**Response Fields**
+
+* **customerId**: Identifies the customer profile associated with the transaction (if applicable).
+
+* **invoiceId**: Unique identifier for the created invoice in Revolv3’s system.
+
+* **merchantInvoiceRefId**: Mirrors the reference ID you provided in the request.
+
+* **networkTransactionId**: Identifier for the transaction assigned by the card network.
+
+* **invoiceStatus**: Indicates the invoice’s current status (Paid in this example).
+
+* **invoiceAttemptStatus**: Shows the outcome of the payment attempt (Success here).
+
+* **message**: Provides the processor’s result, such as "Approved".
+
+* **amount**: Includes the currency and the final value processed.
+
+* **paymentMethodId**: ID referencing the stored payment method in Revolv3.
+
+* **paymentMethodTypeId**: Numeric code denoting the type of payment method used. 1= Credit Card; 2= ACH; 3= GooglePay; 4=ApplePay
+
+* OPTIONAL - \*\*rawResponse \*\*- raw response from the processor
+
+An optional parameter is 'includeRawProcessorResponse' this will return the processor response, it's default to true, but set to false to return this value: `"includeRawProcessorResponse": true` }
+
+***
+
+What’s Next
+
+Store the invoiceId or merchantInvoiceRefId for reconciliation and record-keeping.
+
+Handle errors or declines by inspecting invoiceAttemptStatus and message.
+
+Review payment records via the Revolv3 dashboard or API endpoints for reporting and customer service needs.
+
+For additional payment workflows (such as refunds, subscriptions, or multi-method payments), consult the Revolv3 API Documentation or contact Revolv3 Support.
+

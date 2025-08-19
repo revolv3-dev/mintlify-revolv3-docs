@@ -1,0 +1,107 @@
+---
+title: "Hosted page"
+description: "A hosted page is an option where your customers click a button on your website and are redirected to a payment page hosted by Revolv3's website. The customer then makes the payment, once finished they can click the \"Go Back To Site\" button to return to the merchant's website."
+---
+
+## 1. Prerequisites
+
+Before you begin, make sure you have met the following prerequisites:
+
+* You have an account on the Revolv3 portal with merchant and with one or more configured processors
+* You already have a generated developer API key
+* You have added your website's hostnames to the Trusted Checkout Hostnames (Merchant Settings -> Integration Profile).
+
+## 2. Creating a checkout link
+
+If you have fulfilled all the prerequisites, you can now start creating a link to which you will redirect the customer.
+
+<Warning>
+  ### Origin HTTP header
+
+  To ensure that requests are sent from an authorized merchant's API, make sure the HTTP request includes the **Origin** HTTP header.
+
+  ❗If it is missing, you will get a **400** HTTP error.
+</Warning>
+
+To create a link you need to send a request to the following endpoint:
+
+**POST*\{\{Api Root}}/api/Checkout*\*\*
+
+<Info>
+  ### Api Root
+
+  The **API Root** can be the URL of our Production ([https://api.revolv3.com](https://api.revolv3.com)) or Sandbox ([https://api-sandbox.revolv3.com](https://api-sandbox.revolv3.com)) environment.
+</Info>
+
+Sample payload (more information about the endpoint here -> [Create Checkout Link Endpoint](https://docs.revolv3.com/update/reference/post_api-checkout#/). A detailed description of the checkout line items value types -> [Checkout Line Items Value Types](doc:checkout-line-items-value-types).
+
+<CodeGroup>
+  ```bash bash
+  {
+    "ReturnUrl": "https%3A%2F%2Fmysite.com",
+    "OneTimePayment": {
+      "CheckoutLineItems": [
+        {
+          "Name": "Item 1",
+          "Description": "Description",
+          "Value": 9.99
+        },
+        {
+          "Name": "Item 2",
+          "Description": "Description",
+          "Value": 21.99
+        }
+      ]
+    }
+  }
+  ```
+</CodeGroup>
+
+***
+
+<Warning>
+  ### Set the ReturnUrl parameter
+
+  For the hosted page option, we advise filling in the **ReturnUrl parameter** in the request so that the customer can return to your website after completing the payment.
+
+  ❗The hostname in this URL should also be added to the Trusted Checkout Hostnames (Merchant Settings -> Integration Profile).
+
+  ❗The URL must be encoded once as in the example request.
+</Warning>
+
+***
+
+The response will have the following structure:
+
+<CodeGroup>
+  ```bash bash
+  {
+      "checkoutId": "0584773e-47bf-4822-91de-06acb5de9358",
+      "checkoutLink": "https://some-revolv3-url.com/checkout/0584773e-47bf-4822-91de-06acb5de9358"
+  }
+  ```
+</CodeGroup>
+
+Now you have a link to the payment page, you can redirect the customer to it and wait for the payment to be completed.
+
+You can get all the checkout information at any time using this endpoint -> [Get Complete Checkout Information](https://docs.revolv3.com/reference/checkout_getcompletecheckoutinformation)
+
+## 3. Referrer-Policy HTTP header
+
+<Info>
+  ### Referrer-Policy HTTP header
+
+  So that we can ensure that the customer was redirected from an authorized merchant's webpage, add a **Referrer-Policy** header with the **origin** value to the HTTP request or directly into the HTML.
+
+  To put the header into an HTML page, add the following meta tag
+
+  HTML
+
+  ```
+  <meta name="referrer" content="origin" />
+  ```
+</Info>
+
+***
+
+[Checkout Overview](/docs/checkout)

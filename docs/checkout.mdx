@@ -1,0 +1,83 @@
+---
+title: "Overview"
+description: "Checkout is a payment integration that creates a form for collecting payments. You can embed Checkout directly in your websites or redirect customers to a Revolv3-hosted checkout page."
+---
+
+The **Revolv3 Checkout** feature enables merchants to **collect payments through an embedded form or a hosted checkout page**. This integration allows businesses to **seamlessly handle payments** while offering customers a smooth and optimized checkout experience across devices.
+
+**Feature Overview**
+
+Revolv3’s **Checkout integration** provides:
+
+✔ **Clear order details** for customers before making a payment.
+
+✔ **Multiple payment method support**, allowing flexibility.
+
+✔ **Optimized UI/UX** for all devices, ensuring a seamless payment experience.
+
+✔ **Two integration options**:
+
+1. **Hosted Checkout Page** – Customers are redirected to a Revolv3-hosted payment page.
+
+2. **Embedded Checkout** – Checkout is directly embedded within a merchant’s website.
+
+**Basic Configuration Requirements**
+
+Before integrating the **Checkout feature**, ensure the following prerequisites are met:
+
+1️⃣ **You have an active Revolv3 account**.
+
+2️⃣ **You have a merchant account with one or more configured payment processors**.
+
+3️⃣ **You have already generated a Developer API Key** for authentication.
+
+**Configuring Trusted Hostnames for Checkout**
+
+To use Revolv3’s **Checkout feature**, merchants must register **trusted hostnames** in their Revolv3 portal. This ensures secure access to the **Checkout endpoints** and the hosted payment page.
+
+**Steps to Configure Trusted Hostnames**
+
+1️⃣ Navigate to **Merchant Settings → Integration Profile** in the Revolv3 portal.
+
+2️⃣ Scroll down to the section **Trusted Checkout Hostnames**.
+
+3️⃣ Add the hostname(s) from which checkout requests will be made.
+
+4️⃣ Ensure that the added hostname matches your website domain.
+
+**Example**
+
+If your website URL is:
+
+```
+https://mysite.com
+```
+
+Then, register the hostname as:
+
+| **SITENAME**     | **HOSTNAME** |
+| ---------------- | ------------ |
+| Our main website | mysite.com   |
+
+* **SITENAME** can be any descriptive name for reference.
+
+* **HOSTNAME** must match the domain from which Checkout requests originate.
+
+![](\images\docs\c5ac49f-image.png)
+
+**Choosing Your Checkout Integration Method**
+
+After configuring trusted hostnames, select one of the following integration methods:
+
+1️⃣[Hosted page](doc:hosted-page)– Customers are redirected to a Revolv3-hosted payment page.
+
+2️⃣ [Embedded page](doc:embedded) – Checkout is integrated directly within the merchant’s site.
+
+Click on the relevant guide above to proceed with implementation.
+
+***
+
+What’s Next
+
+* [Hosted page](/docs/hosted-page)
+* [Embedded page](/docs/embedded)

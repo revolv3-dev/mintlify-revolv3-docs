@@ -1,0 +1,98 @@
+---
+title: "Billing Address"
+description: "Revolv3 allows flexible  for PaymentMethod, depending on  and . This guide outlines the , API request formats, and best practices for handling billing addresses in Revolv3."
+---
+
+1. **Accepted Billing Address Formats**
+
+To pass validation, a **billing address** must include at least one of the following combinations:
+
+✔ **AddressLine1, City, and State**
+
+✔ **AddressLine1 and Postal Code**
+
+✔ **State and Postal Code**
+
+✔ **AddressID**
+
+📌 **One of these formats is required; otherwise, the API will return an error.**
+
+1. **Sample API Request with a Billing Address**
+
+The following JSON request demonstrates a **valid billing address** structure:
+
+```
+{
+  "PaymentMethod": {
+    "BillingAddress": {
+      "AddressLine1": "381 Forest Ave",
+      "City": "Laguna Beach",
+      "State": "CA",
+      "PostalCode": "92651",
+      "Country": "USA"
+    },
+    "BillingFirstName": "John",
+    "BillingLastName": "Doe",
+    "CreditCard": {
+      "PaymentAccountNumber": "4111111111111111",
+      "ExpirationDate": "0330",
+      "SecurityCode": "737"
+    }
+  }
+}
+```
+
+1. **Handling Validation Errors**
+
+If the provided address does not meet the **minimum required fields**, the API will return an **error message** like the following:
+
+```
+{
+  "errorMessage": "Neither an Address ID nor a required set of address fields were provided."
+}
+```
+
+📌 **Ensure that one of the accepted address formats is included in the request to prevent errors.**
+
+1. **Additional Notes on Address Formatting**
+
+✔ **Country codes** should follow **ISO Alpha-2 or Alpha-3 abbreviations**.
+
+✔ **For U.S. addresses**, the postal code must be **exactly 5 characters**.
+
+✔ **For international addresses**, postal codes can be **up to 10 characters**.
+
+✔ **For many countries,** the **State** field is **not required**.
+
+🔗 **Reference:** [Country Codes for IBAN](https://www.iban.com/country-codes)
+
+1. **Sample Billing Address for the United Kingdom**
+
+For countries where the **State** field is not required, a **valid billing address** can be structured as follows (UK in this example):
+
+```
+{
+  "BillingAddress": {
+    "AddressLine1": "49 Featherstone Street",
+    "City": "London",
+    "PostalCode": "EC1Y 8SY",
+    "Country": "GB"
+  }
+}
+```
+
+📌 **Ensure that the postal code format follows the country-specific rules** to avoid validation errors.
+
+1. **Summary of Billing Address Validation in Revolv3**
+
+| **Requirement**                         | **Details**                                                                                   |
+| --------------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Required Fields (One Format Needed)** | AddressLine1 + City + State OR AddressLine1 + Postal Code OR State + Postal Code OR AddressID |
+| **Country Format**                      | Must be in **ISO Alpha-2 or Alpha-3 format**                                                  |
+| **US Postal Code**                      | **5-digit format required** (e.g., 92651)                                                     |
+| **International Postal Code**           | **Up to 10 characters** allowed                                                               |
+| **State Requirement**                   | Not required for many countries                                                               |
+
+***
+
+[PaymentMethod - Creating and Re-using](/docs/paymentmethod-guide)

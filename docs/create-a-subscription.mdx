@@ -1,0 +1,160 @@
+---
+title: "Create a Subscription V0"
+description: "Make sure you have your Merchant Configured on Portal with: Payment Processor configured and an API Key in the header Also make sure to have a ‘Recurring Strategy’ set on the portal with time and processor"
+---
+
+**Make 1 API call to set the recurring payment, user and payment method** Use API: \{\{Api Root}}/api/Customers
+
+For the \{\{Api Root}} variable:
+
+Production:
+
+```
+https://api.revolv3.com>
+```
+
+Sandbox:
+
+```
+https://api-sandbox.revolv3.com
+```
+
+This is a POST request with a sample payload below. This call is also in the API docs. Additional calls around payments can also be found in the docs. Note Billing, Shipping and Tax Address are left empty here, but you can add those from the docs.
+
+<CodeGroup>
+  ```bash bash
+  {
+  	"MerchantSubscriptionRefId": "1234-5678-9126",
+  	"BillingFrequencyType": "Quarterly",
+  	"TaxAddress": {
+  		"AddressLine1": "1783 Update Street",
+  		"City": "Irvine",
+  		"State": "CA",
+  		"PostalCode": "92602",
+  		"Country": "USA"
+  	},
+      "PaymentMethod": {
+          "BillingAddress": {
+              "AddressLine1": "113 Main Street",
+              "City": "Irvine",
+              "State": "CA",
+              "PostalCode": "92602",
+              "Country": "USA"
+          },
+          "BillingFirstName": "John",
+          "BillingLastName": "Doe",
+          "CreditCard":{
+              "PaymentAccountNumber": "4111111111111111",
+              "ExpirationDate": "0330",
+              "SecurityCode": "737"
+          }
+      },
+  	"SubscriptionBillingPlans": [
+  		{
+  			"Name": "Billing Plan 1",
+  			"Value": 10.99,
+  			"CycleCount": -1,
+  			"ValueType": "Standard",
+  			"StartCycleDelay": 0
+  		},
+  		{
+  			"Name": "Billing Plan 2",
+  			"Value": 14.99,
+  			"CycleCount": 12,
+  			"ValueType": "Standard",
+  			"StartCycleDelay": 1
+  		}
+  	]
+  }
+  ```
+</CodeGroup>
+
+Response
+
+<CodeGroup>
+  ```bash bash
+  {
+      "subscriptionId": 272,
+      "customerId": 94,
+      "merchantSubscriptionRefId": "1234-5678-9126",
+      "billingFrequencyType": "Quarterly",
+      "subscriptionStatusType": "Current",
+      "subscriptionCancelType": "EndOfCycle",
+      "initialBillDate": "3/22/2023",
+      "nextBillDate": "6/22/2023",
+      "taxAddress": {
+          "addressId": 806,
+          "addressLine1": "1783 Update Street",
+          "addressLine2": null,
+          "city": "Irvine",
+          "state": "CA",
+          "postalCode": "92602",
+          "country": "US"
+      },
+      "paymentMethodIds": [
+          427
+      ],
+      "cancelledAt": null,
+      "billingPlans": [
+          {
+              "subscriptionBillingPlanId": 432,
+              "subscriptionId": 272,
+              "name": "Billing Plan 1",
+              "value": 10.99,
+              "startDate": "3/22/2023",
+              "cyclesRemaining": -1,
+              "cycleCount": -1,
+              "valueType": "Standard"
+          },
+          {
+              "subscriptionBillingPlanId": 433,
+              "subscriptionId": 272,
+              "name": "Billing Plan 2",
+              "value": 14.99,
+              "startDate": "6/22/2023",
+              "cyclesRemaining": 12,
+              "cycleCount": 12,
+              "valueType": "Standard"
+          }
+      ]
+  }
+  ```
+</CodeGroup>
+
+It’s possible, but optional to create a customerId first. You can use the same API call as above with empty place holders to get a customerId \{\{Api Root}}/api/Customers
+
+<CodeGroup>
+  ```bash bash
+  {
+      "FirstName": "Joe",
+      "LastName": "Smith",
+      "MerchantCustomerRefId": "",
+      "EntityUseCode": "",
+      "BillingAddresses": [],
+      "ShippingAddresses": [],
+      "Subscriptions": []
+  }
+  ```
+</CodeGroup>
+
+Repsonse:
+
+<CodeGroup>
+  ```bash bash
+  {
+      "customerId": 95,
+      "merchantCustomerRefId": null,
+      "firstName": "Joe",
+      "lastName": "Smith",
+      "entityUseCode": "",
+      "billingAddresses": [],
+      "shippingAddresses": [],
+      "taxAddresses": [],
+      "subscriptions": []
+  }
+  ```
+</CodeGroup>
+
+***
+
+[Authorization, Captures and Reversals](/docs/authorization-captures-and-reversals)

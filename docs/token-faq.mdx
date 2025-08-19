@@ -1,0 +1,18 @@
+---
+title: "Token FAQ"
+description: "Revolv3 tokens/payment method IDs: These represent a collection of data retained in our backend system during a payments lifecycle. Below image is a simplified depiction of the contents within the Revolv3 tokens."
+---
+
+**Network Tokens:** These are provided by various card brands and are designed to be independent of the processor, serving as a substitute for the PAN (Primary Account Number, which is the complete card number).
+
+**Processor Tokens**: These are created by a designated processor throughout the payment process and are exclusively utilized for transactions involving that particular processor.
+
+**Which Tokens are created and stored during a Revolv3 API transaction call?**       Revolv3 stores PAN, ProcessorTokens, and Network Tokens on the backend for a variety of reasons. In the scenario of dealing with multiple processors it’s important to have PAN as a backup in the event support for any of the others goes down. Moreover, each payment token type performs differently with each respective acquirer. Revolv3 will still store the network token for savings and routing lift and send this to the processor depending on the card type etc. We store all of this information to best configure your account to maximize performance.
+
+**If it matters, we don't use Debit routing with WP at all. I'm not sure I'm seeing the value in creating a WP token IF Revolve is creating their own?** As mentioned above, tokens perform differently per acquirer, so we highly recommend storing WP tokens in addition to all other methods to determine the best route for highest performance. Revolv3 accumulates the PAN, Processor, and Network Token with cryptogram and PAR value to create our "Revolv3 Token" we also label it as the payment method ID.
+
+**Does Revolve has network tokens or are they Revolve tokens? Are you using WP to create Network tokens as Revolve doesn't/can't?** Our "Revolv3" token, which we label as payment method ID, contains PAN, Processor, and Network tokens and is utilized on the backend for increased performance based on our systems data.
+
+***
+
+[Revolv3 API Authentication Header Token](/docs/merchant-access-token)

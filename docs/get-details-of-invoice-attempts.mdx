@@ -1,0 +1,99 @@
+---
+title: "Invoice Attempts & Details"
+description: "To get the Details of the invoice attempts and invoice status make a GET API call to {{Api Root}}/api/Invoices/{{Active Invoice Id}}"
+---
+
+To find the latest attempt check the dates in the invoiceAttempts array.
+
+Below is a sample response from an invoice which has an array of "invoiceAttempts": \[...]
+
+<CodeGroup>
+  ```bash bash
+  {
+      "invoiceId": 302756,
+      "parentInvoiceId": null,
+      "customerId": null,
+      "merchantInvoiceRefId": "ABC309500654810",
+      "paymentMethod": {
+          "paymentMethodId": 6469,
+          "billingAddressId": 7551,
+          "billingFirstName": "Joe",
+          "billingLastName": "Smith",
+          "merchantPaymentMethodRefId": null,
+          "billingAddress": {
+              "addressId": 7551,
+              "addressLine1": "381 Forest Ave. Suite C",
+              "addressLine2": null,
+              "city": "Laguna Beach",
+              "state": "CA",
+              "postalCode": "92651",
+              "phoneNumber": null,
+              "email": null,
+              "country": "US"
+          },
+          "paymentMethodAchDetails": null,
+          "paymentMethodCreditCardDetails": {
+              "binNumber": "444433",
+              "paymentLast4Digit": "1111",
+              "paymentExpirationDate": "0330"
+          }
+      },
+      "invoiceStatus": "Paid",
+      "subtotal": 1.03,
+      "tax": 0.00,
+      "total": 1.03,
+      "billingDate": "9/17/2024",
+      "merchantLegalName": "Revolv3",
+      "merchantCustomerRefId": null,
+      "customerFirstName": null,
+      "customerLastName": null,
+      "subscriptionId": null,
+      "installmentId": null,
+      "eligibilityFailReason": null,
+      "merchantSubscriptionRefId": null,
+      "networkTransactionId": "197066166170419",
+      "invoiceLineItems": [],
+      "invoiceAttempts": [
+          {
+              "invoiceAttemptId": 139859,
+              "amount": 1.03,
+              "invoiceAttemptStatus": "Success",
+              "invoiceAttemptDate": "2024-09-17T18:40:38.107",
+              "paymentProcessor": "WorldPay",
+              "processorTransactionId": "83995072261509527",
+              "responseCode": "000",
+              "responseMessage": "Approved",
+              "paymentMethod": {
+                  "paymentMethodId": 6469,
+                  "billingAddressId": 7551,
+                  "billingAddress": {
+                      "addressId": 7551,
+                      "addressLine1": "381 Forest Ave. Suite C",
+                      "addressLine2": null,
+                      "city": "Laguna Beach",
+                      "state": "CA",
+                      "postalCode": "92651",
+                      "phoneNumber": null,
+                      "email": null,
+                      "country": "US"
+                  },
+                  "billingFirstName": "Joe",
+                  "billingLastName": "Smith",
+                  "merchantPaymentMethodRefId": null,
+                  "paymentMethodAchDetails": null,
+                  "paymentMethodCreditCardDetails": {
+                      "binNumber": "444433",
+                      "paymentLast4Digit": "1111",
+                      "paymentExpirationDate": "0330"
+                  }
+              },
+              "eligibilityCheckOrderCode": null
+          }
+      ]
+  }
+  ```
+</CodeGroup>
+
+***
+
+[Processor Raw Response](/docs/processor-raw-response)

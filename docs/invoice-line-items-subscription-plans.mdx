@@ -1,0 +1,58 @@
+---
+title: "Invoice Line Items & Subscription Plans"
+description: "Variables for Invoice Line items and Subscriptions plans"
+---
+
+**Defining Structured Billing Components in Revolv3 API** Revolv3’s API allows merchants to create Invoice Line Items and Subscription Plans to facilitate structured billing for one-time charges and recurring payments. These elements define the pricing structure, billing frequency, and duration of charges within an invoice or subscription model. This guide outlines the key parameters required when integrating Invoice Line Items and Subscription Plans into your system.
+
+**Invoice Line Items** An Invoice Line Item represents an individual charge on an invoice. This could be a product purchase, service fee, discount, or price adjustment. Each line item contains details about the charge, such as its amount, description, and type.
+
+**Required Fields**
+
+* Name – The title of the charge that will be displayed on the invoice.
+* Description – A brief explanation of the line item.
+* Value – The monetary amount of the line item, expressed in USD.
+* ValueType (Required) – Determines the type of value applied:
+* Standard – A regular charge.
+* Discount – A fixed discount.
+* DiscountPercentage – A percentage-based discount.
+* FinalDiscount – A concluding discount applied to the total.
+* PriceOverride – Adjusts the standard price.
+
+Example JSON Representation
+
+```
+	"InvoiceLineItems": [
+		{
+			"InvoiceLineItemId": 0,
+			"Name": "One Time Charge",
+			"Description": "Value for 600.00 dollars",
+			"Value": 600.00,
+			"ValueType": "Standard"
+		}
+	]
+```
+
+```
+	"BillingFrequencyType": "Quarterly",   
+	"SubscriptionBillingPlans": [
+        {
+            "Name": "Billing Plan 1",
+            "Value": 10.99,
+            "CycleCount": -1,
+            "ValueType": "Standard",
+            "StartCycleDelay": 0
+        },
+        {
+            "Name": "Billing Plan 2",
+            "Value": 14.99,
+            "CycleCount": 12,
+            "ValueType": "Standard",
+            "StartCycleDelay": 1
+        }
+    ]
+```
+
+***
+
+[Invoice Status Explained](/docs/invoice-status)

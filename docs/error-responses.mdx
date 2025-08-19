@@ -1,0 +1,138 @@
+---
+title: "Error Responses"
+description: "For failed Invoice or Subscription requests, you'll get a 400 or 422 for invalid data or 200 with a failed status. We pass along an error message on a 200 failed status, but depending on the processor it can be different and the processors could change the message format. This is why we don't have standard error codes."
+---
+
+For incorrect data formatting - you will get an array of errors like below. The following example is for a bad expiration date format with a http response of 400
+
+```
+{
+    "message": "One or more validation failed.",
+    "fluentValidatorErrors": [
+        {
+            "propertyName": "OneTimePaymentWithoutSubscriptionRequest.PaymentMethod",
+            "errorMessage": "Expiration date needs to be in either one of the following format:  MMYY, MMYYYY, MM/YY, and MM/YYYY.",
+            "attemptedValue": null,
+            "customState": null,
+            "severity": 0,
+            "errorCode": null,
+            "formattedMessagePlaceholderValues": null
+        }
+    ]
+}
+```
+
+For a failure from the processor you will get a 200 response with a failed status and a message. To get the full rawResponse from the processor include: *"includeRawProcessorResponse": true*, in the payload
+
+```
+{
+    "customerId": null,
+    "invoiceId": 396247,
+    "merchantInvoiceRefId": "ABC309500654810",
+    "merchantPaymentMethodRefId": null,
+    "networkTransactionId": "451831812015385",
+    "invoiceStatus": "Noncollectable",
+    "invoiceAttemptStatus": "Fail",
+    "message": "Generic Decline",
+    "amount": {
+        "currency": "USD",
+        "value": 1.03
+    },
+    "paymentMethodId": 6445,
+    "paymentMethodTypeId": 1,
+    "rawResponse": null
+}
+```
+
+You can also run a GET on the invoiceID and get additional information:
+
+\{\{Api Root}}/api/Invoices/\{\{Active Invoice Id}}
+
+```
+{
+    "invoiceId": 292438,
+    "parentInvoiceId": null,
+    "customerId": null,
+    "merchantInvoiceRefId": "ABC309500654810",
+    "paymentMethod": {
+        "paymentMethodId": 6446,
+        "billingAddressId": 7528,
+        "billingFirstName": "Joe",
+        "billingLastName": "Smith",
+        "merchantPaymentMethodRefId": null,
+        "billingAddress": {
+            "addressId": 7528,
+            "addressLine1": "381 Forest Ave. Suite C",
+            "addressLine2": null,
+            "city": "Laguna Beach",
+            "state": "CA",
+            "postalCode": "92651",
+            "phoneNumber": null,
+            "email": null,
+            "country": "US"
+        },
+        "paymentMethodAchDetails": null,
+        "paymentMethodCreditCardDetails": {
+            "binNumber": "445700",
+            "paymentLast4Digit": "0005",
+            "paymentExpirationDate": "0330"
+        }
+    },
+    "invoiceStatus": "Noncollectable",
+    "subtotal": 1.03,
+    "tax": 0.00,
+    "total": 1.03,
+    "billingDate": "9/4/2024",
+    "merchantLegalName": "[TEST] WP House (MD Adyen Route)",
+    "merchantCustomerRefId": null,
+    "customerFirstName": null,
+    "customerLastName": null,
+    "subscriptionId": null,
+    "installmentId": null,
+    "eligibilityFailReason": null,
+    "merchantSubscriptionRefId": null,
+    "networkTransactionId": null,
+    "invoiceLineItems": [],
+    "invoiceAttempts": [
+        {
+            "invoiceAttemptId": 134495,
+            "amount": 1.03,
+            "invoiceAttemptStatus": "Fail",
+            "invoiceAttemptDate": "2024-09-04T18:35:39.95",
+            "paymentProcessor": "WorldPay",
+            "processorTransactionId": "84082941507574465",
+            "responseCode": "110",
+            "responseMessage": "Insufficient Funds",
+            "paymentMethod": {
+                "paymentMethodId": 6446,
+                "billingAddressId": 7528,
+                "billingAddress": {
+                    "addressId": 7528,
+                    "addressLine1": "381 Forest Ave. Suite C",
+                    "addressLine2": null,
+                    "city": "Laguna Beach",
+                    "state": "CA",
+                    "postalCode": "92651",
+                    "phoneNumber": null,
+                    "email": null,
+                    "country": "US"
+                },
+                "billingFirstName": "Joe",
+                "billingLastName": "Smith",
+                "merchantPaymentMethodRefId": null,
+                "paymentMethodAchDetails": null,
+                "paymentMethodCreditCardDetails": {
+                    "binNumber": "445700",
+                    "paymentLast4Digit": "0005",
+                    "paymentExpirationDate": "0330"
+                }
+            },
+            "eligibilityCheckOrderCode": null
+        }
+    ]
+}
+```
+
+***
+
+[Invoice Export](/docs/invoice-export)

@@ -1,0 +1,219 @@
+---
+title: "Authorization, Captures and Reversals"
+---
+
+# Authorization, Captures, and Reversals
+
+**Authorization, Captures, and Reversals in Revolv3 API**
+
+Revolv3’s API allows merchants to **authorize payments, capture funds, and reverse authorizations**, providing a flexible and secure payment management system. This guide explains how to:
+
+1. **Authorize a payment** (reserve funds without charging the customer immediately).
+
+2. **Capture a payment** (finalize and charge a previously authorized payment).
+
+3. **Reverse an authorization** (cancel a payment hold).
+
+Each section includes **API endpoints, request examples, and field explanations**.
+
+1. **Payment Authorization**
+
+A **payment authorization** checks if sufficient funds are available on the customer’s card and places a hold on the amount. The funds are **not charged** until they are **captured**.
+
+**API Endpoint for Payment Authorization**
+
+```
+{Api Root}/api/Payments/authorization
+```
+
+**Sample API Request (Authorizing a Payment)**
+
+<CodeGroup>
+  ```bash bash
+  {
+    "PaymentMethod": {
+      "BillingAddress": {
+        "AddressLine1": "100 Main",
+        "AddressLine2": null,
+        "City": "Santa Ana",
+        "State": "CA",
+        "PostalCode": "91111",
+        "Country": "US"
+      },
+  	  "BillingFullName": "John Doe",
+      "CreditCard": {
+        "PaymentAccountNumber": "4111111111111111",
+        "ExpirationDate": "1025"
+      }
+    },
+    "NetworkProcessing": {
+      "ProcessingType": "initialInstallment",
+      "OriginalNetworkTransactionId": null
+    },
+    "Amount": {
+      "Value": 30.99
+    }
+  }
+  ```
+</CodeGroup>
+
+**Explanation of API Request Fields**
+
+| **Field**                                      | **Description**                                                    |
+| ---------------------------------------------- | ------------------------------------------------------------------ |
+| PaymentMethod                                  | Contains the payment details used for authorization.               |
+| BillingAddress                                 | The cardholder’s billing address.                                  |
+| BillingFirstName, BillingLastName              | The name on the payment method.                                    |
+| CreditCard.PaymentAccountNumber                | The card number used for authorization.                            |
+| CreditCard.ExpirationDate                      | The expiration date of the card (Format: MMYY).                    |
+| NetworkProcessing.ProcessingType               | Specifies the type of transaction (e.g., initialInstallment).      |
+| NetworkProcessing.OriginalNetworkTransactionId | Used for linked transactions (set to null for new authorizations). |
+| Amount.Value                                   | The amount to be authorized (e.g., $30.99).                        |
+
+**Alternative Authorization Using a Stored Payment Method**
+
+Instead of passing full payment details, merchants can authorize a payment using an existing PaymentMethodId.
+
+**API Endpoint**
+
+```
+{Api Root}/api/Payments/authorization/{paymentMethodId}
+```
+
+**Request Payload Example**
+
+<CodeGroup>
+  ```bash bash
+  {
+    "NetworkProcessing": {
+      "processingType": "initialInstallment",
+      "originalNetworkTransactionId": null
+    },
+    "Amount": {
+      "value": 1.03
+    }
+  }
+  ```
+</CodeGroup>
+
+1. **Authorization Response**
+
+When an authorization is successful, the API returns a PaymentMethodAuthorizationId, which is required for **capturing or reversing** the payment.
+
+**Sample API Response**
+
+<CodeGroup>
+  ```bash bash
+  {
+    "networkTransactionId": "431241081661798",
+    "paymentMethodAuthorizationId": 2055,
+    "paymentMethod": {
+      "paymentMethodId": 6061,
+      "billingAddressId": 7056,
+      "billingAddress": {
+        "addressId": 7056,
+        "addressLine1": "381 Forest Ave. Suite C",
+        "addressLine2": null,
+        "city": "Laguna Beach",
+        "state": "CA",
+        "postalCode": "92651",
+        "phoneNumber": null,
+        "email": null,
+        "country": "US"
+      },
+      "billingFirstName": "Joe",
+      "billingLastName": "Smith",
+      "merchantPaymentMethodRefId": null,
+      "paymentMethodCreditCardDetails": {
+        "paymentLast4Digit": "1111",
+        "paymentExpirationDate": "0330"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+**Explanation of API Response Fields**
+
+| **Field**                                            | **Description**                                                |
+| ---------------------------------------------------- | -------------------------------------------------------------- |
+| networkTransactionId                                 | The unique ID assigned by the payment network for tracking.    |
+| paymentMethodAuthorizationId                         | The unique authorization ID, required for capture or reversal. |
+| paymentMethod.paymentMethodId                        | The internal ID of the stored payment method.                  |
+| billingAddress                                       | The billing address associated with the payment method.        |
+| paymentMethodCreditCardDetails.paymentLast4Digit     | The last four digits of the authorized card.                   |
+| paymentMethodCreditCardDetails.paymentExpirationDate | The expiration date of the card.                               |
+
+1. **Capturing an Authorized Payment**
+
+A **capture request** charges the customer’s account for a previously authorized amount.
+
+**API Endpoint for Capturing Funds**
+
+```
+{Api Root}/api/Payments/capture/{paymentMethodAuthorizationId}
+```
+
+**Sample Capture Request**
+
+<CodeGroup>
+  ```bash bash
+  {
+    "CustomerId": null,
+    "Invoice": {
+      "MerchantInvoiceRefId": "ABC309500654810",
+      "Amount": {
+        "value": 1.03
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+**Explanation of API Request Fields**
+
+| **Field**                    | **Description**                                      |
+| ---------------------------- | ---------------------------------------------------- |
+| CustomerId                   | Optional; assigns the payment to a customer profile. |
+| Invoice.MerchantInvoiceRefId | A unique identifier for tracking the invoice.        |
+| Invoice.Amount.Value         | The final amount to be captured.                     |
+
+**Key Notes:**
+
+✔ The **PaymentMethodAuthorizationId** must be provided to capture the funds.
+
+✔ A capture request **must be made before the authorization expires** (typically within 7 days).
+
+1. **Reversing an Authorization**
+
+If an authorized payment is no longer needed, it can be **reversed** to release the hold on funds.
+
+**API Endpoint for Authorization Reversal**
+
+```
+{Api Root}/api/PaymentMethod/reverse-auth
+```
+
+**Sample Reversal Request**
+
+```
+{
+  "PaymentMethodAuthorizationId": 1234
+}
+```
+
+**Explanation of API Request Fields**
+
+| **Field**                    | **Description**                                     |
+| ---------------------------- | --------------------------------------------------- |
+| PaymentMethodAuthorizationId | The authorization ID of the payment to be reversed. |
+
+**Key Notes:**
+
+✔ A **reversal cancels the authorization**, ensuring that the funds are no longer held.
+
+✔ Once reversed, the authorization **cannot be captured**, and a new authorization is required to reattempt the payment.
+
+***
+
+[Make a Payment](/docs/make-a-payment)

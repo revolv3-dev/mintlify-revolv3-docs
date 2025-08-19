@@ -1,0 +1,207 @@
+---
+title: "Overview"
+description: "Revolv3 enables merchants to create  for recurring billing, allowing customers to be charged automatically at specified intervals. This guide explains how to:"
+---
+
+1. **Set up a subscription** with customer and payment details.
+
+2. **Define billing frequency and payment plans**.
+
+3. **Retrieve a subscription response**.
+
+4. **Optionally create a customerId** before initiating a subscription.
+
+5. **Creating a Subscription**
+
+**API Endpoint for Subscription Creation**
+
+```
+POST {{Api Root}}/api/Subscriptions
+```
+
+* **Production Environment**: [https://api.revolv3.com](https://api.revolv3.com)
+
+* **Sandbox Environment**: [https://api-sandbox.revolv3.com](https://api-sandbox.revolv3.com)
+
+**Sample API Request**
+
+```
+{
+  "PaymentMethods": [
+    {
+      "Priority": 0,
+      "TaxAmount": null,
+      "OriginalNetworkTransactionId": null,
+      "BillingAddress": {
+        "AddressId": null,
+        "AddressLine1": "100 Main Street",
+        "AddressLine2": "",
+        "City": "Irvine",
+        "State": "CA",
+        "PostalCode": "92602",
+        "PhoneNumber": null,
+        "Email": null,
+        "Country": "US"
+      },
+      "BillingFirstName": "John",
+      "BillingLastName": "Doe",
+      "CreditCard": {
+        "PaymentAccountNumber": "4111111111111111",
+        "ExpirationDate": "1025",
+        "SecurityCode": null
+      },
+      "MerchantPaymentMethodRefId": "payment-method-ref-id_hgays-2"
+    }
+  ],
+  "Customer": {
+    "FirstName": "John",
+    "LastName": "Doe"
+  },
+  "ExistingPaymentMethod": null,
+  "MerchantSubscriptionRefId": "1234-5678-9101",
+  "BillingFrequencyType": "daily",
+  "SubscriptionStatusType": "current",
+  "SubscriptionCancelType": "immediate",
+  "StartDate": "2024-04-26T00:00:00",
+  "TrialDuration": 0,
+  "SubscriptionBillingPlans": [
+    {
+      "Name": "Billing Plan 1",
+      "Value": 10.99,
+      "CycleCount": -1,
+      "ValueType": "Standard",
+      "StartCycleDelay": 0
+    }
+  ],
+  "RecycleImmediatePayment": false
+}
+```
+
+1. **Explanation of API Request Fields**
+
+| **Field**                         | **Description**                                                                 |
+| --------------------------------- | ------------------------------------------------------------------------------- |
+| PaymentMethods                    | Array containing the payment method details.                                    |
+| Priority                          | Determines the priority of the payment method (0 = primary).                    |
+| BillingAddress                    | Contains the full billing details.                                              |
+| BillingFirstName, BillingLastName | Name associated with the payment method.                                        |
+| CreditCard.PaymentAccountNumber   | The card number used for billing.                                               |
+| CreditCard.ExpirationDate         | The card’s expiration date (MMYY).                                              |
+| MerchantPaymentMethodRefId        | A merchant-assigned reference for tracking payment methods.                     |
+| MerchantSubscriptionRefId         | A unique identifier for the subscription assigned by the merchant.              |
+| BillingFrequencyType              | Determines how often the subscription is billed (e.g., daily, weekly, monthly). |
+| SubscriptionStatusType            | The current state of the subscription (current, canceled, recycle).             |
+| SubscriptionCancelType            | Defines how the subscription should be canceled (immediate, endOfCycle).        |
+| StartDate                         | The date when the subscription begins.                                          |
+| TrialDuration                     | The number of trial days before billing starts.                                 |
+| SubscriptionBillingPlans          | Contains details of the billing plan.                                           |
+| RecycleImmediatePayment           | Determines whether an immediate charge is processed upon subscription renewal.  |
+
+1. **Subscription Creation Response**
+
+Upon successfully creating a subscription, Revolv3 returns a **subscription ID** and associated customer details.
+
+**Sample API Response**
+
+```
+{
+  "subscriptionId": 1899,
+  "customerId": 5409,
+  "merchantSubscriptionRefId": "1234-5678-9101",
+  "networkTransactionId": "111789899749482",
+  "billingFrequencyType": "daily",
+  "subscriptionStatusType": "current",
+  "subscriptionCancelType": "immediate",
+  "initialBillDate": "4/26/2024",
+  "nextBillDate": "5/3/2024",
+  "taxAddress": null,
+  "paymentMethodIds": [6064],
+  "canceledAt": null,
+  "billingPlans": [
+    {
+      "subscriptionBillingPlanId": 2300,
+      "subscriptionId": 1899,
+      "name": "Billing Plan 1",
+      "value": 10.99,
+      "startDate": "4/26/2024",
+      "cyclesRemaining": -1,
+      "cycleCount": -1,
+      "valueType": "Standard"
+    }
+  ]
+}
+```
+
+**Explanation of API Response Fields**
+
+| **Field**                 | **Description**                                                 |
+| ------------------------- | --------------------------------------------------------------- |
+| subscriptionId            | The unique identifier for the created subscription.             |
+| customerId                | The associated customer ID for the subscription.                |
+| merchantSubscriptionRefId | The merchant’s reference for tracking the subscription.         |
+| networkTransactionId      | The transaction ID assigned for the first payment.              |
+| billingFrequencyType      | The billing interval (e.g., daily, weekly).                     |
+| subscriptionStatusType    | Current state of the subscription (current, canceled, recycle). |
+| subscriptionCancelType    | Defines how cancellations are handled (immediate, endOfCycle).  |
+| initialBillDate           | The first billing date for the subscription.                    |
+| nextBillDate              | The next scheduled billing date.                                |
+| paymentMethodIds          | IDs of the payment methods associated with this subscription.   |
+| billingPlans              | Details of the assigned billing plan.                           |
+| cyclesRemaining           | Number of billing cycles left (-1 = unlimited).                 |
+
+1. **Creating a Customer ID (Optional)**
+
+A customerId can be created separately before initiating a subscription. This step is optional but allows merchants to manage customers independently of subscriptions.
+
+**API Endpoint for Creating a Customer**
+
+```
+POST {{Api Root}}/api/Customers
+```
+
+**Sample API Request**
+
+```
+{
+  "FirstName": "John",
+  "LastName": "White",
+  "MerchantCustomerRefId": "YourCustomerID-123"
+}
+```
+
+**Sample API Response**
+
+```
+{
+  "customerId": 5405,
+  "merchantCustomerRefId": "YourCustomerID-123",
+  "firstName": "John",
+  "lastName": "White",
+  "billingAddresses": [],
+  "shippingAddresses": [],
+  "taxAddresses": [],
+  "subscriptions": []
+}
+```
+
+Once the **customerId** is created, use it in the **subscription request** instead of providing FirstName and LastName.
+
+**Using customerId in Subscription Requests**
+
+```
+"Customer": {
+  "Id": 5405
+}
+```
+
+1. **Summary of Subscription API Calls**
+
+| **Action**                        | **API Endpoint**                         | **Purpose**                                        |
+| --------------------------------- | ---------------------------------------- | -------------------------------------------------- |
+| **Create a Subscription**         | POST /api/Subscriptions                  | Initiates a recurring billing cycle.               |
+| **Retrieve Subscription Details** | GET /api/Subscriptions/\{subscriptionId} | Fetches details of an active subscription.         |
+| **Create a Customer (Optional)**  | POST /api/Customers                      | Generates a customerId for managing user profiles. |
+
+***
+
+[Invoice API Reference](/docs/get-invoices-api)

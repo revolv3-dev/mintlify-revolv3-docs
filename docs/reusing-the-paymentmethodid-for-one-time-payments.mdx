@@ -1,0 +1,59 @@
+---
+title: "Overview"
+description: "To reuse a PaymentMehtodId or PaymentMethodAuthorizationId, replace the PaymentMethod object with the Id"
+---
+
+FirstName and LastName are still required
+
+```
+https://api.revolv3.com/api/Invoices/Payment
+```
+
+<CodeGroup>
+  ```bash bash
+  {  
+    "FirstName": "John",
+    "LastName": "Doe",
+    "MerchantCustomerRefId": "",
+    "PaymentMethodId": 123,
+    "Invoice": {  
+  		"MerchantInvoiceRefId": "",
+  		"InvoiceLineItems": [  
+  			{  
+  				"InvoiceLineItemId": 0,  
+  				"Name": "One Time Charge",  
+  				"Description": "Test for $2.01 PaymentMethodId",  
+  				"Value": 2.01,  
+  				"ValueType": "Standard"
+  			}  
+  		]  
+  	}
+  ```
+</CodeGroup>
+
+<CodeGroup>
+  ```bash bash
+  {  
+    "FirstName": "John",  
+    "LastName": "Doe",  
+    "MerchantCustomerRefId": "",
+    "PaymentMethodAuthorizationId": 456,  
+    "Invoice": {  
+  		"MerchantInvoiceRefId": "",
+  		"InvoiceLineItems": [  
+  			{  
+  				"InvoiceLineItemId": 0,  
+  				"Name": "One Time Charge",  
+  				"Description": "Test for $2.01 PaymentMethodAuthorizationId",  
+  				"Value": 2.01,  
+  				"ValueType": "Standard"
+  			}  
+  		]  
+  	}
+    
+  ```
+</CodeGroup>
+
+***
+
+[Salesforce](/docs/salesforce)

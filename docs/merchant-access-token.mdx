@@ -1,0 +1,41 @@
+---
+title: "Overview"
+description: "The Static Token in the header is required for Revolv3's REST API. This authentication mechanism ensures secure access and prevents unauthorized usage of our API."
+---
+
+## Required Authentication Header: x-revolv3-token
+
+Each API request must contain a unique header key called x-revolv3-token, which serves as your authentication credential. This token acts as a static key that validates your API requests, granting you the necessary permissions to interact with Revolv3’s services.
+
+• **Your x-revolv3-token is issued through one of the following methods:**
+
+1. Revolv3 Support – If you require assistance in obtaining your authentication token, our support team can provide it upon request.
+
+2. Revolv3 Portal – You can retrieve your Developer Static Token directly from the Revolv3 developer portal.
+
+   ![](\images\docs\52eebb00fee2aff9b1c152eff33dafee98f6ea57993bc8f3e5cdafbc4dc7b04a-image.png)
+
+When making a request, ensure that the x-revolv3-token header is included in your HTTP request, as shown in the example below:
+
+### Example API Request with Authentication Header
+
+### HTTP Request Method: POST
+
+Example Endpoint: \{\{Api Root}}/api/Customers In your request, the headers should be structured as follows:
+
+| Header Key      | Value                                   |
+| --------------- | --------------------------------------- |
+| x-revolv3-token | Your unique static authentication token |
+| Content-Type    | application/json                        |
+| Content-Length  | \<calculated when request is sent>      |
+| Host            | \<calculated when request is sent>      |
+
+Postman Example using the header is below:
+
+![](\images\docs\232efa8-image.png)
+
+Note: A Legacy Bearer token is still supported and which creates an expiring token after 1 hour. To use this \{\{Api Root}}/api/Authentication/Token must be called to obtain a temporary token
+
+***
+
+[Introduction & Quick Start](/docs/getting-started)

@@ -1,0 +1,106 @@
+---
+title: "Using ApplePay"
+---
+
+# Revolv API and Apple Pay Token Processing
+
+The **Revolv API** allows merchants to send an **Apple Pay token** directly to a **Payment Service Provider (PSP)** without modification. The decryption of the token is handled by the PSP.
+
+To enable this functionality, the **merchant must provide a Payment Processing Certificate** to the PSP (e.g., **Nuvei**). The PSP is actively involved in the generation of this certificate.
+
+If the merchant has already implemented the **Apple Pay button**, they should be familiar with the **Payment Processing Certificate** and its generation process, which Apple documents [here](https://developer.apple.com/).
+
+## Prerequisites
+
+To enable Apple Pay transactions through Revolv3, ensure the following steps are completed:
+
+1. **Obtain a Certificate Signing Request (CSR):** Request a CSR file from your PSP (e.g., Nuvei). The PSP will provide this file to initiate the certificate generation process.
+
+2. **Generate a Payment Processing Certificate:** Using the CSR file, generate a Payment Processing Certificate (`.cer`) through your Apple Developer account. Detailed instructions are available in Apple's [official documentation](https://developer.apple.com/documentation/apple_pay_on_the_web/setting_up_your_server).
+
+3. **Register the Certificate with Your PSP:** Submit the generated `.cer` file to your PSP. They will register the certificate on their end, enabling them to decrypt Apple Pay tokens associated with your merchant profile.
+
+4. **Confirmation from PSP:** Await confirmation from your PSP that the certificate has been successfully registered and your merchant account is configured to process Apple Pay transactions.
+
+Once these steps are completed, you can begin sending Apple Pay tokens to the Revolv3 API.
+
+## Revolv3 API – Apple Pay Token Parameter Description
+
+Once the merchant obtains the **Apple Pay token**, it can be **passed to the Revolv REST API as a payment method** for processing.
+
+Example of original apple pay token (before being encoded) to put to Revolv3 Rest API:
+
+<CodeGroup>
+  ```bash bash
+  {
+    
+  	"paymentData": {
+  		"data": "mEsjmtAGTyNCG0tVkeDaLTp0xbERCu5phqOxtlOT7IaDJP5E7r82kF62B0AtvKF9DmcMxyIYLcEiqq3SybSsnT0YX0irdKqQt7nf4A4yDYuQqUIxuIDE1z2ELCOyabgzyMZyrs6UXCDDokL7RJOxaaAh3DwLUQLshK2wbnI8VuWFcCVclCkABt3V3YHWhuezSzULZ3JrdgLfnRPCVhySGepC/lVauTOWjskZTbfCbf++lj+TBkcWcIO/us/zIUls0Q2QpMd0xB2Erb53m3n/PpbC/tR3VvqWX5CqR1YX13QsaMuUxYOn/S/pxy4cYPzmEznOjZYFYFncGnhsXR05LQjxXViDjWIco7w1tW8UXce6i3ocTBOy4fLMkEYapiJJRUpr37WOK5HceOUp5A==",
+  		"signature": "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",
+  		"header": {
+  			"publicKeyHash": "eaHnDHReCOLCk49FAJm5f9hU3gbu1qR+qDWTsoFuOO0=",
+  			"ephemeralPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEun2583TAsgEyAa99HDnxFtjiqIciv+U+SM+/8sZtbj7bLqsZ+K0K6NbYdgwbYrl4Ue8mRZwxIoYneNxi9xrmZw==",
+  			"transactionId": "420a902a04cda68aafa744db50f0d97d0dcbab37b03610b46d16a8ddf0d6809f"
+  		},
+  		"version": "EC_v1"
+  	},
+  	"paymentMethod": {
+  		"displayName": "MasterCard 0049",
+  		"network": "MasterCard",
+  		"type": "credit"
+  	},
+  	"transactionIdentifier": "420a902a04cda68aafa744db50f0d97d0dcbab37b03610b46d16a8ddf0d6809f"
+  }
+  ```
+</CodeGroup>
+
+In this example you can see the formatted representation of a token - this is just for better understanding what API expects to get. Normally the token should be passed as a string without indentation.ApplePayToken should contain everything what is returned by Apple from payment.token.
+
+<CodeGroup>
+  ```bash bash
+      session.onpaymentauthorized = (evt: any) => {
+    
+          const token = evt.payment.token;
+      }
+  ```
+</CodeGroup>
+
+Below you can see example of JSON to provide apple pay token to Revolv API as a payment method:
+
+<CodeGroup>
+  ```bash bash
+  	"PaymentMethod": {
+    
+  		"BillingAddress": {
+  			"AddressId": null,
+  			"AddressLine1": "2001 Main Street",
+  			"AddressLine2": "",
+  			"City": "Santa Ana",
+  			"State": "CA",
+  			"PostalCode": "90000",
+  			"Country": "USA"
+  		},
+  		"BillingFirstName": "John",
+  		"BillingLastName": "Smith",
+          "ApplePay": {
+              "ApplePayToken": "eyJwYXltZW50RGF0YSI6eyJkYXRhIjoibUVzam10QUdUeU5DRzB0VmtlRGFMVHAweGJFUkN1NXBocU94dGxPVDdJYURKUDVFN3I4MmtGNjJCMEF0dktGOURtY014eUlZTGNFaXFxM1N5YlNzblQwWVgwaXJkS3FRdDduZjRBNHlEWXVRcVVJeHVJREUxejJFTENPeWFiZ3p5TVp5cnM2VVhDRERva0w3UkpPeGFhQWgzRHdMVVFMc2hLMndibkk4VnVXRmNDVmNsQ2tBQnQzVjNZSFdodWV6U3pVTFozSnJkZ0xmblJQQ1ZoeVNHZXBDL2xWYXVUT1dqc2taVGJmQ2JmKytsaitUQmtjV2NJTy91cy96SVVsczBRMlFwTWQweEIyRXJiNTNtM24vUHBiQy90UjNWdnFXWDVDcVIxWVgxM1FzYU11VXhZT24vUy9weHk0Y1lQem1Fem5PalpZRllGbmNHbmhzWFIwNUxRanhYVmlEaldJY283dzF0VzhVWGNlNmkzb2NUQk95NGZMTWtFWWFwaUpKUlVwcjM3V09LNUhjZU9VcDVBPT0iLCJzaWduYXR1cmUiOiJNSUFHQ1NxR1NJYjNEUUVIQXFDQU1JQUNBUUV4RFRBTEJnbGdoa2dCWlFNRUFnRXdnQVlKS29aSWh2Y05BUWNCQUFDZ2dEQ0NBK1F3Z2dPTG9BTUNBUUlDQ0ZuWW9ieXE5T1BOTUFvR0NDcUdTTTQ5QkFNQ01Ib3hMakFzQmdOVkJBTU1KVUZ3Y0d4bElFRndjR3hwWTJGMGFXOXVJRWx1ZEdWbmNtRjBhVzl1SUVOQklDMGdSek14SmpBa0JnTlZCQXNNSFVGd2NHeGxJRU5sY25ScFptbGpZWFJwYjI0Z1FYVjBhRzl5YVhSNU1STXdFUVlEVlFRS0RBcEJjSEJzWlNCSmJtTXVNUXN3Q1FZRFZRUUdFd0pWVXpBZUZ3MHlNVEEwTWpBeE9UTTNNREJhRncweU5qQTBNVGt4T1RNMk5UbGFNR0l4S0RBbUJnTlZCQU1NSDJWall5MXpiWEF0WW5KdmEyVnlMWE5wWjI1ZlZVTTBMVk5CVGtSQ1QxZ3hGREFTQmdOVkJBc01DMmxQVXlCVGVYTjBaVzF6TVJNd0VRWURWUVFLREFwQmNIQnNaU0JKYm1NdU1Rc3dDUVlEVlFRR0V3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCSUl3L2F2RG5QZGVJQ3hRMlp0RkV1WTM0cWtCM1d5ejRMSE5TMUpubVBqUFRyM29HaVdvd2g1TU05M09qaXFXd3Zhdm9aTURSY1RvZWtRbXpwVWJFcFdqZ2dJUk1JSUNEVEFNQmdOVkhSTUJBZjhFQWpBQU1COEdBMVVkSXdRWU1CYUFGQ1B5U2NSUGsrVHZKK2JFOWloc1A2SzcvUzVMTUVVR0NDc0dBUVVGQndFQkJEa3dOekExQmdnckJnRUZCUWN3QVlZcGFIUjBjRG92TDI5amMzQXVZWEJ3YkdVdVkyOXRMMjlqYzNBd05DMWhjSEJzWldGcFkyRXpNREl3Z2dFZEJnTlZIU0FFZ2dFVU1JSUJFRENDQVF3R0NTcUdTSWIzWTJRRkFUQ0IvakNCd3dZSUt3WUJCUVVIQWdJd2diWU1nYk5TWld4cFlXNWpaU0J2YmlCMGFHbHpJR05sY25ScFptbGpZWFJsSUdKNUlHRnVlU0J3WVhKMGVTQmhjM04xYldWeklHRmpZMlZ3ZEdGdVkyVWdiMllnZEdobElIUm9aVzRnWVhCd2JHbGpZV0pzWlNCemRHRnVaR0Z5WkNCMFpYSnRjeUJoYm1RZ1kyOXVaR2wwYVc5dWN5QnZaaUIxYzJVc0lHTmxjblJwWm1sallYUmxJSEJ2YkdsamVTQmhibVFnWTJWeWRHbG1hV05oZEdsdmJpQndjbUZqZEdsalpTQnpkR0YwWlcxbGJuUnpMakEyQmdnckJnRUZCUWNDQVJZcWFIUjBjRG92TDNkM2R5NWhjSEJzWlM1amIyMHZZMlZ5ZEdsbWFXTmhkR1ZoZFhSb2IzSnBkSGt2TURRR0ExVWRId1F0TUNzd0thQW5vQ1dHSTJoMGRIQTZMeTlqY213dVlYQndiR1V1WTI5dEwyRndjR3hsWVdsallUTXVZM0pzTUIwR0ExVWREZ1FXQkJRQ0pEQUxtdTd0UmpHWHBLWmFLWjVDY1lJY1JUQU9CZ05WSFE4QkFmOEVCQU1DQjRBd0R3WUpLb1pJaHZkalpBWWRCQUlGQURBS0JnZ3Foa2pPUFFRREFnTkhBREJFQWlCMG9iTWsyMEpKUXczVEoweFFkTVNBalpvZlNBNDZoY1hCTmlWbU1sKzhvd0lnYVRhUVU2djFDMXBTK2ZZQVRjV0tyV3hRcDlZSWFEZVE0S2M2MEI1SzJZRXdnZ0x1TUlJQ2RhQURBZ0VDQWdoSmJTKy9PcGphbHpBS0JnZ3Foa2pPUFFRREFqQm5NUnN3R1FZRFZRUUREQkpCY0hCc1pTQlNiMjkwSUVOQklDMGdSek14SmpBa0JnTlZCQXNNSFVGd2NHeGxJRU5sY25ScFptbGpZWFJwYjI0Z1FYVjBhRzl5YVhSNU1STXdFUVlEVlFRS0RBcEJjSEJzWlNCSmJtTXVNUXN3Q1FZRFZRUUdFd0pWVXpBZUZ3MHhOREExTURZeU16UTJNekJhRncweU9UQTFNRFl5TXpRMk16QmFNSG94TGpBc0JnTlZCQU1NSlVGd2NHeGxJRUZ3Y0d4cFkyRjBhVzl1SUVsdWRHVm5jbUYwYVc5dUlFTkJJQzBnUnpNeEpqQWtCZ05WQkFzTUhVRndjR3hsSUVObGNuUnBabWxqWVhScGIyNGdRWFYwYUc5eWFYUjVNUk13RVFZRFZRUUtEQXBCY0hCc1pTQkpibU11TVFzd0NRWURWUVFHRXdKVlV6QlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJQQVhFWVFaMTJTRjFScGVKWUVIZHVpQW91L2VlNjVONEkzOFM1UGhNMWJWWmxzMXJpTFFsM1lOSWs1N3VnajlkaGZPaU10MnUyWnd2c2pvS1lUL1ZFV2pnZmN3Z2ZRd1JnWUlLd1lCQlFVSEFRRUVPakE0TURZR0NDc0dBUVVGQnpBQmhpcG9kSFJ3T2k4dmIyTnpjQzVoY0hCc1pTNWpiMjB2YjJOemNEQTBMV0Z3Y0d4bGNtOXZkR05oWnpNd0hRWURWUjBPQkJZRUZDUHlTY1JQaytUdkorYkU5aWhzUDZLNy9TNUxNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdId1lEVlIwakJCZ3dGb0FVdTdEZW9WZ3ppSnFraXBuZXZyM3JyOXJMSktzd053WURWUjBmQkRBd0xqQXNvQ3FnS0lZbWFIUjBjRG92TDJOeWJDNWhjSEJzWlM1amIyMHZZWEJ3YkdWeWIyOTBZMkZuTXk1amNtd3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CQUdDaXFHU0liM1kyUUdBZzRFQWdVQU1Bb0dDQ3FHU000OUJBTUNBMmNBTUdRQ01EclBjb05SRnBteGh2czF3MWJLWXIvMEYrM1pEM1ZOb282KzhaeUJYa0szaWZpWTk1dFpuNWpWUVEyUG5lbkMvZ0l3TWkzVlJDR3dvd1YzYkYzek9EdVFaLzBYZkN3aGJaWlB4bkpwZ2hKdlZQaDZmUnVaeTVzSmlTRmhCcGtQQ1pJZEFBQXhnZ0dJTUlJQmhBSUJBVENCaGpCNk1TNHdMQVlEVlFRRERDVkJjSEJzWlNCQmNIQnNhV05oZEdsdmJpQkpiblJsWjNKaGRHbHZiaUJEUVNBdElFY3pNU1l3SkFZRFZRUUxEQjFCY0hCc1pTQkRaWEowYVdacFkyRjBhVzl1SUVGMWRHaHZjbWwwZVRFVE1CRUdBMVVFQ2d3S1FYQndiR1VnU1c1akxqRUxNQWtHQTFVRUJoTUNWVk1DQ0ZuWW9ieXE5T1BOTUFzR0NXQ0dTQUZsQXdRQ0FhQ0JrekFZQmdrcWhraUc5dzBCQ1FNeEN3WUpLb1pJaHZjTkFRY0JNQndHQ1NxR1NJYjNEUUVKQlRFUEZ3MHlOVEF6TVRJeE5USTRORFZhTUNnR0NTcUdTSWIzRFFFSk5ERWJNQmt3Q3dZSllJWklBV1VEQkFJQm9Rb0dDQ3FHU000OUJBTUNNQzhHQ1NxR1NJYjNEUUVKQkRFaUJDQkY5ckt2OGZLZmZtdjNyS1JrRmNHdmtXb2ZpZEpiMjZGTk1iVTc0MUVzTkRBS0JnZ3Foa2pPUFFRREFnUkhNRVVDSUJ4aFh0V3EvRkxEVVZhMVMwVUZIVGhzSWsvNk8zL1FQWE5lZUlpdjAxb2RBaUVBakVwR0pROTdPRGEyd3M1UVJJVkU5SC9kaUY2NzBhL1ZUYndST1RzSHpUZ0FBQUFBQUFBPSIsImhlYWRlciI6eyJwdWJsaWNLZXlIYXNoIjoiZWFIbkRIUmVDT0xDazQ5RkFKbTVmOWhVM2didTFxUitxRFdUc29GdU9PMD0iLCJlcGhlbWVyYWxQdWJsaWNLZXkiOiJNRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBEQVFjRFFnQUV1bjI1ODNUQXNnRXlBYTk5SERueEZ0amlxSWNpditVK1NNKy84c1p0Ymo3Ykxxc1orSzBLNk5iWWRnd2JZcmw0VWU4bVJad3hJb1luZU54aTl4cm1adz09IiwidHJhbnNhY3Rpb25JZCI6IjQyMGE5MDJhMDRjZGE2OGFhZmE3NDRkYjUwZjBkOTdkMGRjYmFiMzdiMDM2MTBiNDZkMTZhOGRkZjBkNjgwOWYifSwidmVyc2lvbiI6IkVDX3YxIn0sInBheW1lbnRNZXRob2QiOnsiZGlzcGxheU5hbWUiOiJNYXN0ZXJDYXJkIDAwNDkiLCJuZXR3b3JrIjoiTWFzdGVyQ2FyZCIsInR5cGUiOiJjcmVkaXQifSwidHJhbnNhY3Rpb25JZGVudGlmaWVyIjoiNDIwYTkwMmEwNGNkYTY4YWFmYTc0NGRiNTBmMGQ5N2QwZGNiYWIzN2IwMzYxMGI0NmQxNmE4ZGRmMGQ2ODA5ZiJ9"
+          }
+  	}
+  ```
+</CodeGroup>
+
+The token string should be preliminary encoded by Base64 encoding, for being able to include it in JSON.
+
+If the processor doesn't support it, you will get a 400 Bad request back
+
+<CodeGroup>
+  ```bash bash
+  {
+      "message": "Merchant does not have configured processor for payment method type GooglePay"
+  }
+  ```
+</CodeGroup>
+
+***
+
+[Using GooglePay](/docs/using-googlepay)

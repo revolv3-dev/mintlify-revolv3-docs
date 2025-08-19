@@ -1,0 +1,76 @@
+---
+title: "ACH Direct Debit"
+description: "What is ACH Direct Debit?"
+---
+
+ACH (Automated Clearing House) Direct Debit is a payment method that allows merchants to withdraw funds directly from a customer’s bank account. It is commonly used for recurring billing, subscriptions, and invoice payments.
+
+> **Note**: ACH Direct Debit is **not a real-time transaction**. Funds settlement typically takes several business days, and transaction status may remain pending for a period of time.
+
+**ACH Object**
+
+To initiate an ACH Direct Debit, you must submit an ACH object as part of your API request. The object contains the customer’s bank account information:
+
+<CodeGroup>
+  ```bash bash
+  {   
+  	"routingNumber": "string",   
+  	"accountNumber": "string",   
+  	"accountType": "string" 
+  }
+  ```
+</CodeGroup>
+
+**Field Descriptions**:
+
+* `routingNumber`(string): The 9-digit ACH routing number of the account.
+* `accountNumber`(string): The US bank account number from which the payment will be debited. The length should be between 4 and 17 characters.
+* `accountType` (string): Bank account type. Possible values: Checking or Savings.
+
+***
+
+**Transaction Lifecycle**
+
+ACH transactions progress through the following statuses:
+
+* `Pending`or `RefundPending`(for refunds) – The transaction has been initiated, but final confirmation is not yet available.
+* `Paid`– Funds have been successfully collected from the customer’s account.
+* `Noncollectable` – The debit failed and funds could not be collected (e.g., due to insufficient funds or invalid account).
+
+***
+
+**Webhook for Final Status**
+
+Since ACH is not real-time, your system must listen for updates via webhook to determine when a transaction has reached its final status.
+
+Please subscribe to the `InvoiceStatusChanged` webhook to receive these updates.
+
+➡️[ View webhook documentation](https://docs.revolv3.com/docs/webhooks#/)
+
+***
+
+**Account Verification**
+
+Account verification is optional, but highly recommended before initiating a payment. Verification helps reduce fraud and prevent failed transactions.
+
+* **Provider Selection**: Choose between **GIACT** and **Worldpay** via the portal (Settings → Merchant Settings). Only one provider can be active at a time, but you can change it if needed.
+
+  ![](\images\docs\5e8827d9eac53c3a9719a956b0bae08eb3dfb4888e29446a5d0fb484beba8bc7-image.png)
+
+![](\images\docs\75ce685252f45c3775912cede933c085b81dee517d86fbca50ad612d302dd9c6-image.png)
+
+* **Endpoints**: Verification is performed via dedicated API endpoints.
+
+[View account verification API documentation](https://docs.revolv3.com/reference/)
+
+> If verification fails, we recommend not proceeding with the debit request.
+
+***
+
+**Processing Time**
+
+ACH Direct Debit is a **batch-based** system. Processing and settlement typically occur over several business days. Timing may vary depending on the customer’s bank and other factors.
+
+***
+
+[Using ApplePay](/docs/using-applepay)

@@ -1,0 +1,34 @@
+---
+title: "Order Processing Channel"
+description: "The  specifies the method through which a shopper submits their card details. Currently, this can only be used with WorldPay. For other processors, the default value used is ."
+---
+
+### Possible Values:
+
+* **ecommerce**: Refers to internet or electronic commerce transactions.
+* **moto**: Refers to mail or telephone order transactions.
+
+**Note**: This option is only applicable to WorldPay merchants.
+
+This field is optional in the Invoice Object. If left blank or not specified, it will default to the value set in the **Merchant Settings** for WorldPay merchants.
+
+Example:
+
+<CodeGroup>
+  ```bash bash
+  "invoice": {
+    "merchantInvoiceRefId": "123456789",
+    "orderProcessingChannel": "moto",
+    "amount": {
+      "currency": "USD",
+      "value": 30.99
+    }
+  }
+  ```
+</CodeGroup>
+
+![](\images\docs\c0bcb7ed0233975c0e7e4dcd4d8b502cff0b724909bc6c73fb4df19a943c540e-image.png)
+
+***
+
+[Descriptor Guide](/docs/dynamic-descriptor-guide)

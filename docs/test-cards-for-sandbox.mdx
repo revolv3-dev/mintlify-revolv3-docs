@@ -1,0 +1,131 @@
+---
+title: "Test Cards for Sandbox"
+description: "Test Card values for Processor Pre-Live Environments are listed below. They are not always stable and we will try to provide more examples for triggering error responses"
+---
+
+**Worldpay**
+
+```
+http://support.worldpay.com/support/CNP-API/content/testresprea.htm
+```
+
+Example:
+
+```
+        "CreditCard":{
+            "PaymentAccountNumber": "4444333322221111",
+            "ExpirationDate": "0330",
+            "SecurityCode": "737"
+        }
+```
+
+Here is an example of a WorldPay Sandbox Card that will fail
+
+```
+        "CreditCard":{
+            "PaymentAccountNumber": "4457002900000007",
+            "ExpirationDate": "0330",
+            "SecurityCode": "737"
+        }
+```
+
+```
+{
+    "customerId": null,
+    "invoiceId": 208545,
+    "merchantInvoiceRefId": "ABC309500654810",
+    "merchantPaymentMethodRefId": null,
+    "networkTransactionId": "285875575070769",
+    "invoiceStatus": "Noncollectable",
+    "invoiceAttemptStatus": "Fail",
+    "message": "Generic Decline",
+    "amount": {
+        "currency": "USD",
+        "value": 1.03
+    },
+    "paymentMethodId": 6391,
+    "paymentMethodTypeId": 1
+}
+```
+
+**Adyen**
+
+```
+https://docs.adyen.com/development-resources/testing/test-card-numbers
+```
+
+Example:
+
+```
+        "CreditCard":{
+            "PaymentAccountNumber": "4444333322221111",
+            "ExpirationDate": "0330",
+            "SecurityCode": "737"
+        }
+```
+
+**Nuvei Test Cards**
+
+```
+https://docs.nuvei.com/documentation/integration/testing/testing-cards/
+```
+
+**EPX Test Cards**
+
+EPX Credit Cards data for testing: Payment Account Number- 4000000000000002, Security Code - 123, Expiration Date - any but should be great than current date. Make amount 1.00 for success
+
+EPX ACH data for testing: RoutingNumber - 031100092, AccountNumber - any [https://developer.paymentshub.com/supplemental-resources/epx-credit-card-test-data](https://developer.paymentshub.com/supplemental-resources/epx-credit-card-test-data)
+
+Create a developer account to see various options on test cards or the most up to date.
+
+To Trigger other responses use this information:
+
+```
+    "PaymentMethod": {
+        "BillingAddress": {
+            "AddressLine1": "123 N CENTRAL",
+            "PostalCode": "12345"
+        },
+        "BillingFirstName": "Joe",
+        "BillingLastName": "Smith",
+        "CreditCard": {
+            "PaymentAccountNumber": "4000000000000002",
+            "ExpirationDate": "1225",
+            "SecurityCode": "123"
+        }
+    },
+```
+
+For amount value use the below values to trigger different responses
+
+![](\images\docs\e3dee8e5c906138fba7da7c82da9b2df87b5f6de12df3e1c1e11e04a79b39844-image.png)
+
+**TSYS Test Cards**
+
+Visa
+
+4012000098765439 12/25, 999, Value: 0.52
+
+MasterCard
+
+5146 XXXX 3150 0000 5146 XXXX 3122 0000
+
+Testing Billing address
+
+```
+        "BillingAddress": {
+            "AddressLine1": "100 Main St",
+            "City": "Tempe",
+            "State": "AZ",
+            "PostalCode": "85284",
+            "Country": "USA"
+        }
+```
+
+Note the values are very important and trigger different results
+
+For ACH - Worldpay has some test cards [http://support.worldpay.com/support/CNP-API/content/testddtrans.htm](http://support.worldpay.com/support/CNP-API/content/testddtrans.htm)
+
+***
+
+[Checkout Line Items Value Types](/docs/checkout-line-items-value-types)

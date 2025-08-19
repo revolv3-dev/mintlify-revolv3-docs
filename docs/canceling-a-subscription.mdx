@@ -1,0 +1,57 @@
+---
+title: "Canceling a Subscription"
+---
+
+# Canceling a subscription
+
+**Canceling a Subscription in Revolv3 API**
+
+Merchants can **cancel active subscriptions** in Revolv3 using a simple API request. This stops further billing cycles, but it does **not automatically process refunds**—a separate request is required for refunds.
+
+1. **API Endpoint for Subscription Cancellation**
+
+To cancel a subscription, send a POST request to the following endpoint:
+
+```
+POST {{Api Root}}/api/Subscriptions/{{Active Subscription Id}}/cancel
+```
+
+* **Production Environment**: [https://api.revolv3.com](https://api.revolv3.com)
+
+* **Sandbox Environment**: [https://api-sandbox.revolv3.com](https://api-sandbox.revolv3.com)
+
+📌 **No request payload is required** for this operation.
+
+1. **Response When Cancelling a Subscription**
+
+Upon successful cancellation, the API returns a confirmation response, including the **subscription ID, customer ID, and cancellation timestamp**.
+
+**Sample API Response**
+
+```
+{
+  "subscriptionId": 2232,
+  "customerId": 6684,
+  "subscriptionStatus": "Cancelled",
+  "cancelledAt": "2024-07-11T18:16:33.8785322Z"
+}
+```
+
+1. **Explanation of API Response Fields**
+
+| **Field**          | **Description**                                                    |
+| ------------------ | ------------------------------------------------------------------ |
+| subscriptionId     | The unique identifier of the subscription that was canceled.       |
+| customerId         | The ID of the customer associated with the canceled subscription.  |
+| subscriptionStatus | Confirms that the subscription is now in **Cancelled** status.     |
+| cancelledAt        | The **timestamp** when the subscription was successfully canceled. |
+
+1. **Important Notes on Subscription Cancellation**
+
+✔ **Canceling a subscription only stops future billing cycles**—it does not affect past invoices or payments.
+
+✔ If you need to issue a **refund**, you must make a separate API call to process a refund for a specific invoice.
+
+***
+
+[Subscription Status and Recylcing](/docs/subscription-status-and-recylcing)

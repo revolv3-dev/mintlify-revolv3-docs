@@ -1,0 +1,354 @@
+---
+title: "Overview"
+---
+
+## Package Setup
+
+1. Log in to Salesforce: If you are not already logged in to your Salesforce account, you will be prompted to do so. Enter your username and password to log in.
+
+2. Select Installation Option: You will be presented with installation options after logging in. There are typically two options: "Install for All Users" and "Install for Admins Only." Choose the appropriate option based on your requirements.
+
+   * Install for All Users: This option installs the package for all users in your Salesforce org, including standard and custom profiles.
+   * Install for Admins Only: This option installs the package only for administrators in your Salesforce org. Other users will not have access to the package by default.
+
+## Package Configuration
+
+When the installation process has been completed you may start its configuration.
+
+### Authorize Salesforce instance.
+
+1. Login to the Revolv3 account. Go to Settings -> Integration Profile. Here you should generate a new `Developer API Key` and Remember `Merchant Client Id`.
+2. Login to your Salesforce instance. Open "Revolv3" app using app launcher
+3. On the "Setup" page find the "Login" Tab. Fill in `Client Id` and `Client Secret` fields.
+4. In case the credentials are valid you will get the Success notification.
+
+### Configure webhooks and Public site
+
+Webhooks play a crucial role in streamlining payment processes and delivering timely notifications for key events in your payment system. At the moment the package may handle 2 types of events:
+
+* Invoice Created
+* Invoice Status Changed
+
+To make build-in triggers work you should do the following steps:
+
+#### Configure public Site
+
+1. Go to Salesforce Setup -> Sites -> New
+2. During the site creation you should populate all required fields. Optional fields may be left as is.
+
+<Frame caption="Site creation page">
+  <img src="\images\docs\b6f57a5--2023-06-06_130241.png" />
+</Frame>
+
+3. After the site was created you should click on "Public Access setting" button edit opened profile and give permission to the following components:
+
+   1. Apex class -` revolv3.WebhooksHandler`
+   2. Read & Create access on `Installments`, `Invoices`, `Subscription `and all the fields related to them
+   3. Read access to your customer object(Account or Contact)
+
+4. Go back to your site config copy site url
+
+5. In the template below replace \[Public Site URL] with the actual URL obtained from the Salesforce site configuration. This url should be used during merchant webhooks configuration on the Revolv3 portal
+
+```
+[Public Site URL]/services/apexrest/revolv3/api
+```
+
+6. The url you've just got should be used in Merchant webhook settings on Revolv3 portal. You need to be subscribed to 2 events only: `Invoice Status Changed`, `Invoice Created`. Before clicking save button please copy `Webhook Key`
+
+![](\images\docs\6a7245c-image.png)
+
+7. Go to salesforce -> Revolv3 Setup app -> Webhooks Configuration tab -> Paste webhook key obtained from the previous step
+
+![](\images\docs\4f44264-image.png)
+
+### Assign Revolv3 page layouts
+
+By default Revolv3 package is distributed with it's own page layouts for the following standard objects:
+
+* Opportunity
+* Account
+* Contact
+
+To assign page layouts you should:
+
+1. Go to Salesforce Setup -> Object Manager -> Select the desired object
+2. Click on "Page Layouts" in the sidebar menu.
+3. Choose "Page Layout Assignment" and click "Edit Assignment."
+4. Select the profiles or record types you want to assign the layout to.
+5. In the field `Page Layout To Use` choose Revovl3 layout
+6. Review and click "Save" to assign the layout.
+
+### Configure Customer & Payment Methods creation(Optional)
+
+The Customer & Payment Methods Creation feature seamlessly integrates with Pearson Account and Contact objects, enabling efficient management of customer details and payment methods within the Salesforce platform. With this integration, you can establish relationships between Revolv3 customers and their associated Pearson Account or Contact records, ensuring a comprehensive view of customer information across multiple systems.
+
+#### Mappings Configuration
+
+Go to Salesforce Setup -> Custom Settings -> Click “Manage” next to `Customer Mapping` settings.
+
+Here you may see 2 objects that may be treated as Customers in Salesforce system (Account/Contact). Please navigate to either of these objects and ensure that the mapping is correct. It is important to use API names that correspond to the associated object fields when configuring settings.
+
+Below, you will find a list of fields that must be populated for payment data inheritance.
+
+| Field Label                                                                                                                                       | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Name                                                                                                                                              | Object name that is mapped as Revolv3 customer. Only Account and Contact values are supported    |
+| First Name Last Name                                                                                                                              | The package is using field API names to create a new customer in Revolv3 system.                 |
+| Billing Address Line 1 Billing Address Line 2 Billing City Billing Country Billing First Name Billing Last Name Billing Postal Code Billing State | The package is using fields API names to prepopulate payment method information during creation. |
+
+Here is the default Mapping delivered with the package installation:
+
+<Frame caption="An example of Custom Mappings">
+  <img src="\images\docs\14caa78-image.png" />
+</Frame>
+
+<Info>
+  ### Please note
+
+  The custom setting supports relationship mappings, allowing you to retrieve data from parent objects. For instance, you can use the relationship path "Account.BillingCity" to retrieve the Billing City field from the related Account object.
+</Info>
+
+<Info>
+  ### Please note
+
+  Sometimes you may face validation errors in case your address fields are stored in format that Revolv3 doesn't accept. To avoid validation errors during payment methods creation we recommend you to create custom formula field to format your current State or Country values and use it in Customer Mappings Settings. Here is an example of formula that may be used to map you state to revolv3 state: `CASE( ShippingState, 'California', 'CA', 'Texas', 'TX', '' )` That formula will store 'TX' value in case Shipping State = 'Texas'.
+</Info>
+
+<Check>
+  Congratulations! You have successfully followed the steps to enable the Customer and Add Payment Method Quick Actions, allowing users to efficiently create customer records and add associated payment methods directly from the customer object page layout in Salesforce. Enjoy the enhanced functionality and streamlined customer management process in your Salesforce org!
+</Check>
+
+### Revolv3 Terminal (Optional).
+
+#### Overview
+
+To have all Revolv3 buttons in one place we've developed `Revolv3 Terminal` Component that may be added to any Record flexy pages. The component automates your object configuration to enable Revolv3 functionality and gives you more control on how fields will be prepopulated.
+
+Revolv3 terminal on Account or Contact record page will look like that:
+
+![](\images\docs\c4b1211-image.png)
+
+Revolv3 terminal on other objects will look like that:
+
+![](\images\docs\b7fccd1-image.png)
+
+#### Configuration
+
+The component may be added to Person Account or Contact objects record pages or any other Salesforce Lightning Record Pages which objects has reference to Account or Contact.
+
+To add the Revolv3 Terminal to Opportunity Record page you should to the following:
+
+1. Go to opportunity record -> click on Gear icon on top right -> click on Edit Page ![](\images\docs\07a9bcd-image.png)
+
+2. On the left side of the Page editor find `Revolv3 Terminal` component and move it to your page ![](\images\docs\e229597--2023-09-12_171510.png)
+
+3. Right now the component has warning message and all of it's buttons are disabled. To avoid that you must populate
+
+   1. **Customer Id Field** it should contain API name of the field that references to Contact or Account objects. If you are trying to add the component to the Contact or Account page - the value should be just `Id`
+
+   2. **Child Object Relationship name** this field is required to enable Installments and Subscriptions creation. But one time payments will be available without that feature. To populate that field you should:
+
+      1. go to child object that have reference to current object (in our case it's Opportunity Product)
+      2. open reference field to the parent (in our case it's Opportunity)
+      3. copy Child Relationship Name from current page and insert it in `Revolv3 Terminal` Configuration
+
+![](\images\docs\a8d3948-image.png)
+
+3. Other configuration fields are optional. Configuration fields that beging with `Product` prefix will take information from child objects (Opportunity products in our case). Other fields will take values from current record.
+4. Save the component.
+
+#### Custom Objects configuration
+
+In case you are trying to add the `Revolv3 Terminal` to a custom object you may face the following waring message: `Object is not configured properly to perform finance operations. Complete Configuration`
+
+![](\images\docs\184283e-image.png)
+
+If you click `Complete Configuration` url and press `Confirm` button on the modal screen the system will generate 2 additional Lookup fields on Installment and Subscription objects that will point to your current object. The access to that fields will be given to **Admin** profile only.
+
+### Configure Payments creation(Optional).
+
+The "Subscription Mappings" Custom Metadata allows you to configure mappings for Subscription generation quick actions in Salesforce. By creating mappings, you can define how data is retrieved and used during the Subscription generation process. This user guide will walk you through the steps to create a mapping using the `Subscription Mappings Custom Metadata`.
+
+#### Step 1: Accessing Subscription Mappings Custom Metadata
+
+* Log in to Salesforce and navigate to the Salesforce Setup -> Custom Metadata Types
+* Click “Manage” next to `Subscription Mappings` settings
+
+#### Step 2: Creating a Subscription Mapping
+
+Open existing record or Click on the "New" button to create a new mapping record. Below, you will find a list of fields that must be populated for payment data inheritance.
+
+| Field Label                       | Description                                                                                                                 | Is used for One-time Payments | Is used for Subscriptions |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------------------------- |
+| Label                             | Provide a descriptive label for the mapping. Usually, it contains object name that is used to generate payments             | Yes                           | Yes                       |
+| Revolv3 Subscription Mapping Name | Provide a descriptive name for the mapping.                                                                                 | Yes                           | Yes                       |
+| SObject Name                      | Salesforce Object API Name that will be used as parent object for payments generations                                      | Yes                           | Yes                       |
+| Child Object Relationship name    | Provide Child Relationship Name for the object that can be used to generate Billing Plans during the subscription creation. | *                             | Yes                       |
+| Customer Id Field                 | Provide lookup field API name that points to the Account object                                                             | Yes                           | Yes                       |
+| Billing Frequency Type            | Provide API name of the field that stores billing frequency of subscription.                                                | -                             | Yes(optional)             |
+| Start Date                        | Provide API name of the field that identifies the start date of subscription                                                | *                             | Yes(optional)             |
+| Trial Duration                    | Provide API name of the field that identifies the length of trial duration period                                           | -                             | Yes(optional)             |
+| Trial Duration Type               | Provide API name of the field that identifies the type of trial duration                                                    | *                             | Yes(optional)             |
+| Product Name                      | Provide API name of the field that stores Billing Plan Name.                                                                | -                             | Yes(optional)             |
+| Product Value                     | Provide API name of the field that stores Billing Plan Amount                                                               | *                             | Yes(optional)             |
+| Product Cycle Count               | Provide API name of the field that stores Billing Plan Cycle Delay                                                          | -                             | Yes(optional)             |
+| Product Value Type                | Provide API name of the field that stores Billing Plan value type                                                           | *                             | Yes(optional)             |
+| Product Tax Code                  | Provide API name of the field that stores Product Tax Code                                                                  | -                             | Yes(optional)             |
+
+Here is the default Mapping delivered with the package installation:
+
+<Frame caption="An Example of subscription mapping for Opportunity object">
+  <img src="\images\docs\2a50e32-image.png" />
+</Frame>
+
+#### Step 3: Create additional fields
+
+The package supports only standard Salesforce objects for payments creation: Opportunity + Opportunity Line Items. In case if you would like to use some custom objects or entities installed by another package you should also create a number of fields.
+
+You should create 2 lookup fields on `Revolv3 Subscription` and` Revolv3 Invoice` that will point to the parent object for payments generations. The Lookup name should be the same as the object name. i.e. `MyObjectName__c`
+
+<Check>
+  Congratulations! You have successfully followed the steps to enable the Payment Creation Processes, allowing users to efficiently create Subscriptions and One-time payments directly from the Salesforce record. Enjoy the enhanced functionality and streamlined customer management process in your Salesforce org!
+</Check>
+
+## Quick Actions Description
+
+### Enable Revolv3 customer
+
+By enabling this connection, users unlock the functionality to create payment methods, invoices, and subscriptions for a specific customer.
+
+After you've completed [configuration ](https://docs.revolv3.com/reference/paymentmethod_createpaymentmethod-2)for customer record and added the buttons on the UI you may may click on it. Than the system searches for Revolv3 customer that matches the First and the Last names using fields specified in custom settings. Depending on the results there are 2 possible scenarios:
+
+* In case no record was found you are offered to create a new one
+* Otherwise you may select the customers from the existing one.
+
+The script that runs on the backend does nothing but populates external `Customer_Id__c` field on the record. That allows you to create payment methods and create payment methods related to that Account/Contact.
+
+### Create Payment method
+
+To create payment method you should simply click on the `Create Payment Method` button on your customer record page. There are 2 types of payment methods are supported:
+
+* Credit Card
+* Ach
+
+You should populate all the required fields and simply click save button. In case if there is no error the Payment Method record will be saved and also it will be related to the customer record.
+
+<Info>
+  The field "Is Default" is checked automatically. There may be only 1 default method per customer. So, in case if you create a new default method another one will be automatically unchecked.
+</Info>
+
+<Info>
+  The fields related to Billing are automatically prepopulated using the mapping you've created before
+</Info>
+
+<Info>
+  No sensitive data related to payment method is stored in you salesforce instance. Payment Method records contains only the information that allows your users to identify correct one (like last 4 digits of the card) and use it during internal processes
+</Info>
+
+### Create Subscription, Installment and One-time Payment
+
+After you've completed payments creation configuration you may create Subscriptions, Installments and One-Time Payments for the current records. To do that you may simply click on a button you've added to the layout recently. Some of the data related to you action will be automatically prepopulated based on the mappings you've defined before.
+
+The subscription creation process inserts new Subscription record that holds basic information about the payment you've just created. The Package does not store information about its billing plans. The subscription will be related to the entity on which you've just created the record and customer object.
+
+The One-time Payment process is pretty similar the previous one. One-time payment doesn't prepopulate any information regarding billing plans. Invoice record created during the process is related to the Customer record and it may be found on it's related list.
+
+### Manage Subscriptions
+
+There are 2 options of how you can manage the subscriptions
+
+#### Cancelation
+
+To cancel subscription that was created automatically you should open the Invoice record and click `Cancel` button on the top-right side of the page and click on it. If case you've confirmed your intention to cancel the subscription and no validation errors appeared - the record will have the status updated and `Cancelled At` will also be populated with today's date
+
+#### Editing
+
+To edit current subscription you may click on `Edit With Billing Plans` button. After that a new screen appears. It contains the most recent information about current subscription and has similar UI to the subscription creation screen.
+
+Here you may perform the following actions:
+
+* Add/Remove billing plans
+* Update Next Bill Date
+* Update Billing Frequency Type
+* Update Status Type
+* Update Cancel Type
+
+After your updates are done the record in both systems will be updated.
+
+### Refund Invoices
+
+To refund invoice that was created during the One-time payment process you should do the following:
+
+* Open the Invoice record and click `Refund `button on the top-right side of the page
+* Fill the desired value of your refund (full invoice amount is populated by default)
+* Click `Refund`
+
+In case no validation errors appeared after you've pressed `Refund `button the new Invoice record is created. It's related to the current one and may be found in the `Refund Invoices` related list.
+
+### Installment adhoc payments
+
+To create additional adhoc invoice on the existing installment you should do the following:
+
+* Open the Installment record and click `Make adhoc payment` button on the top-right side of the page
+* Fill the desired value of your payment amount
+* Click `Submit`
+
+In case no validation errors appeared after you've pressed `Submit` button the new Invoice record is created. It's related to the current Installment and may be found in the `Invoices` related list.
+
+## Custom Automatizations
+
+### Salesforce Flows
+
+This package leverages Salesforce Flows and custom flow actions to simplify the Revolv3 processes within your Salesforce environment. By utilizing it, users can easily generate invoices/subscriptions for their customers, improving efficiency and accuracy in the invoicing process.
+
+#### Custom action: Generate Revolv3 Subscription
+
+The action is stored in Revolv3 category. It requires only 2 parameters:
+
+* `Record Id` That should be an Id of the parent object for which the payments creation is enabled.
+* `Customer Id` That should be an Id of the customer object (Account/Contact) that is enabled as Revolv3 user and has at least one default payment method
+
+The action will throw an error in case of error. Otherwise it will create a new Revolv3 Subscription record related to the customer and the parent object.
+
+The process generates request to Revov3 using fields from the mapping that was defined in `Subscription Mappings Custom Metadata`
+
+Here is an example of the Opportunity record-triggered flow that can be build using that Action
+
+![](\images\docs\4c7fb4e-image.png)
+
+#### Custom action: Generate Revolv3 Invoice
+
+The action is stored in Revolv3 category. It requires 2 parameters:
+
+* `Customer Id` - an Id of the parent object for which the payments creation is enabled.
+* `Name` - name of your billing plan
+* `Value` - decimal amount of the invoice
+* `Value Type` - It should contain type of the billing plan (Standard, Discount, etc.)
+
+If everything goes well it will create a new Revolv3 Invoice record related to the customer.
+
+The process generates request to Revov3 using fields from the mapping that was defined in `Subscription Mappings Custom Metadata`
+
+#### Custom action: Enable Revolv3 Customer
+
+The action is stored in Revolv3 category. It requires only `recordIds` parameter. That should be an Id of Account or Contact record. The action will create new customer in Revolv3 system and populate Customer\_Id\_\_c field. That action allows you to use that record for future One-time payments and Subscription generation.
+
+<Info>
+  ### Flow templates
+
+  The package is distributed with Flow Templates that can be cloned and used for your automatization.
+
+  * Revolv3 Enable customer template
+  * Revolv3 Payments template
+</Info>
+
+<Warning>
+  ### Limitations
+
+  All of the custom actions are **not** Bulkified and allows you to create only 1 record per 1 execution. So use it carefully inside triggered flows and loops.
+</Warning>
+
+***
+
+[Test ACH for Validate Person](/docs/test-ach-for-validate-person)

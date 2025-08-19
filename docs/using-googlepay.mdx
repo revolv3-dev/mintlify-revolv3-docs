@@ -1,0 +1,66 @@
+---
+title: "Using GooglePay"
+description: "To accept payments via Google Pay using Revolv3, you'll need to capture the payment data response from Google and include it in your API request to Revolv3."
+---
+
+## Step-by-Step Integration Guide
+
+### 1. Obtain the Google Pay Payment Data Response
+
+When a customer completes a payment through Google Pay, you'll receive a `GooglePayPaymentDataResponse`. This response contains the necessary payment details.
+
+### 2. Construct the API Request Payload
+
+In your API request to Revolv3, include the `GooglePayPaymentDataResponse` within the `GooglePay` object of the `PaymentMethod`. Here's a sample JSON payload:
+
+<CodeGroup>
+  ```bash bash
+  {
+      "IncludeRawProcessorResponse": true,
+      "PaymentMethod": {
+          "merchantPaymentMethodRefId": "1235-12345-ljd123",
+          "GooglePay": {
+              "GooglePayPaymentDataResponse": "{\"apiVersionMinor\":0,\"apiVersion\":2,\"paymentMethodData\":{\"description\":\"Visa •••• 1111\",\"tokenizationData\":{\"type\":\"PAYMENT_GATEWAY\",\"token\":\"41111111111111111\"},\"type\":\"CARD\",\"info\":{\"cardNetwork\":\"VISA\",\"cardDetails\":\"1111\"}}}"
+          }
+          "BillingAddress": {
+              "AddressLine1": "381 Forest Ave. Suite C",
+              "City": "Laguna Beach",
+              "State": "CA",
+              "PostalCode": "92651",
+              "Country": "USA"
+          }
+      },
+      "Invoice": {
+          "MerchantInvoiceRefId": "123456789",
+          "Amount": {
+              "Currency": "USD",
+              "Value": "12.20"
+          }
+      }
+  }
+  ```
+</CodeGroup>
+
+#### Key Components Explained:
+
+* **`IncludeRawProcessorResponse`**: Set to `true` to receive the raw response from the payment processor.
+* **`merchantPaymentMethodRefId`**: A unique identifier for the payment method in your system.
+* **`GooglePayPaymentDataResponse`**: The raw JSON string received from Google Pay. Make sure it is properly escaped.
+* **`BillingAddress`**: The customer's billing address.
+* **`Invoice`**: Details of the transaction, including a reference ID and the amount.
+
+### 3. Handle the Response
+
+After processing, Revolv3 will return a response with the payment status. Handle this response in your application to update the order status and notify the customer accordingly.
+
+If the processor doesn't support it, you will get a 400 Bad request back
+
+```
+{
+    "message": "Merchant does not have configured processor for payment method type GooglePay"
+}
+```
+
+***
+
+[Decline Codes](/docs/decline-codes)

@@ -1,0 +1,127 @@
+---
+title: "Checkout Line Items Value Types"
+description: "Revolv3’s  provide flexibility in defining how different charges, discounts, and price overrides are applied to payments. This guide explains the available value types and how they affect the checkout process."
+---
+
+1. **Overview of Value Types**
+
+Revolv3 offers the following **line item value types**:
+
+| **Value Type**         | **Description**                                                        | **Example Value**                       |
+| ---------------------- | ---------------------------------------------------------------------- | --------------------------------------- |
+| **Standard (Default)** | A regular charge applied to the total.                                 | "Value": 0.19 (19 cents added)          |
+| **Discount**           | A **fixed discount** subtracted from the total.                        | "Value": 0.19 (19 cents subtracted)     |
+| **DiscountPercentage** | A **percentage discount** applied to the total.                        | "Value": 10 (10% discount)              |
+| **FinalDiscount**      | A **one-time discount** applied to the last payment in a subscription. | Only for subscriptions                  |
+| **PriceOverride**      | A set price that ignores other item values.                            | "Value": 0.19 (final price is 19 cents) |
+
+1. **Standard and Discount Usage Example**
+
+The example below demonstrates a **standard charge** and a **fixed discount** being applied to a checkout transaction.
+
+**API Request Example**
+
+```
+{
+  "ReturnUrl": "",
+  "OneTimePayment": {
+    "CheckoutLineItems": [
+      {
+        "Name": "Product 123",
+        "Value": 1.09,
+        "Description": "Testing a payment",
+        "ValueType": "Standard"
+      },
+      {
+        "Name": "Test Discount",
+        "Value": 0.19,
+        "Description": "Discount of 19 cents",
+        "ValueType": "Discount"
+      }
+    ]
+  }
+}
+```
+
+Will display:
+
+![](\images\docs\0ce584a-image.png)
+
+**Checkout Display Output**
+
+| **Item**      | **Price**  | **Type**    |
+| ------------- | ---------- | ----------- |
+| Product 123   | **$1.09**  | Standard    |
+| Test Discount | **-$0.19** | Discount    |
+| **Total**     | **$0.90**  | Final Price |
+
+✅ The total amount after applying the discount is **$0.90**.
+
+1. **DiscountPercentage Example**
+
+A **percentage-based discount** reduces the total cost by a percentage rather than a fixed amount.
+
+Will display:
+
+![](\images\docs\53100cc-image.png)
+
+**Checkout Display Output with a 19% Discount**
+
+| **Item**    | **Price** | **Type**            |
+| ----------- | --------- | ------------------- |
+| Product 123 | **$1.09** | Standard            |
+| % Discount  | **-19%**  | Discount Percentage |
+| **Total**   | **$0.88** | Final Price         |
+
+✅ The 19% discount results in a total of **$0.88**.
+
+1. **PriceOverride Example**
+
+A **PriceOverride** sets a specific final price, ignoring all other item values.
+
+**API Request Example**
+
+```
+{
+  "OneTimePayment": {
+    "CheckoutLineItems": [
+      {
+        "Name": "Product 123",
+        "Value": 1.09,
+        "Description": "Testing a payment",
+        "ValueType": "Standard"
+      },
+      {
+        "Name": "Over-ride",
+        "Value": 0.19,
+        "Description": "Override the price",
+        "ValueType": "PriceOverride"
+      }
+    ]
+  }
+}
+```
+
+Will display:
+
+![](\images\docs\36cb17c-image.png)
+
+**Checkout Display Output**
+
+| **Item**    | **Price** | **Type**       |
+| ----------- | --------- | -------------- |
+| Product 123 | **$1.09** | Standard       |
+| Over-ride   | **$0.19** | Price Override |
+| **Total**   | **$0.19** | Final Price    |
+
+✅ The total is **$0.19**, overriding all previous amounts.
+
+1. **FinalDiscount for Subscriptions**
+
+The **FinalDiscount** type is exclusively for **subscriptions**, applying a discount to the **final payment** in the billing cycle.
+
+🚧 **Feature Coming Soon** – This value type will be implemented for future subscription checkout pages.
+
+***
+
+[Embedded page](/docs/embedded)

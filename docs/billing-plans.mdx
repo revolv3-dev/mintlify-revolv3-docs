@@ -1,0 +1,28 @@
+---
+title: "Billing Plans"
+description: "The subscription is made up of subscription billing plans which helps configure the rules of the subscription. Below is a table of the different options"
+---
+
+| Parameter       | Type   | Description                                                                                                                                                                                            | Required |
+| --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| Name            | string | The subscription's primary payment information                                                                                                                                                         | yes      |
+| Value           | number | Value for which the billing plan should be executed forValidation rules:Must be greater than or equal to 0In case the valueType is DiscountPercentage, the length must be between 0 and 100 characters | yes      |
+| CycleCount      | int    | The number of times the billing plan should be billed before expirationDefault value: -1 (unlimited number of cycles)Validation rules:Must be greater than 0 or equal to -1.                           | no       |
+| ValueType       | string | A qualifier for how the value should be interpretedValidation rules:Possible values: Standard, Discount, DiscountPercentage, FinalDiscount, PriceOverride                                              | no       |
+| StartCycleDelay | int    | Amount of subscription cycle to delay the start date of the billing planDefault value: 0Validation rules:Must be greater than or equal to zero                                                         | no       |
+
+```
+"SubscriptionBillingPlans": [
+        {
+            "Name": "Billing Plan 1",
+            "Value": 10.99,
+            "CycleCount": -1,
+            "ValueType": "Standard",
+            "StartCycleDelay": 0
+        }
+    ]
+```
+
+***
+
+[Refunds](/docs/refunds)

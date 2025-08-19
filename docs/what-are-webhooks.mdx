@@ -1,0 +1,490 @@
+---
+title: "Deprecated - Webhook Events"
+description: "Webhooks allow you to subscribe to certain events that happen in Revolv3. When one of these events are triggered Revolv3 will send a HTTP POST payload to the webhook’s configured URL."
+---
+
+Webhooks are configured on a per-merchant basis and Revolv3 will send you events for every merchant registered in Revolv3 portal.
+
+# Events
+
+The available events, which Revolv3 sends to consumers, described below. (Click on collapsed event to see its details)
+
+Invoice created
+
+## InvoiceCreated
+
+| Description and headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The webhook is triggered when an invoice is created in the system**Notes:**one-time payment invoicesrecurrent payment invoicesinstallments payment invoices                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Payload example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `{
+  "Body": "{
+	"Invoice": {
+		"InvoiceId": 836271,
+		"ParentInvoiceId": null,
+		"CustomerId": 220464,
+		"MerchantInvoiceRefId": null,
+		"PaymentMethod": {
+			"PaymentMethodId": 226880,
+			"BillingAddressId": 255838,
+			"BillingFirstName": "John",
+			"BillingLastName": "Doe",
+			"MerchantPaymentMethodRefId": null,
+			"BillingAddress": {
+				"AddressId": 255838,
+				"AddressLine1": null,
+				"AddressLine2": null,
+				"City": null,
+				"State": null,
+				"PostalCode": null,
+				"PhoneNumber": null,
+				"Email": null,
+				"Country": null
+			},
+			"PaymentMethodAchDetails": null,
+			"PaymentMethodCreditCardDetails": {
+				"BinNumber": "411111",
+				"PaymentLast4Digit": "1111",
+				"PaymentExpirationDate": "0330"
+			}
+		},
+		"InvoiceStatus": "RecurringPending",
+		"Subtotal": 15.99,
+		"Tax": 0,
+		"Total": 15.99,
+		"BillingDate": "1/19/2025",
+		"MerchantLegalName": "Adyen recurrent WH ",
+		"MerchantCustomerRefId": null,
+		"CustomerFirstName": "Billie",
+		"CustomerLastName": "Brown",
+		"SubscriptionId": 55578,
+		"InstallmentId": null,
+		"EligibilityFailReason": null,
+		"MerchantSubscriptionRefId": null,
+		"NetworkTransactionId": null,
+		"InvoiceLineItems": [ 			{
+				"InvoiceId": 836271,
+				"InvoiceLineItemId": 946910,
+				"Name": "Billing Plan 1",
+				"Description": null,
+				"Value": 15.99,
+				"ValueType": "Standard",
+				"BillingValueType": "Standard"
+			}
+		],
+		"InvoiceAttempts": [],
+		"InvoiceStatusEnum": "RecurringPending"
+	},
+	"EventDateTime": "2025-01-19T00:01:25.6834033Z",
+	"EventType": "InvoiceCreated",
+	"RevolvMerchantId": 385
+  }",
+  "Entropy": "adfe41d4-4971-4620-a93e-154805d16a18"
+}                ` |
+
+Invoice status changed
+
+## InvoiceStatusChanged
+
+| Description and headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The webhook is triggered on any status change of an invoice. Initial status assignment is NOT considered as “status change”.**Notes:**status of the invoice can be changed by Update Invoice request (Update an invoice by invoice Id that is currently in the 'Pending' or 'Recycle' state)webhook should be triggered for Refund invoices as well (incl. changes from Pending to Refund / PartialRefund / RefundPending / RefundDeclined / RefundFailed statuses)webook should be triggered for one time payments and recurrent invoices                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Payload example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `{
+  "Body": "{
+	"Invoice": {
+		"InvoiceId": 835681,
+		"ParentInvoiceId": null,
+		"CustomerId": 220464,
+		"MerchantInvoiceRefId": null,
+		"PaymentMethod": {
+			"PaymentMethodId": 226880,
+			"BillingAddressId": 255838,
+			"BillingFirstName": "John",
+			"BillingLastName": "Doe",
+			"MerchantPaymentMethodRefId": null,
+			"BillingAddress": {
+				"AddressId": 255838,
+				"AddressLine1": null,
+				"AddressLine2": null,
+				"City": null,
+				"State": null,
+				"PostalCode": null,
+				"PhoneNumber": null,
+				"Email": null,
+				"Country": null
+			},
+			"PaymentMethodAchDetails": null,
+			"PaymentMethodCreditCardDetails": {
+				"BinNumber": "411111",
+				"PaymentLast4Digit": "1111",
+				"PaymentExpirationDate": "0330"
+			}
+		},
+		"InvoiceStatus": "Paid",
+		"Subtotal": 15.99,
+		"Tax": 0.0,
+		"Total": 15.99,
+		"BillingDate": "1/18/2025",
+		"MerchantLegalName": "Adyen recurrent WH ",
+		"MerchantCustomerRefId": null,
+		"CustomerFirstName": "Billie",
+		"CustomerLastName": "Brown",
+		"SubscriptionId": 55578,
+		"InstallmentId": null,
+		"EligibilityFailReason": null,
+		"MerchantSubscriptionRefId": null,
+		"NetworkTransactionId": "621997096143647",
+		"InvoiceLineItems": [ 			{
+				"InvoiceId": 835681,
+				"InvoiceLineItemId": 946313,
+				"Name": "Billing Plan 1",
+				"Description": null,
+				"Value": 15.99,
+				"ValueType": "Standard",
+				"BillingValueType": "Standard"
+			}
+		],
+		"InvoiceAttempts": [ 			{
+				"InvoiceAttemptId": 866737,
+				"Amount": 15.99,
+				"InvoiceAttemptStatus": "Success",
+				"InvoiceAttemptDate": "2025-01-18T06:00:52.634137Z",
+				"PaymentProcessor": "Adyen",
+				"ProcessorTransactionId": "LM5F2X8DM9NBDGV5",
+				"ResponseCode": "Authorised",
+				"ResponseMessage": "Authorised",
+				"ProcessorRawResponse": null,
+				"PaymentMethod": {
+					"PaymentMethodId": 226880,
+					"BillingAddressId": 255838,
+					"BillingAddress": {
+						"AddressId": 255838,
+						"AddressLine1": null,
+						"AddressLine2": null,
+						"City": null,
+						"State": null,
+						"PostalCode": null,
+						"PhoneNumber": null,
+						"Email": null,
+						"Country": null
+					},
+					"BillingFirstName": "John",
+					"BillingLastName": "Doe",
+					"MerchantPaymentMethodRefId": null,
+					"PaymentMethodAchDetails": null,
+					"PaymentMethodCreditCardDetails": {
+						"BinNumber": "411111",
+						"PaymentLast4Digit": "1111",
+						"PaymentExpirationDate": "0330"
+					}
+				},
+				"EligibilityCheckOrderCode": null,
+				"ProcessorMerchantId": "Revolv3_Webhooks_TEST"
+			}
+		],
+		"InvoiceStatusEnum": "Paid"
+	},
+	"EventDateTime": "2025-01-18T06:00:59.4281241Z",
+	"EventType": "InvoiceStatusChanged",
+	"RevolvMerchantId": 385
+  }",
+  "Entropy": "034a7996-0831-45b8-9128-20ddf69107b1"
+}                ` |
+
+ACH Invoice status changed (DEPRECATED)
+
+## ACHInvoiceStatusChanged (DEPRECATED)
+
+The webhook is triggered on any status change of an invoice that is going to be paid with ACH payment method. Initial status assignment is NOT considered as “status change”.
+
+**Notes:**
+
+Please use InvoiceStatusChanged webhook instead. These webhooks have the same body structure. This Webhook will be removed in the future.
+
+Invoice attempt created
+
+## InvoiceAttemptCreated
+
+| Description and headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The webhook is triggered when an invoice attempt is created in the system.**Notes:**one-time payment invoicesrecurrent payment invoicesinstallments payment invoices                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Payload example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `{
+  "Body": "{
+	"Attempt": {
+		"InvoiceId": 836271,
+		"SubscriptionId": 55578,
+		"InstallmentId": 0,
+		"ProcessorMerchantId": "Revolv3_Webhooks_TEST",
+		"InvoiceAttemptId": 867419,
+		"Amount": 15.99,
+		"InvoiceAttemptStatus": "Success",
+		"InvoiceAttemptDate": "2025-01-19T06:01:23.1704666Z",
+		"PaymentProcessor": "Adyen",
+		"ProcessorTransactionId": "SWZMRK736B55CG75",
+		"ResponseCode": "Authorised",
+		"ResponseMessage": "Authorised",
+		"ProcessorRawResponse": null,
+		"PaymentMethod": {
+			"PaymentMethodId": 226880,
+			"BillingAddressId": 255838,
+			"BillingAddress": {
+				"AddressId": 255838,
+				"AddressLine1": null,
+				"AddressLine2": null,
+				"City": null,
+				"State": null,
+				"PostalCode": null,
+				"PhoneNumber": null,
+				"Email": null,
+				"Country": null
+			},
+			"BillingFirstName": "John",
+			"BillingLastName": "Doe",
+			"MerchantPaymentMethodRefId": null,
+			"PaymentMethodAchDetails": null,
+			"PaymentMethodCreditCardDetails": {
+				"BinNumber": "411111",
+				"PaymentLast4Digit": "1111",
+				"PaymentExpirationDate": "0330"
+			}
+		},
+		"EligibilityCheckOrderCode": null
+	},
+	"EventDateTime": "2025-01-19T06:01:27.3015072Z",
+	"EventType": "InvoiceAttemptCreated",
+	"RevolvMerchantId": 385
+  }",
+  "Entropy": "65e76d94-c832-47c4-9e96-c5c69b66d1eb"
+}                ` |
+
+Invoice Attempt Status Changed
+
+## InvoiceAttemptStatusChanged
+
+| Description and headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The webhook is triggered on any status change of an invoice attempt. Initial status assignment is NOT considered as “status change”.**Notes:**webhook triggered for Refund invoices as well (incl. changes from Pending to Refund / PartialRefund / RefundPending / RefundDeclined / RefundFailed statuses)webook triggered for one time payments and recurrent (subscription or installment) invoices                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Payload example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `{
+  "Body": "{
+	"Attempt": {
+		"InvoiceId": 836271,
+		"SubscriptionId": 55578,
+		"InstallmentId": 0,
+		"ProcessorMerchantId": "Revolv3_Webhooks_TEST",
+		"InvoiceAttemptId": 867419,
+		"Amount": 15.99,
+		"InvoiceAttemptStatus": "Success",
+		"InvoiceAttemptDate": "2025-01-19T06:01:23.1704666Z",
+		"PaymentProcessor": "Adyen",
+		"ProcessorTransactionId": "SWZMRK736B55CG75",
+		"ResponseCode": "Authorised",
+		"ResponseMessage": "Authorised",
+		"ProcessorRawResponse": null,
+		"PaymentMethod": {
+			"PaymentMethodId": 226880,
+			"BillingAddressId": 255838,
+			"BillingAddress": {
+				"AddressId": 255838,
+				"AddressLine1": null,
+				"AddressLine2": null,
+				"City": null,
+				"State": null,
+				"PostalCode": null,
+				"PhoneNumber": null,
+				"Email": null,
+				"Country": null
+			},
+			"BillingFirstName": "John",
+			"BillingLastName": "Doe",
+			"MerchantPaymentMethodRefId": null,
+			"PaymentMethodAchDetails": null,
+			"PaymentMethodCreditCardDetails": {
+				"BinNumber": "411111",
+				"PaymentLast4Digit": "1111",
+				"PaymentExpirationDate": "0330"
+			}
+		},
+		"EligibilityCheckOrderCode": null
+	},
+	"EventDateTime": "2025-01-19T06:01:28.8900037Z",
+	"EventType": "InvoiceAttemptStatusChanged",
+	"RevolvMerchantId": 385
+  }",
+  "Entropy": "2cd06d27-33d7-483a-ade2-c8cfc46bdd31"
+}                ` |
+
+Subscription created
+
+## SubscriptionCreated
+
+| Description and headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| An attempt to create subscription was successful.Triggers when a subscription creation is going to be created using the following end points:Create Subscription (POST /api/Subscriptions)Create Customer (POST /api/Customers) when subscriptions are going to be createdCreate Subscription (POST /api/Customers/customerId/subscriptions)Create Checkout (POST /api/Checkout)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Payload example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `{
+	"Subscription": {
+		"SubscriptionId": 5352,
+		"CustomerId": 600,
+		"MerchantSubscriptionRefId": null,
+		"NetworkTransactionId": null,
+		"BillingFrequencyType": "Daily",
+		"SubscriptionStatusType": "Current",
+		"SubscriptionCancelType": "EndOfCycle",
+		"InitialBillDate": "1/16/2025",
+		"NextBillDate": "1/16/2025",
+		"TaxAddress": null,
+		"PaymentMethodIds": [
+			1383
+		],
+		"CancelledAt": null,
+		"BillingPlans": [ 			{
+				"SubscriptionBillingPlanId": 4838,
+				"SubscriptionId": 5352,
+				"Name": "Billing Plan 1",
+				"Value": 10.99,
+				"StartDate": "1/16/2025",
+				"CyclesRemaining": 3,
+				"CycleCount": 3,
+				"ValueType": "Standard"
+			}
+		],
+		"Message": null,
+		"ProcessorRawResponse": null
+	},
+	"EventDateTime": "2025-01-16T22:26:36.2276706Z",
+	"EventType": "SubscriptionCreated",
+	"RevolvMerchantId": 12
+}                ` |
+
+Subscription changed
+
+## SubscriptionChanged
+
+| Description and headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Details of a subscription has been changed.Triggered, when a subscription is changed using the following end points:Update Subscription (PATCH /api/Subscriptions/\{SubscriptionId})Replace Subscription Primary Payment Method (PUT /api/Subscriptions/\{subscriptionId}/payment-method)Create Subscription Billing Plan (POST /api/Subscriptions/\{subscriptionId}/billing-plans)Update Subscription Tax Address (PUT /api/Subscriptions/\{subscriptionId}/address)Cancel Subscription (POST /api/Subscriptions/\{subscriptionId}/cancel)                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Payload example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `{
+  "Body": "{
+	"Subscription": {
+		"SubscriptionId": 55577,
+		"CustomerId": 220461,
+		"MerchantSubscriptionRefId": "A1234-5678-9101",
+		"NetworkTransactionId": null,
+		"BillingFrequencyType": "Monthly",
+		"SubscriptionStatusType": "Current",
+		"SubscriptionCancelType": "Immediate",
+		"InitialBillDate": "1/17/2025",
+		"NextBillDate": "12/12/2025",
+		"TaxAddress": null,
+		"PaymentMethodIds": [
+			227153
+		],
+		"CancelledAt": null,
+		"BillingPlans": [ 			{
+				"SubscriptionBillingPlanId": 108221,
+				"SubscriptionId": 55577,
+				"Name": "Billing Plan 1",
+				"Value": 22.99,
+				"StartDate": "1/17/2025",
+				"CyclesRemaining": -1,
+				"CycleCount": -1,
+				"ValueType": "Standard"
+			}
+		],
+		"Message": null,
+		"ProcessorRawResponse": null
+	},
+	"EventDateTime": "2025-01-21T13:33:20.3019845Z",
+	"EventType": "SubscriptionChanged",
+	"RevolvMerchantId": 385
+  }",
+  "Entropy": "39f4c1a2-d575-4210-a6e7-742d36eeb548"
+}                ` |
+
+WebhookTest
+
+## WebhookTest
+
+| Description and headers                                                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Triggered, during the setup process from Revolv3 portal.                                                                                                                                             |
+| Payload example                                                                                                                                                                                      |
+| `{
+  "Body": "{
+	"EventDateTime": "2025-01-21T14:01:54.9012389Z",
+	"EventType": "WebhookTest",
+	"RevolvMerchantId": 253
+  }",
+  "Entropy": "fbac35d8-91b4-4b55-a9d6-a57c93e65c46"
+}                ` |
+
+# Attributes
+
+Each Event has following attributes:
+
+| Attribute        | Description                                                       |
+| ---------------- | ----------------------------------------------------------------- |
+| EventDateTime    | The date and time that event occurred (UTC time)                  |
+| EventType        | The type of event of that occurred (see the table above)          |
+| RevolvMerchantId | The ID of the merchant that the event happened in                 |
+| Entropy          | A random string to make the payload more cryptographically secure |
+
+# The x-revolv3-signature header
+
+A hashed signature of the payload is passed along in the headers of each request as x-revolv3-signature. This signature is used to be sure all requests are sent from Revolv3 application.
+
+We are using HMACSHA256 algorithm to generate the signature key.
+
+Example of how to check on C#
+
+<CodeGroup>
+  ```bash bash
+  public static bool IsValidWebhookEventSignature(  
+          string requestBody,  
+          string signatureHeader,  
+          string signatureKey,  
+          string url)  
+  {  
+    //url is where the webhook is being sent to and includes https example: "https://webhook.site/462a579b-1cb2-4ae4-b4de-631fad16b3dd"
+  	if (string.IsNullOrEmpty(signatureKey))  
+  		throw new ArgumentNullException(nameof (signatureKey));  
+  	if (string.IsNullOrEmpty(url))  
+  		throw new ArgumentNullException(nameof (url));  
+  	byte[] bytes = Encoding.UTF8.GetBytes(url + "$" + requestBody); //Concat strings with a $  
+  	using var hmacshA256 = new HMACSHA256(Encoding.UTF8.GetBytes(signatureKey));  
+  	return Convert.ToBase64String(hmacshA256.ComputeHash(bytes)).Equals(signatureHeader);  
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup>
+  ```bash bash
+  function IsValidWebhookEventSignature(string $requestBody, string $signatureHeader, string $signatureKey, string $url): bool
+  {
+    // Check for empty arguments
+    if (empty($signatureKey)) {
+      throw new ArgumentNullException('signatureKey');
+    }
+    if (empty($url)) {
+      throw new ArgumentNullException('url');
+    }
+
+    // Concatenate url and request body with a delimiter
+    $data = $url . '$' . $requestBody;
+
+    // Create HMAC object with SHA256 algorithm
+    $hmac = hash_hmac('sha256', $data, $signatureKey, true);
+
+    // Encode the HMAC hash to base64 and compare with signature
+    return base64_encode($hmac) === $signatureHeader;
+  }
+  ```
+</CodeGroup>
+
+***
+
+[Creating a Webhook](/docs/creating-a-webhook)

@@ -1,0 +1,129 @@
+---
+title: "Embedded page"
+description: "An embedded page is an option where you embed a block/section with our checkout page into your web page, using for example an tag. Then the customer in this block can make a payment, after opening the last page with the payment results to your website (parent site) will be sent an event. This is to notify your website that the payment for this checkout has been made and you can already close the block/section."
+---
+
+## 1. Prerequisites
+
+Before you begin, make sure you have met the following prerequisites:
+
+* You have an account on the Revolv3 portal with merchant and with one or more configured processors
+* You already have a generated developer API key
+* You have added the hostname of your website, in which you will embed the checkout page, to the Trusted Checkout Hostnames (Merchant Settings -> Integration Profile).
+
+## 2. Creating a checkout link
+
+If you have fulfilled all the prerequisites, you can now start creating a link that will be embedded in your website using e.g. iframe.
+
+<Warning>
+  ### Origin HTTP header
+
+  To ensure that requests are sent from an authorized merchant's API, make sure the HTTP request includes the **Origin** HTTP header.
+
+  ❗If it is missing, you will get a **400** HTTP error.
+</Warning>
+
+To create a link you need to send a request to the following endpoint:
+
+**POST*\{\{Api Root}}/api/Checkout*\*\*
+
+<Info>
+  ### Api Root
+
+  The **API Root** can be the URL of our Production ([https://api.revolv3.com](https://api.revolv3.com)) or Sandbox ([https://api-sandbox.revolv3.com](https://api-sandbox.revolv3.com)) environment.
+</Info>
+
+Sample payload (more information about the endpoint here -> [Create Checkout Link Endpoint](https://docs.revolv3.com/reference/checkout_createcheckoutlink). A detailed description of the checkout line items value types -> [Checkout Line Items Value Types](doc:checkout-line-items-value-types).
+
+<CodeGroup>
+  ```bash bash
+  {
+    "OneTimePayment": {
+      "CheckoutLineItems": [
+        {
+          "Name": "Item 1",
+          "Description": "Description",
+          "Value": 9.99
+        },
+        {
+          "Name": "Item 2",
+          "Description": "Description",
+          "Value": 21.99
+        }
+      ]
+    }
+  }
+  ```
+</CodeGroup>
+
+The response will have the following structure:
+
+<CodeGroup>
+  ```bash bash
+  {
+      "checkoutId": "0584773e-47bf-4822-91de-06acb5de9358",
+      "checkoutLink": "https://some-revolv3-url.com/checkout/0584773e-47bf-4822-91de-06acb5de9358"
+  }
+  ```
+</CodeGroup>
+
+You can get all the checkout information at any time using this endpoint -> [Get Complete Checkout Information](https://docs.revolv3.com/reference/checkout_getcompletecheckoutinformation)
+
+## 3. Embed the checkout page
+
+Now you have a link to the payment page that you can embed into the your website and wait for the payment to complete. Example of how you can embed a page:
+
+<CodeGroup>
+  ```bash bash
+  <iframe title="Revolv3 Checkout" src="https://some-revolv3-url.com/checkout/0584773e-47bf-4822-91de-06acb5de9358"
+          frameborder="0" scrolling="no">
+  </iframe>
+  ```
+</CodeGroup>
+
+## 4. Added an event handler to your webpage
+
+To let your website (parent window) know when you can close an Iframe, you need to add an event handler to the web page. Since windows cannot interact with each other directly, they need to communicate using messages (postMessage).
+
+More information about sending and receiving messages can be found here -> [https://developer.mozilla.org/ru/docs/Web/API/Window/postMessage](https://developer.mozilla.org/ru/docs/Web/API/Window/postMessage)
+
+We send this message from our frontend application after the checkout results are uploaded. Handler may look as follows:
+
+<CodeGroup>
+  ```bash bash
+  addEventListener("message", receiveMessage, false);
+
+  function receiveMessage(event: MessageEvent<{ checkoutId: string, checkoutStatus: string }>) {
+      if (event.origin === 'https://portal-sandbox.revolv3.com' ||
+        event.origin === 'https://portal.revolv3.com') {
+        //do something
+        //event.origin;  - message sender (schema + hostname)
+        //event.type; - message type (will be message)
+        //event.data; - message data
+      }
+      return;
+    }
+  ```
+</CodeGroup>
+
+<Warning>
+  ### Check event.origin
+
+  Verification that the message came from the revolv3 website (Production or Sandbox) should be mandatory.
+</Warning>
+
+The data structure of the Message Event will be as follows, so you can parse it and check the results.
+
+```
+{ checkoutId: string, checkoutStatus: string }
+```
+
+The **checkoutId** is an unique identifier of the checkout (The string will be in GUID format). Possible values for **checkoutStatus**:
+
+* **Pending** (the checkout has been created, the payment has not yet been made),
+* **PaymentCompleted** (A payment attempt was made. The payment result is - Paid),
+* **PaymentFailed** (A payment attempt was made. The payment result is unsuccessful).
+
+***
+
+[Hosted page](/docs/hosted-page)

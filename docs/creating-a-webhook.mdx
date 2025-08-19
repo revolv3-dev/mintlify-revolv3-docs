@@ -1,0 +1,72 @@
+---
+title: "Creating a Webhook"
+description: "Creating a webhook To create a webhook for your merchant you have to go to Webhooks page and create a new webhook."
+---
+
+You have to specify:
+
+The url for us to deliver to. Webhook Type will always be Object as Event is deprecated
+
+![](\images\docs\06ede134be81c4dd4cc5fd6841a62bedd37cd92e2a4716b9c62c20fa65d9c23d-image.png)
+
+You have to copy your Webhook Key and prepare your backend to receive the webhooks.
+
+If your app is ready to receive webhooks, click on the Test Connection button. In case we receive a response with code 200 the Save button will be enabled. After you save the configuration everything is ready to receive information
+
+**The x-revolv3-signature header**
+
+A hashed signature of the payload is passed along in the headers of each request as x-revolv3-signature. This signature is used to be sure all requests are sent from revolv3 application.
+
+We are using HMACSHA256 algorithm to generate the signature key.
+
+Example of how to check on C#
+
+<CodeGroup>
+  ```bash bash
+  public static bool IsValidWebhookEventSignature(  
+          string requestBody,  
+          string signatureHeader,  
+          string signatureKey,  
+          string url)  
+  {  
+    //url is where the webhook is being sent to and includes https example: "<https://webhook.site/462a579b-1cb2-4ae4-b4de-631fad16b3dd">  
+  	if (string.IsNullOrEmpty(signatureKey))  
+  		throw new ArgumentNullException(nameof (signatureKey));  
+  	if (string.IsNullOrEmpty(url))  
+  		throw new ArgumentNullException(nameof (url));  
+  	byte\[] bytes = Encoding.UTF8.GetBytes(url + "$" + requestBody); //Concat strings with a $  
+  	using var hmacshA256 = new HMACSHA256(Encoding.UTF8.GetBytes(signatureKey));  
+  	return Convert.ToBase64String(hmacshA256.ComputeHash(bytes)).Equals(signatureHeader);  
+  }
+  ```
+</CodeGroup>
+
+PHP
+
+<CodeGroup>
+  ```bash bash
+  function IsValidWebhookEventSignature(string $requestBody, string $signatureHeader, string $signatureKey, string $url): bool  
+  {  
+    // Check for empty arguments  
+    if (empty($signatureKey)) {  
+      throw new ArgumentNullException('signatureKey');  
+    }  
+    if (empty($url)) {  
+      throw new ArgumentNullException('url');  
+    }
+
+    // Concatenate url and request body with a delimiter  
+    $data = $url . '$' . $requestBody;
+
+    // Create HMAC object with SHA256 algorithm  
+    $hmac = hash_hmac('sha256', $data, $signatureKey, true);
+
+    // Encode the HMAC hash to base64 and compare with signature  
+    return base64_encode($hmac) === $signatureHeader;  
+  }
+  ```
+</CodeGroup>
+
+***
+
+[Webhooks Overview](/docs/webhooks)

@@ -1,127 +1,209 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Introduction & Quick Start",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0070e0",
+    "light": "#0070e0",
+    "dark": "#0070e0"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "\\e9ea213-favicon.svg",
   "navigation": {
     "tabs": [
       {
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "docs/getting-started",
+              {
+                "group": "Authentication & Tokens",
+                "pages": [
+                  "docs/merchant-access-token",
+                  "docs/token-faq"
+                ]
+              },
+              "docs/api-versioning-policy",
+              {
+                "group": "Environment Limitations",
+                "pages": [
+                  "docs/sandbox-environment-limitations-and-maintenance",
+                  "docs/production-limitations"
+                ]
+              }
             ]
           },
           {
-            "group": "Customization",
+            "group": "Quick Starts",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "docs/make-a-payment",
+              "docs/authorizations-captures"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "PAYMENTS",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "docs/network-processing-types",
+              "docs/dynamic-descriptor-guide",
+              "docs/order-processing-channel",
+              "docs/one-off-payment"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Payment method",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "docs/paymentmethod-guide",
+              "docs/billing-address",
+              "docs/decline-codes",
+              "docs/using-googlepay",
+              "docs/using-applepay",
+              "docs/ach-direct-debit"
+            ]
+          },
+          {
+            "group": "Invoices",
+            "pages": [
+              "docs/invoice-status",
+              "docs/invoice-line-items-subscription-plans",
+              "docs/invoice-export",
+              {
+                "group": "Error Responses",
+                "pages": [
+                  "docs/error-responses",
+                  "docs/processor-raw-response"
+                ]
+              },
+              "docs/get-details-of-invoice-attempts",
+              "docs/get-invoices-api"
+            ]
+          },
+          {
+            "group": "SUBSCRIPTIONS",
+            "pages": [
+              "docs/create-subscription",
+              "docs/subscription-status-and-recylcing",
+              "docs/canceling-a-subscription",
+              "docs/refunds",
+              "docs/billing-plans"
+            ]
+          },
+          {
+            "group": "webhooks",
+            "pages": [
+              "docs/webhooks",
+              "docs/creating-a-webhook",
+              "docs/what-are-webhooks"
+            ]
+          },
+          {
+            "group": "CHECKOUT",
+            "pages": [
+              "docs/checkout",
+              "docs/hosted-page",
+              "docs/embedded",
+              "docs/checkout-line-items-value-types"
+            ]
+          },
+          {
+            "group": "Testing & Sandbox Tools",
+            "pages": [
+              "docs/test-cards-for-sandbox",
+              {
+                "group": "Test Cards for Sandbox",
+                "pages": [
+                  "docs/test-cards-for-sandbox",
+                  "docs/test-ach-for-validate-person"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Plugins",
+            "pages": [
+              "docs/salesforce"
+            ]
+          },
+          {
+            "group": "DEPRECATED PAGES",
+            "pages": [
+              "docs/reusing-the-paymentmethodid-for-one-time-payments",
+              "docs/authorization-captures-and-reversals",
+              "docs/create-a-subscription",
+              "docs/make-a-one-time-payment"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API Reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Revolv3 OpenApi Spec",
             "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "reference/post_api-account-verification-ach-person",
+              {
+                "group": "AccountVerification",
+                "pages": [
+                  "reference/post_api-account-verification-ach-person"
+                ]
+              },
+              "reference/authentication-1",
+              {
+                "group": "Checkout",
+                "pages": [
+                  "reference/post_api-checkout"
+                ]
+              },
+              {
+                "group": "Customers",
+                "pages": [
+                  "reference/post_api-customers"
+                ]
+              },
+              {
+                "group": "Invoices",
+                "pages": [
+                  "reference/get_api-invoices"
+                ]
+              },
+              "reference/merchantonboardings",
+              {
+                "group": "PaymentMethod",
+                "pages": [
+                  "reference/post_api-paymentmethod"
+                ]
+              },
+              {
+                "group": "Payments",
+                "pages": [
+                  "reference/post_api-payments-sale"
+                ]
+              },
+              {
+                "group": "Subscriptions",
+                "pages": [
+                  "reference/get_api-subscriptions"
+                ]
+              },
+              "reference/authentication-2",
+              {
+                "group": "Authentication",
+                "pages": [
+                  "reference/post_api-authentication-token"
+                ]
+              },
+              {
+                "group": "Merchant Onboarding",
+                "pages": [
+                  "reference/post_api-onboarding-merchant"
+                ]
+              }
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
-  }
+  "logo": "\\images\\616dbea-revolv3-logo-white.svg"
 }

@@ -1,0 +1,23 @@
+---
+title: "Production Environment Limitations"
+description: "API Throttling and Rate Limits for One-Time Payments"
+---
+
+To ensure optimal system performance, maintain platform stability, and prevent abuse, API request throttling is enforced for one-time payment transactions. These limitations help balance the load on our infrastructure while ensuring fair access for all users.
+
+**Throttling Mechanism and Rate Limits:**
+
+* Requests are throttled based on IP address, meaning that each individual IP making API calls must adhere to the defined rate limits.
+
+* The current safe threshold for API requests is:
+
+  * 20 API calls per second per IP address.
+  * 20,000 API calls within a rolling 15-minute window.
+
+If your API usage exceeds these thresholds, the system will automatically enforce rate-limiting measures.
+
+**What Happens If You Exceed the Limit?** If an API client surpasses the allowed request rate, the server will respond with a 429 HTTP status code (Too Many Requests). This response indicates that your application has made too many requests within a short timeframe and must temporarily reduce its request frequency.
+
+***
+
+[Sandbox Environment Limitations](/docs/sandbox-environment-limitations-and-maintenance)

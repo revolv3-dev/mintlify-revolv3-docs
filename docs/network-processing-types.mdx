@@ -1,0 +1,82 @@
+---
+title: "Overview"
+description: "Distinguishing between primary and recurring transactions allows merchants to streamline payment processes, reduce fraud, improve customer service and ensure compliance with global payment standards and regulations."
+---
+
+## Overview
+
+Payment systems categorize transactions based on their purpose and life cycle stage. Initial transactions require explicit authentication and cardholder consent, while recurring transactions rely on pre-approved credentials for seamless subsequent payments.
+
+This topic describes these transactions and the additional parameters to include in these requests.
+
+In our system, the following object is used to **specify the transaction processing type**:
+
+```
+"networkProcessing": {
+    "processingType": "recurring",
+    "originalNetworkTransactionId": "483299310358831"
+},
+```
+
+There are two parameters, each of which is optional, as is the parent NetworkProcessing object. Possible values for the **processingType** parameter are listed below. An integer value in () maybe also be used instead of a string value.
+
+* **initialRecurring** (1) - use this value to specify the initial in a series of recurring payment transactions.
+* **recurring** (2) - use this value for subsequent payments after the initial payment.
+* **initialInstallment** (3) - use this value to specify the first in a series of installment payment transactions.
+* **installment** (4) - use this value to specify subsequent installments after the initial installment.
+
+The **originalNetworkTransactionId** parameter must contain the Network Transaction Id from the initial/original transaction ([Obtaining originalNetworkTransactionId](#obtaining-originalnetworktransactionid)) and therefore can only be used in conjunction with the following processing types: **recurring** and **installment**.
+
+If you don't have originalNetworkTransactionId, processor doesn't support, or do not wish to use this option, then just omit the NetworkProcessing object in the request.
+
+<Warning>
+  ### Please note that...
+
+  * Processing type is applicable for card payment method only.
+  * ProcessingType and/or OriginalNetworkTransactionId can be processed only for Visa, Mastercard or Discover transactions.
+  * If the card brand for the original transaction doesn't match the one for the current transaction, errors might occur.
+</Warning>
+
+## Obtaining originalNetworkTransactionId
+
+You can obtain an originalNetworkTransactionId in the response at some endpoints intended to make a payment. There you will find the **NetworkTransactionId** parameter in the response, which is actually the network transaction identifier for the **CURRENT** transaction and can be used to associate any subsequent transaction with this one.
+
+<Warning>
+  ### Please remember that...
+
+  For each payment made through these **POST** endpoints, you will receive a different **NetworkTransactionId** that is associated with that particular transaction.
+</Warning>
+
+* POST /api/payments/sale
+* POST /api/payments/sale/\{paymentMethodId}
+* POST /api/payments/authorization
+* POST /api/payments/authorization/\{paymentMethodId}
+* POST /api/subscriptions
+
+NetworkTransactionId can also be found in some endpoints that receive entity information:
+
+* GET /api/Invoices/\{invoiceId}
+
+## Endpoints supporting Network Processing Types
+
+Not all endpoints include the ability to define the **NetworkProcessing** object, so the following list will help you when you are planning an integration or to understand if you can use this feature in your current integration.
+
+* POST /api/payments/sale
+* POST /api/payments/sale/\{paymentMethodId}
+* POST /api/payments/authorization
+* POST /api/payments/authorization/\{paymentMethodId}
+* POST /api/subscriptions It is only possible to define **originalNetworkTransactionId** in **paymentMethods** object.
+
+## Processors for which the feature is implemented
+
+This feature currently works for the following processors:
+
+* WorldPay
+* Adyen
+* Nuvei
+
+This means that if the request contains a **networkProcessing** object, this data will be passed to the corresponding processor, otherwise it will not.
+
+***
+
+[Authorization, Captures and Reversals](/docs/authorizations-captures)

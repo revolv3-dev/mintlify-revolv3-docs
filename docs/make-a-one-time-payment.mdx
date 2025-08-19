@@ -1,0 +1,84 @@
+---
+title: "Make a One Time Payment V0"
+description: "Make sure you have your Merchant Configured with: Payment Processor configured and an API Key in the header"
+---
+
+**Make 1 API call** Use API: \{\{Api Root}}/api/Invoices/Payment
+
+For the \{\{Api Root}} variable:
+
+**Production:**
+
+```
+https://api.revolv3.com
+```
+
+**Sandbox:**
+
+```
+https://api-sandbox.revolv3.com
+```
+
+This is a POST request with a sample payload below. This call is also in the API docs. Additional calls around payments can also be found in the docs.
+
+<CodeGroup>
+  ```bash bash
+  {
+  	"FirstName": "John",
+  	"LastName": "Smith",
+  	"MerchantCustomerRefId": "",
+  	"EntityUseCode": null,
+  	"PaymentMethod": {
+  		"BillingAddress": {
+                      "AddressLine1": "381 Forest Ave. Suite C",
+                      "City": "Laguna Beach",
+                      "State": "CA",
+                      "PostalCode": "92651",
+                      "Country": "USA"
+                  },
+  		"BillingFirstName": "John",
+  		"BillingLastName": "Smith",
+          "creditCard": {
+              "paymentAccountNumber": "123456789123456",
+              "expirationDate": "0127",
+              "securityCode": "123"
+          }
+  	},
+  	"Invoice": {
+  		"MerchantInvoiceRefId": "",
+  		"EntityUseCode": null,
+  		"InvoiceLineItems": [
+  			{
+  				"InvoiceLineItemId": 0,
+  				"Name": "One Time Charge",
+  				"Description": "Value for 600.00 dollars",
+  				"Value": 600.00,
+  				"ValueType": "Standard",
+  				"TaxCode": null
+  			}
+  		]
+  	}
+  }
+  ```
+</CodeGroup>
+
+The response from this would be
+
+<CodeGroup>
+  ```bash bash
+  {
+      "customerId": 64,
+      "invoiceId": 991,
+      "merchantInvoiceRefId": "",
+      "invoiceStatus": "Paid",
+      "invoiceAttemptStatus": "Success",
+      "message": "Authorised",
+      "subtotal": 600.00,
+      "taxAmount": 0.0,
+      "total": 600.00,
+      "paymentMethodId": 585
+  }
+  ```
+</CodeGroup>
+
+***
