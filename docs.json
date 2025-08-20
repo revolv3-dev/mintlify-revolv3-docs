@@ -12,6 +12,12 @@
   "openapi": "/swagger.json",
   "navigation": {
     "tabs": [
+          {
+      "tab": "API Reference",
+      "pages": [
+        "openapi"
+      ]
+    },
       {
         "tab": "Guides",
         "groups": [
