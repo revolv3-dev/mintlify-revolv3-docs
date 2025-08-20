@@ -3,7 +3,7 @@
     {
 
         "tab": "API Reference",
-		"openapi": "swagger.json"
+		"openapi": "/swagger.json"
     }
   ]
 }
