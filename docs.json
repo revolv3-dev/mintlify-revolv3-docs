@@ -9,7 +9,7 @@
   },
   "favicon": "/e9ea213-favicon.svg",
   "logo": "/images/616dbea-revolv3-logo-white.svg",
-  "openapi": "/swagger.json",
+  "openapi": "swagger.json",
   "navigation": {
     "tabs": [
           {
