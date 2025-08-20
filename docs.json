@@ -7,7 +7,9 @@
     "light": "#0070e0",
     "dark": "#0070e0"
   },
-  "favicon": "\\e9ea213-favicon.svg",
+  "favicon": "/e9ea213-favicon.svg",
+  "logo": "/images/616dbea-revolv3-logo-white.svg",
+  "openapi": "/swagger.json",
   "navigation": {
     "tabs": [
       {
@@ -42,7 +44,7 @@
             ]
           },
           {
-            "group": "PAYMENTS",
+            "group": "Payments",
             "pages": [
               "docs/network-processing-types",
               "docs/dynamic-descriptor-guide",
@@ -51,7 +53,7 @@
             ]
           },
           {
-            "group": "Payment method",
+            "group": "Payment Method",
             "pages": [
               "docs/paymentmethod-guide",
               "docs/billing-address",
@@ -79,17 +81,17 @@
             ]
           },
           {
-            "group": "SUBSCRIPTIONS",
+            "group": "Subscriptions",
             "pages": [
               "docs/create-subscription",
-              "docs/subscription-status-and-recylcing",
+              "docs/subscription-status-and-recycling",
               "docs/canceling-a-subscription",
               "docs/refunds",
               "docs/billing-plans"
             ]
           },
           {
-            "group": "webhooks",
+            "group": "Webhooks",
             "pages": [
               "docs/webhooks",
               "docs/creating-a-webhook",
@@ -97,7 +99,7 @@
             ]
           },
           {
-            "group": "CHECKOUT",
+            "group": "Checkout",
             "pages": [
               "docs/checkout",
               "docs/hosted-page",
@@ -112,7 +114,6 @@
               {
                 "group": "Test Cards for Sandbox",
                 "pages": [
-                  "docs/test-cards-for-sandbox",
                   "docs/test-ach-for-validate-person"
                 ]
               }
@@ -125,7 +126,7 @@
             ]
           },
           {
-            "group": "DEPRECATED PAGES",
+            "group": "Deprecated Pages",
             "pages": [
               "docs/reusing-the-paymentmethodid-for-one-time-payments",
               "docs/authorization-captures-and-reversals",
@@ -134,76 +135,7 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "Revolv3 OpenApi Spec",
-            "pages": [
-              "reference/post_api-account-verification-ach-person",
-              {
-                "group": "AccountVerification",
-                "pages": [
-                  "reference/post_api-account-verification-ach-person"
-                ]
-              },
-              "reference/authentication-1",
-              {
-                "group": "Checkout",
-                "pages": [
-                  "reference/post_api-checkout"
-                ]
-              },
-              {
-                "group": "Customers",
-                "pages": [
-                  "reference/post_api-customers"
-                ]
-              },
-              {
-                "group": "Invoices",
-                "pages": [
-                  "reference/get_api-invoices"
-                ]
-              },
-              "reference/merchantonboardings",
-              {
-                "group": "PaymentMethod",
-                "pages": [
-                  "reference/post_api-paymentmethod"
-                ]
-              },
-              {
-                "group": "Payments",
-                "pages": [
-                  "reference/post_api-payments-sale"
-                ]
-              },
-              {
-                "group": "Subscriptions",
-                "pages": [
-                  "reference/get_api-subscriptions"
-                ]
-              },
-              "reference/authentication-2",
-              {
-                "group": "Authentication",
-                "pages": [
-                  "reference/post_api-authentication-token"
-                ]
-              },
-              {
-                "group": "Merchant Onboarding",
-                "pages": [
-                  "reference/post_api-onboarding-merchant"
-                ]
-              }
-            ]
-          }
-        ]
       }
     ]
-  },
-  "logo": "\\images\\616dbea-revolv3-logo-white.svg"
+  }
 }
