@@ -10,11 +10,7 @@
   "favicon": "/e9ea213-favicon.svg",
   "logo": "/images/616dbea-revolv3-logo-white.svg",
   "navigation": {
-    "tabs": [
-          {
-      "tab": "API Reference",
-      "openapi": "swagger.json"
-    },
+        "tabs": [
       {
         "tab": "Guides",
         "groups": [
@@ -138,7 +134,12 @@
             ]
           }
         ]
-      }
+      },
+  
+          {
+      "tab": "API Reference",
+      "openapi": "swagger.json"
+    }
     ]
   }
 }
