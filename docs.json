@@ -135,7 +135,12 @@
           }
         ]
       },
-  
+      {
+      "tab": "ChangeLog",
+      "pages": [
+        "changelog"
+      ]
+    },
           {
       "tab": "API Reference",
       "openapi": "swagger.json"
