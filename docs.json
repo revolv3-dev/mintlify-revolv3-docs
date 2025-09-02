@@ -12,7 +12,8 @@
  "api": {
    "playground": {
      "display": "none"
-   },
+   }
+ },
   "navigation": {
         "tabs": [
       {
