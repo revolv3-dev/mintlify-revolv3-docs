@@ -8,7 +8,7 @@
     "dark": "#0070e0"
   },
   "favicon": "/e9ea213-favicon.svg",
-  "logo": "/images/616dbea-revolv3-logo-white.svg",
+  "logo": "/images/normallogo.svg",
  "api": {
    "playground": {
      "display": "none"
