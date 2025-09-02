@@ -1,0 +1,98 @@
+---
+title: '1.24.0'
+description: 'Revolv3 Updates.'
+---
+# Core Functionality Updates
+
+<Table align={["left","left"]}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: "left" }}>
+        Changes
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        Trial Marking for Initial Recurring Transactions
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        We’ve added the ability for merchants to mark the **first recurring payment** as a **trial transaction**.
+
+        **Key details**:
+
+        * A new portal setting lets merchants enable trial marking for supported processors.
+
+        * When enabled, the system automatically appends **“Trial”** to the transaction descriptor for the initial recurring payment.
+
+        * Works with both static and dynamic descriptors, while ensuring compliance with processor-specific descriptor length rules.
+
+        * Phase 1: available for **Worldpay** integration.
+
+        This enhancement provides greater flexibility in handling recurring billing scenarios where the initial transaction should be clearly identified as a trial.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+# API Reference Guide Updates
+
+<Table align={["left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Changes
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Processor and MID Information in Payment Responses
+      </td>
+
+      <td>
+        We have enhanced payment API responses to include additional processor-related parameters:
+
+        * **paymentProcessor** – the name of the processor handling the transaction (e.g., WorldPay).
+
+        * **processorMerchantId** – the merchant account ID (MID) assigned by the processor (e.g., 10071676).
+
+        These parameters are now available in responses for the following endpoints:
+
+        * Sale (with/without Payment Method details)
+
+        * Auth (with/without Payment Method details)
+
+        * Capture
+
+        * Create Subscription
+
+        Merchants can now easily identify which processor and merchant processor account were used for each transaction, improving transparency and simplifying reconciliation across multiple processors.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+# Technical Enhancements
+
+| Changes                    | Description                                                                                                                                                                    |
+| :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bug fixes                  | We've resolved several bugs to improve the stability of the product.                                                                                                           |
+| Updated Inactivity Timeout | We have adjusted the portal’s user session timeout for increased security. Now, users will be automatically logged out after 15 minutes of inactivity (previously 60 minutes). |
+
+<br />
+
+
