@@ -8,7 +8,7 @@
     "dark": "#0070e0"
   },
   "favicon": "/e9ea213-favicon.svg",
-  "logo": "/images/normallogo.svg",
+  "logo": "/images/normallogo.png",
  "api": {
    "playground": {
      "display": "none"
