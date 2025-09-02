@@ -9,6 +9,10 @@
   },
   "favicon": "/e9ea213-favicon.svg",
   "logo": "/images/616dbea-revolv3-logo-white.svg",
+ "api": {
+   "playground": {
+     "display": "none"
+   },
   "navigation": {
         "tabs": [
       {
