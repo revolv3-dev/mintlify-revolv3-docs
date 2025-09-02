@@ -6,52 +6,14 @@ description: 'Revolv3 Updates.'
 
 | Changes | Description |
 |:--------|:------------|
-| Trial Marking for Initial Recurring Transactions | We’ve added the ability for merchants to mark the **first recurring payment** as a **trial transaction**.  <br>**Key details**:  <br>* A new portal setting lets merchants enable trial marking for supported processors.  <br>* When enabled, the system automatically appends **“Trial”** to the transaction descriptor for the initial recurring payment.  <br>* Works with both static and dynamic descriptors, while ensuring compliance with processor-specific descriptor length rules.  <br>* Phase 1: available for **Worldpay** integration.  <br>This enhancement provides greater flexibility in handling recurring billing scenarios where the initial transaction should be clearly identified as a trial. |
+| Trial Marking for Initial Recurring Transactions | We’ve added the ability for merchants to mark the **first recurring payment** as a **trial transaction**.  <br/>**Key details**:  <br/>* A new portal setting lets merchants enable trial marking for supported processors.  <br/>* When enabled, the system automatically appends **“Trial”** to the transaction descriptor for the initial recurring payment.  <br/>* Works with both static and dynamic descriptors, while ensuring compliance with processor-specific descriptor length rules.  <br/>* Phase 1: available for **Worldpay** integration.  <br/>This enhancement provides greater flexibility in handling recurring billing scenarios where the initial transaction should be clearly identified as a trial. |
 
 
 # API Reference Guide Updates
 
-<Table align={["left","left"]}>
-  <thead>
-    <tr>
-      <th>
-        Changes
-      </th>
-
-      <th>
-        Description
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>
-        Processor and MID Information in Payment Responses
-      </td>
-
-      <td>
-        We have enhanced payment API responses to include additional processor-related parameters:
-
-        * **paymentProcessor** – the name of the processor handling the transaction (e.g., WorldPay).
-
-        * **processorMerchantId** – the merchant account ID (MID) assigned by the processor (e.g., 10071676).
-
-        These parameters are now available in responses for the following endpoints:
-
-        * Sale (with/without Payment Method details)
-
-        * Auth (with/without Payment Method details)
-
-        * Capture
-
-        * Create Subscription
-
-        Merchants can now easily identify which processor and merchant processor account were used for each transaction, improving transparency and simplifying reconciliation across multiple processors.
-      </td>
-    </tr>
-  </tbody>
-</Table>
+| Changes | Description |
+|:--------|:------------|
+| Processor and MID Information in Payment Responses | We have enhanced payment API responses to include additional processor-related parameters:<br/><br/>* **paymentProcessor** – the name of the processor handling the transaction (e.g., WorldPay).<br/><br/>* **processorMerchantId** – the merchant account ID (MID) assigned by the processor (e.g., 10071676).<br/><br/>These parameters are now available in responses for the following endpoints:<br/><br/>* Sale (with/without Payment Method details)<br/>* Auth (with/without Payment Method details)<br/>* Capture<br/>* Create Subscription<br/><br/>Merchants can now easily identify which processor and merchant processor account were used for each transaction, improving transparency and simplifying reconciliation across multiple processors. |
 
 # Technical Enhancements
 
