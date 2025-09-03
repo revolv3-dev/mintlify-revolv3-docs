@@ -1,9 +1,0 @@
-"navigation": {
-  "tabs": [
-    {
-
-        "tab": "API Reference",
-		"openapi": "swagger.json"
-    }
-  ]
-}

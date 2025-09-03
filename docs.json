@@ -17,6 +17,7 @@
      "display": "none"
    }
  },
+  "changelog": "changelog/changelog",
   "navigation": {
   
         "tabs": [
@@ -150,7 +151,7 @@
     }, 
              {
         "tab": "Changelog",
-        "url": "changelog"
+        "url": "changelog/changelog"
       }
     ]
   }
