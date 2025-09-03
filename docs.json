@@ -151,7 +151,7 @@
     }, 
              {
         "tab": "Changelog",
-        "url": "changelog/changelog"
+        "changelog": "changelog/changelog"
       }
     ]
   }
