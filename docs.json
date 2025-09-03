@@ -17,7 +17,6 @@
      "display": "none"
    }
  },
-  "changelog": "changelog/changelog",
   "navigation": {
   
         "tabs": [
@@ -150,8 +149,8 @@
       "openapi": "swagger.json"
     }, 
              {
-        "tab": "Changelog",
-        "changelog": "changelog/changelog"
+        "tab": "ChangeLog",
+        "pages": ["changelog/changelog"]
       }
     ]
   }
