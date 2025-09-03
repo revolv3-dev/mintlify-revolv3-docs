@@ -18,7 +18,7 @@
    }
  },
   "navigation": {
-    "changelog": "changelog",
+  
         "tabs": [
       {
         "tab": "Guides",
@@ -147,7 +147,11 @@
           {
       "tab": "API Reference",
       "openapi": "swagger.json"
-    }
+    }, 
+             {
+        "tab": "Changelog",
+        "url": "changelog"
+      }
     ]
   }
 }
