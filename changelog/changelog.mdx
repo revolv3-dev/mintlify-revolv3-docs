@@ -4,7 +4,7 @@ description: 'Revolv3 Product Updates'
 rss: true
 ---
 
-<Update label="Aug 29th, 2025" description="v0.0.10">
+<Update label="Aug 29th, 2025" description="v1.24.0">
 # Core Functionality Updates
 
 | Changes | Description |
@@ -245,6 +245,43 @@ rss: true
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
+</Update>
+<Update label="Jul 2nd, 2024" description="v1.12.7">
+# Technical Enhancements
+
+| Changes | Description |
+|:--------|:------------|
+| International payments | The architecture has been prepared to support international payments, ensuring a seamless and reliable transaction experience for global users. |
+| Framework update | The .NET framework has been updated to the newest version. This upgrade brings enhanced performance, improved security, and better support for modern development practices. |
+| Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
+</Update>
+<Update label="Jun 3rd, 2024" description="v1.12.5">
+# Core Functionality Updates
+
+| Changes | Description |
+|:--------|:------------|
+| Checkout feature | The Checkout feature provides the ability to use our page with a form to collect payments. Merchants can embed Checkout directly into their websites or redirect customers to a Revolv3 hosted checkout page. This feature ensures a seamless payment experience by securely handling customer payment information, supporting various payment methods, and complying with PCI DSS standards. |
+
+# Documentation Portal Updates
+
+| Changes | Description |
+|:--------|:------------|
+| The new guide for the checkout are available | To assist merchants with the integration process, we have introduced the Checkout Guide. This comprehensive guide provides step-by-step instructions on how to integrate with either the hosted checkout page or the embedded payment page. It covers all aspects of the integration, from initial setup and configuration to customizing the payment form and handling responses. |
+</Update>
+<Update label="May 13th, 2024" description="v1.12.3">
+# API Reference Guide Updates
+
+| Changes | Description |
+|:--------|:------------|
+| The BIN number is returned in endpoint responses | The information about the credit card BIN number is now returned in the responses of the following endpoints: Invoices and PaymentMethod |
+</Update>
+<Update label="Apr 29th, 2024" description="v1.12.0">
+# API Reference Guide Updates
+
+| Changes | Description |
+|:--------|:------------|
+| Update Payment Method Billing Address endpoint accepts Billing Address object | It is now allowed to Update the billing address associated with an existing payment method by supplying a billing address object. Previously, it was only possible to supply an existing billing address ID. |
+| Create Subscription response enhancements | The following enhancements were made to the Create Subscription endpoint response to provide more information and make the result of the call more transparent: A “message” parameter was introduced to return information about the first payment transaction result. The subscription object will always be returned in the response (previously, it was not returned in the case of the first payment transaction failure). |
 </Update>
 
 
