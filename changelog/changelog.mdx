@@ -1,18 +1,58 @@
 ---
-title: 'ChangeLog'
+title: 'Change Log'
 description: 'Revolv3 Product Updates'
 rss: true
 ---
-import May from './updates/may.jsx';
 
-# Changelog
-## 1.24.0 Updates
-<Update label="March 2026" description="v0.0.10">
-  Added a new Wintergreen flavor. Released a new version of the Spearmint flavor, now with 10% more mint.
-</Update>
-<Update label="February 2026" description="v0.0.09">
-  Released a new version of the Spearmint flavor.
+<Update label="1.24.0">
+# Core Functionality Updates
+
+| Changes | Description |
+|:--------|:------------|
+| Trial Marking for Initial Recurring Transactions | We’ve added the ability for merchants to mark the **first recurring payment** as a **trial transaction**.  <br/>**Key details**:  <br/>* A new portal setting lets merchants enable trial marking for supported processors.  <br/>* When enabled, the system automatically appends **“Trial”** to the transaction descriptor for the initial recurring payment.  <br/>* Works with both static and dynamic descriptors, while ensuring compliance with processor-specific descriptor length rules.  <br/>* Phase 1: available for **Worldpay** integration.  <br/>This enhancement provides greater flexibility in handling recurring billing scenarios where the initial transaction should be clearly identified as a trial. |
+
+
+# API Reference Guide Updates
+
+| Changes | Description |
+|:--------|:------------|
+| Processor and MID Information in Payment Responses | We have enhanced payment API responses to include additional processor-related parameters:<br/><br/>* **paymentProcessor** – the name of the processor handling the transaction (e.g., WorldPay).<br/><br/>* **processorMerchantId** – the merchant account ID (MID) assigned by the processor (e.g., 10071676).<br/><br/>These parameters are now available in responses for the following endpoints:<br/><br/>* Sale (with/without Payment Method details)<br/>* Auth (with/without Payment Method details)<br/>* Capture<br/>* Create Subscription<br/><br/>Merchants can now easily identify which processor and merchant processor account were used for each transaction, improving transparency and simplifying reconciliation across multiple processors. |
+
+# Technical Enhancements
+
+| Changes                    | Description                                                                                                                                                                    |
+| :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bug fixes                  | We've resolved several bugs to improve the stability of the product.                                                                                                           |
+| Updated Inactivity Timeout | We have adjusted the portal’s user session timeout for increased security. Now, users will be automatically logged out after 15 minutes of inactivity (previously 60 minutes). |
+
+<br /></Update>
+<Update label="1.23">
+# Core Functionality Updates
+
+| Changes                              | Description |
+| :----------------------------------- | :---------- |
+| **New Integration: BridgePay Now Available on the Portal** | We are pleased to announce the integration of **BridgePay** into our platform, providing merchants with a robust and versatile payment processing solution.<br>**Key Features:**<br><br>* **Comprehensive Transaction Support:** Process a wide range of transactions, including authorizations, sales, refunds, and more.<br>* **Tokenization Capabilities:** Utilize both one-time and recurring tokenized transactions to enhance security and streamline payment processes.<br>* **Descriptor Flexibility:** Configure either static or dynamic descriptor to ensure clear transaction labeling on customer statements.<br>* **Dynamic Routing Participation:** Leverage BridgePay in dynamic routing setups to optimize approval rates and enhance transaction success. |
+| **Subscription Support for Nuvei**   | We have added support for **recurring and recycling billing** through Nuvei. Merchants can now create and manage subscription-based transactions using Nuvei as their payment processor. |
+
+
+
+# API Reference Guide Updates
+
+| Changes | Description |
+| :------ | :---------- |
+| **New API Endpoint: Configure BridgePay for Merchants** | We have introduced a [new API endpoint](https://docs.revolv3.com/reference/post_api-onboarding-processors-bridgepay) that enables merchants to configure **BridgePay** as a payment processor directly through the API. This addition streamlines the setup process, allowing for efficient integration and management of BridgePay within merchant accounts. |
+| **Currency Support in Subscription Transactions** | We have extended subscription transactions to include a **currency parameter**. The system now:<br><br>* [Sends the specified currency to the processor](https://docs.revolv3.com/reference/post_api-subscriptions) if supported.<br>* Returns a clear error message if the currency is not supported by the configured processor.<br>* Stores the currency in subscription records, invoices, and processor transactions. |
+| **Flexible Billing Frequency for Subscriptions** | We’ve enhanced subscription settings by replacing the fixed `billingFrequencyType` values with a flexible interval-based configuration. Merchants can now [define billing cycles](https://docs.revolv3.com/reference/post_api-subscriptions) using a combination of:<br><br>* **intervalCount** (numeric value)<br>* **intervalType** (days, weeks, months, or years)<br><br>This allows for fully customizable recurring billing schedules — for example, every 28 days — and updates both the trial duration options and recurring logic accordingly. Existing subscriptions have been migrated to support the new format. |
+| **Enhanced Bulk Invoice Retrieval** | We have introduced an improved **[Get Invoices](https://docs.revolv3.com/reference/get_api-invoices)** endpoint that allows merchants to retrieve multiple invoices in a single request (up to 100), with expanded filtering, sorting, and data details.<br>**Key enhancements include:**<br><br>* Support for bulk invoice retrieval with advanced filters (by billing date, last update date, etc.)<br>* Additional sorting options and improved parameter handling<br>* Detailed payment information in the response, including payment type, token details, descriptor, and currency<br>* Ability to request raw processor response data for deeper insights<br><br>The existing **[Get Invoices](https://docs.revolv3.com/reference/get_api-invoices)** endpoint remains available, but the new version offers significantly more flexibility and richer data. |
+
+
+# Technical Enhancements
+
+| Changes                    | Description                                                                                                                                                                    |
+| :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bug fixes                  | We've resolved several bugs to improve the stability of the product.                                                                                                           |
+| Updated Inactivity Timeout | We have adjusted the portal’s user session timeout for increased security. Now, users will be automatically logged out after 15 minutes of inactivity (previously 60 minutes). |
+
 </Update>
 
-<May />
   
