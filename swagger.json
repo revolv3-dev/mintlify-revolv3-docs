@@ -136,6 +136,7 @@
             }
           }
         }
+      }
     },
     "/api/account-verification/ach/corporate": {
       "post": {
@@ -262,6 +263,7 @@
             }
           }
         }
+      }
     },
     "/api/Authentication/token": {
       "post": {
@@ -475,6 +477,7 @@
             }
           }
         }
+      }
     },
     "/api/Checkout/{checkoutUid}": {
       "get": {
@@ -587,6 +590,7 @@
             }
           }
         }
+      }
     },
     "/api/Customers": {
       "post": {
@@ -747,7 +751,8 @@
               }
             }
           }
-        },
+        }
+      },
       "get": {
         "tags": [
           "Customers"
@@ -856,6 +861,7 @@
             }
           }
         }
+      }
     },
     "/api/Customers/{customerId}": {
       "get": {
@@ -944,7 +950,8 @@
               }
             }
           }
-        },
+        }
+      },
       "delete": {
         "tags": [
           "Customers"
@@ -1011,7 +1018,8 @@
               }
             }
           }
-        },
+        }
+      },
       "patch": {
         "tags": [
           "Customers"
@@ -1150,6 +1158,7 @@
             }
           }
         }
+      }
     },
     "/api/Customers/{customerId}/subscriptions": {
       "get": {
@@ -1251,6 +1260,7 @@
             }
           }
         }
+      }
     },
     "/api/Customers/{customerId}/address/{addressId}": {
       "delete": {
@@ -1357,7 +1367,8 @@
               }
             }
           }
-        },
+        }
+      },
       "patch": {
         "tags": [
           "Customers"
@@ -1505,6 +1516,7 @@
             }
           }
         }
+      }
     },
     "/api/Customers/{customerId}/address": {
       "post": {
@@ -1645,6 +1657,7 @@
             }
           }
         }
+      }
     },
     "/api/Customers/{customerId}/invoices": {
       "get": {
@@ -1813,6 +1826,7 @@
             }
           }
         }
+      }
     },
     "/api/Customers/{customerId}/installments": {
       "post": {
@@ -1976,6 +1990,7 @@
             }
           }
         }
+      }
     },
     "/api/Invoices": {
       "get": {
@@ -2109,6 +2124,7 @@
             }
           }
         }
+      }
     },
     "/api/Invoices/v{version}": {
       "get": {
@@ -2278,6 +2294,7 @@
             }
           }
         }
+      }
     },
     "/api/Invoices/{invoiceId}": {
       "get": {
@@ -2374,7 +2391,8 @@
               }
             }
           }
-        },
+        }
+      },
       "patch": {
         "tags": [
           "Invoices"
@@ -2512,7 +2530,8 @@
               }
             }
           }
-        },
+        }
+      },
       "delete": {
         "tags": [
           "Invoices"
@@ -2580,6 +2599,7 @@
             }
           }
         }
+      }
     },
     "/api/Invoices/{invoiceId}/refund": {
       "post": {
@@ -2743,6 +2763,7 @@
             }
           }
         }
+      }
     },
     "/api/Invoices/payment": {
       "post": {
@@ -2895,6 +2916,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/merchant": {
       "post": {
@@ -3024,6 +3046,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/adyen": {
       "post": {
@@ -3173,6 +3196,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/worldpay": {
       "post": {
@@ -3322,6 +3346,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/epx": {
       "post": {
@@ -3471,6 +3496,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/tsys": {
       "post": {
@@ -3620,6 +3646,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/nuvei": {
       "post": {
@@ -3769,6 +3796,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/paymentlync": {
       "post": {
@@ -3918,6 +3946,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/paymentech": {
       "post": {
@@ -4067,6 +4096,7 @@
             }
           }
         }
+      }
     },
     "/api/onboarding/processors/bridgepay": {
       "post": {
@@ -4216,6 +4246,7 @@
             }
           }
         }
+      }
     },
     "/api/PaymentMethod": {
       "post": {
@@ -4322,6 +4353,7 @@
             }
           }
         }
+      }
     },
     "/api/PaymentMethod/{paymentMethodId}": {
       "get": {
@@ -4410,7 +4442,8 @@
               }
             }
           }
-        },
+        }
+      },
       "patch": {
         "tags": [
           "PaymentMethod"
@@ -4548,7 +4581,8 @@
               }
             }
           }
-        },
+        }
+      },
       "delete": {
         "tags": [
           "PaymentMethod"
@@ -4639,6 +4673,7 @@
             }
           }
         }
+      }
     },
     "/api/PaymentMethod/authorize": {
       "post": {
@@ -4745,6 +4780,7 @@
             }
           }
         }
+      }
     },
     "/api/PaymentMethod/reverse-auth": {
       "post": {
@@ -4851,6 +4887,7 @@
             }
           }
         }
+      }
     },
     "/api/Payments/sale": {
       "post": {
@@ -4980,6 +5017,7 @@
             }
           }
         }
+      }
     },
     "/api/Payments/sale/{paymentMethodId}": {
       "post": {
@@ -5120,6 +5158,7 @@
             }
           }
         }
+      }
     },
     "/api/Payments/capture/{paymentMethodAuthorizationId}": {
       "post": {
@@ -5260,6 +5299,7 @@
             }
           }
         }
+      }
     },
     "/api/Payments/authorization": {
       "post": {
@@ -5389,6 +5429,7 @@
             }
           }
         }
+      }
     },
     "/api/Payments/authorization/{paymentMethodId}": {
       "post": {
@@ -5529,6 +5570,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions": {
       "get": {
@@ -5624,7 +5666,8 @@
               }
             }
           }
-        },
+        }
+      },
       "post": {
         "tags": [
           "Subscriptions"
@@ -5775,6 +5818,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/{subscriptionId}": {
       "get": {
@@ -5863,7 +5907,8 @@
               }
             }
           }
-        },
+        }
+      },
       "delete": {
         "tags": [
           "Subscriptions"
@@ -5930,7 +5975,8 @@
               }
             }
           }
-        },
+        }
+      },
       "patch": {
         "tags": [
           "Subscriptions"
@@ -6069,6 +6115,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/pan-lookup": {
       "post": {
@@ -6207,6 +6254,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/{subscriptionId}/payment-method": {
       "put": {
@@ -6347,6 +6395,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/{subscriptionId}/address": {
       "put": {
@@ -6487,6 +6536,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/{subscriptionId}/billing-plans": {
       "post": {
@@ -6627,6 +6677,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/{subscriptionId}/billing-plans/{subscriptionBillingPlanId}": {
       "delete": {
@@ -6725,6 +6776,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/{subscriptionId}/payment": {
       "post": {
@@ -6865,6 +6917,7 @@
             }
           }
         }
+      }
     },
     "/api/Subscriptions/{subscriptionId}/cancel": {
       "post": {
@@ -6977,6 +7030,7 @@
             }
           }
         }
+      }
     }
   },
   "components": {
