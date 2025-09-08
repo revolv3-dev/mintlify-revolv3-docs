@@ -135,13 +135,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/account-verification/ach/corporate": {
       "post": {
@@ -267,13 +261,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Authentication/token": {
       "post": {
@@ -486,13 +474,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Checkout/{checkoutUid}": {
       "get": {
@@ -604,13 +586,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Customers": {
       "post": {
@@ -772,12 +748,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "get": {
         "tags": [
           "Customers"
@@ -885,13 +855,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Customers/{customerId}": {
       "get": {
@@ -981,12 +945,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "delete": {
         "tags": [
           "Customers"
@@ -1054,12 +1012,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "patch": {
         "tags": [
           "Customers"
@@ -1197,13 +1149,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Customers/{customerId}/subscriptions": {
       "get": {
@@ -1304,13 +1250,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Customers/{customerId}/address/{addressId}": {
       "delete": {
@@ -1418,12 +1358,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "patch": {
         "tags": [
           "Customers"
@@ -1570,13 +1504,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Customers/{customerId}/address": {
       "post": {
@@ -1716,13 +1644,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Customers/{customerId}/invoices": {
       "get": {
@@ -1890,13 +1812,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Customers/{customerId}/installments": {
       "post": {
@@ -2059,13 +1975,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Invoices": {
       "get": {
@@ -2198,13 +2108,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Invoices/v{version}": {
       "get": {
@@ -2373,13 +2277,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Invoices/{invoiceId}": {
       "get": {
@@ -2477,12 +2375,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "patch": {
         "tags": [
           "Invoices"
@@ -2621,12 +2513,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "delete": {
         "tags": [
           "Invoices"
@@ -2693,13 +2579,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Invoices/{invoiceId}/refund": {
       "post": {
@@ -2862,13 +2742,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Invoices/payment": {
       "post": {
@@ -3020,13 +2894,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/merchant": {
       "post": {
@@ -3155,13 +3023,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/adyen": {
       "post": {
@@ -3310,13 +3172,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/worldpay": {
       "post": {
@@ -3465,13 +3321,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/epx": {
       "post": {
@@ -3620,13 +3470,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/tsys": {
       "post": {
@@ -3775,13 +3619,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/nuvei": {
       "post": {
@@ -3930,13 +3768,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/paymentlync": {
       "post": {
@@ -4085,13 +3917,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/paymentech": {
       "post": {
@@ -4240,13 +4066,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/onboarding/processors/bridgepay": {
       "post": {
@@ -4395,13 +4215,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/PaymentMethod": {
       "post": {
@@ -4507,13 +4321,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/PaymentMethod/{paymentMethodId}": {
       "get": {
@@ -4603,12 +4411,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "patch": {
         "tags": [
           "PaymentMethod"
@@ -4747,12 +4549,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "delete": {
         "tags": [
           "PaymentMethod"
@@ -4842,13 +4638,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/PaymentMethod/authorize": {
       "post": {
@@ -4954,13 +4744,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/PaymentMethod/reverse-auth": {
       "post": {
@@ -5066,13 +4850,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Payments/sale": {
       "post": {
@@ -5201,13 +4979,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Payments/sale/{paymentMethodId}": {
       "post": {
@@ -5347,13 +5119,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Payments/capture/{paymentMethodAuthorizationId}": {
       "post": {
@@ -5493,13 +5259,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Payments/authorization": {
       "post": {
@@ -5628,13 +5388,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Payments/authorization/{paymentMethodId}": {
       "post": {
@@ -5774,13 +5528,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions": {
       "get": {
@@ -5877,12 +5625,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "post": {
         "tags": [
           "Subscriptions"
@@ -6032,13 +5774,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/{subscriptionId}": {
       "get": {
@@ -6128,12 +5864,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "delete": {
         "tags": [
           "Subscriptions"
@@ -6201,12 +5931,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      },
       "patch": {
         "tags": [
           "Subscriptions"
@@ -6344,13 +6068,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/pan-lookup": {
       "post": {
@@ -6488,13 +6206,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/{subscriptionId}/payment-method": {
       "put": {
@@ -6634,13 +6346,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/{subscriptionId}/address": {
       "put": {
@@ -6780,13 +6486,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/{subscriptionId}/billing-plans": {
       "post": {
@@ -6926,13 +6626,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/{subscriptionId}/billing-plans/{subscriptionBillingPlanId}": {
       "delete": {
@@ -7030,13 +6724,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/{subscriptionId}/payment": {
       "post": {
@@ -7176,13 +6864,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     },
     "/api/Subscriptions/{subscriptionId}/cancel": {
       "post": {
@@ -7294,13 +6976,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": [ ]
-          }
-        ]
-      }
+        }
     }
   },
   "components": {

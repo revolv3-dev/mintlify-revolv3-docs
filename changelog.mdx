@@ -30,7 +30,7 @@ rss: true
 
 <br /></Update>
 <Update label="Aug 13th, 2025" description="v1.23.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes                              | Description |
 | :----------------------------------- | :---------- |
@@ -39,7 +39,7 @@ rss: true
 
 
 
-# API Reference Guide Updates
+**API Reference Guide Updates**
 
 | Changes | Description |
 | :------ | :---------- |
@@ -49,7 +49,7 @@ rss: true
 | **Enhanced Bulk Invoice Retrieval** | We have introduced an improved **[Get Invoices](https://docs.revolv3.com/reference/get_api-invoices)** endpoint that allows merchants to retrieve multiple invoices in a single request (up to 100), with expanded filtering, sorting, and data details.<br/>**Key enhancements include:**<br/><br/>* Support for bulk invoice retrieval with advanced filters (by billing date, last update date, etc.)<br/>* Additional sorting options and improved parameter handling<br/>* Detailed payment information in the response, including payment type, token details, descriptor, and currency<br/>* Ability to request raw processor response data for deeper insights<br/><br/>The existing **[Get Invoices](https://docs.revolv3.com/reference/get_api-invoices)** endpoint remains available, but the new version offers significantly more flexibility and richer data. |
 
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes                    | Description                                                                                                                                                                    |
 | :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -65,41 +65,44 @@ rss: true
 |:--------|:------------|
 | New Documentation Added: ACH Direct Debit | A new article on ACH Direct Debit is now available in the Guides section. Merchants can explore how to use this payment method, transaction flow, and best practices. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Jul 3rd, 2025" description="v1.22.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Merchant-Specific BIN Blocking Rules | Merchants can now configure BIN-based block rules tailored to each account. If a transaction includes a blocked BIN, our system returns a clear, branded decline response indicating it was blocked due to BIN rules. This enhances control and security for merchants. |
 | Manage Email Notification Preferences | We’ve added a new “Notification Settings” section to the Portal, now available under the Settings menu. This feature gives users greater control over the types of email notifications they receive. <br/>**Key Capabilities:**<br/>* Subscribe or unsubscribe from specific notification topics.<br/>* Choose which team members should receive each type of notification.<br/>* Toggle individual topics on or off based on your preferences.<br/>Changes made in the Portal take effect immediately, ensuring your communication preferences are always up to date. |
 
-# API Reference Guide Updates
+**API Reference Guide Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | New API Endpoint: Configure JPMorgan (Paymentech) for Merchants | We have introduced a new API endpoint that enables merchants to configure JPMorgan (Paymentech) as a payment processor directly through the API. This addition streamlines the setup process, allowing for efficient integration and management of JPMorgan (Paymentech) within merchant accounts. |
 | Combined Cardholder Name Field | To improve developer experience, our API now supports a combined `billingFullName` field alongside the existing `billingFirstName` and `billingLastName` parameters. Merchants can now choose one of two mutually exclusive formats:<br/>* First/Last Name – using `billingFirstName` + `billingLastName` (existing method)<br/>* Full Name – using `billingFullName` (new alternative)<br/>Exactly one naming format must be provided per request. This update simplifies integration for merchants who collect name data as a single string. |
 
-# Technical Enhancements
+
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="May 19th, 2025" description="v1.21.0">
-# Core Functionality Updates
+
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | New Integration: PaymentLync Now Available on the Portal | We are pleased to announce the integration of PaymentLync into our platform, providing merchants with a robust and versatile payment processing solution. <br/>**Key Features:**<br/>* Comprehensive Transaction Support: Process a wide range of transactions, including authorizations, sales, refunds, and more.<br/>* Tokenization Capabilities: Utilize both one-time and recurring tokenized transactions to enhance security and streamline payment processes.<br/>* Descriptor Flexibility: Configure either static or dynamic descriptor to ensure clear transaction labeling on customer statements.<br/>* Dynamic Routing Participation: Leverage PaymentLync in dynamic routing setups to optimize approval rates and enhance transaction success. |
 
-# API Reference Guide Updates
+
+**API Reference Guide Updates**
 
 | Changes | Description |
 |:--------|:------------|
@@ -112,7 +115,7 @@ rss: true
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="May 7th, 2025" description="v1.20.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
@@ -120,34 +123,34 @@ rss: true
 | Support for Network Token Transactions with TSYS and Nuvei | We have expanded our payment processing capabilities to support transactions using network tokens with both TSYS and Nuvei. This enhancement enables merchants to process payments using tokens issued by card networks, offering increased security and potentially higher approval rates. |
 | IP Whitelisting for Enhanced Security | Merchants now have the option to enhance their account security by whitelisting specific IP addresses. This feature allows merchants to restrict access to their accounts, ensuring that only requests originating from approved IP addresses are permitted. To set up IP whitelisting, merchants should contact our support team with the IP addresses they wish to authorize. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Mar 5th, 2025" description="v1.18.1">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | New Option to Request Personal Data Clearing | We have introduced a new feature on the portal that allows merchants to initiate requests for clearing personal data. A dedicated "Clear Personal Data" page is now available (Operations). Users can now navigate to the form via a dedicated link on the portal to specify the details of the data they wish to delete. Once submitted, these requests will be processed accordingly. |
 | Access to Customer Support Hub | We have introduced a new feature on our portal—a dedicated icon that provides merchants with direct access to the Customer Support Hub. Through this hub, users can submit various requests, provide feedback, and access additional support resources. |
 
-# Documentation Portal Updates
+**Documentation Portal Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | API Versioning Policy | We have introduced a API Versioning Policy to ensure a seamless experience for developers integrating with our API. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Feb 25th, 2025" description="v1.18.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
@@ -155,103 +158,103 @@ rss: true
 | Enhanced Routing Rules for Recurring Transactions | We have expanded our transaction routing capabilities, allowing more flexibility in processing recurring payments. Now, the initial recurring transaction can be routed to one processor, while subsequent transactions can be directed to another, based on configurable routing rules. |
 | Updated Integration with TSYS | We have refined our integration with TSYS to align with their latest recommendations and best practices. These improvements enhance stability, compatibility, and overall processing efficiency. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Feb 4th, 2025" description="v1.17.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Default Order Processing Channel Selection for Merchants | Merchants can now select an Order Processing Channel when creating or editing their profiles. This channel represents the sales channel through which the shopper provides their card details and will be used as the default value sent to the processor unless explicitly specified in the payment request. <br/>Available options: E-Commerce, MOTO (Mail Order / Telephone Order).<br/>Currently, this feature is supported only for Worldpay, while for other processors, the E-Commerce value will always be used. For all merchants created before this release, the default value has been set to E-Commerce. |
 
-# API Reference Guide Updates
+**API Reference Guide Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Order Processing Channel | The `OrderProcessingChannel` parameter has been added to the structure of Authorization and Sale requests (Authorization and Capture in a single request). This parameter defines the sales channel through which the shopper provides their card details and allows merchants to specify it when initiating a transaction. <br/>Available options: ecommerce, moto.<br/>If not explicitly provided in the request, the default value set at the merchant level on the Revolv3 Portal will be used. Currently, this parameter is sent only to Worldpay, while for other processors, the default value remains E-Commerce. <br/>Updated end points: Authorize With Payment Method Details, Authorize With Payment Method Id, Sale With Payment Method Details, Sale With Payment Method Id. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Jan 27th, 2025" description="v1.16.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Direct PAN Usage for Initial Transactions with Worldpay | Previously, during payment processing via Worldpay, we first requested a token and then executed the payment using the token. With this update, the Primary Account Number (PAN) is now directly utilized for the first transaction, streamlining the process and reducing latency for initial payments. |
 | Configurable Retry Timing for Backup Processor Payments | We have introduced a feature that allows configuring the delay before the system retries a payment with the backup processor if the initial attempt with the primary processor fails. By default, the retry is immediate (0 minutes), but you can now set a delay of up to 60 minutes. This provides greater flexibility in managing transaction retries and optimizing payment workflows. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Nov 19th, 2024" description="v1.15.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Introduction of Stateful Webhooks with Enhanced Features | We have transitioned from a stateless to a stateful webhook mechanism to align with industry best practices. This new implementation improves reliability, transparency, and efficiency when notifying external systems about events. <br/>**Key Features:**<br/>* Stateful Webhooks: Each webhook now includes the state of the entity at the moment of generation, ensuring accurate context for external systems.<br/>* Retry Mechanism: Supports progressive retries in case of transient failures, enhancing delivery reliability.<br/>* Preserved Order: Webhooks are processed sequentially for each merchant, preventing disorder and ensuring consistent event streams. Processing halts and resumes as issues are resolved.<br/>* Custom Configuration: Merchants can now define specific webhook types they wish to receive, reducing system load and unnecessary notifications.<br/>This update ensures a robust, scalable, and configurable webhook experience for merchants and their integrated systems. |
 | Optimized EPX Transaction Processing | Transactions with EPX now process faster by using the PAN for the first payment when no token is available. Token retrieval happens in parallel, ensuring seamless processing for subsequent transactions. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Oct 7th, 2024" description="v1.14.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Raw Processor Response | Optional parameter to return the raw processor response on a transaction - useful to find processor error codes. Data is stored after Nov 18th, 2024 |
 | WorldPay Dynamic Descriptor | Allow the use of Dynamic Descriptor for WorldPay |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Aug 28th, 2024" description="v1.13.1">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Invoice Export | A new UI feature that will export Invoices to a .csv file up to 15Mb in size based on dates |
 | InvoiceId Lookup | A Invoice ID input box is added to the UI on the Invoices page to look up specific invoices |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Aug 12th, 2024" description="v1.13.0">
-# Core Functionality Updates
+**Core Functionality Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | Secure Data Transfer for Payment Service Migration | A new mechanism has been implemented to allow merchants to securely retrieve data from our system. This secure data transfer is particularly beneficial when merchants transition to a different payment service or processor, ensuring that sensitive information is protected throughout the process. |
 | Tokenization Retry | This feature introduces the ability to enable tokenization retry for merchants. Tokenization retry can be configured to automatically attempt tokenization again after a failure, ensuring higher success rates in capturing payment methods. Additionally, tokenization retry is designed to work seamlessly with multiple payment methods, which were introduced in the 1.13.0 release. |
 
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
 | Bug fixes | We've resolved several bugs to improve the stability and performance of the product. |
 </Update>
 <Update label="Jul 2nd, 2024" description="v1.12.7">
-# Technical Enhancements
+**Technical Enhancements**
 
 | Changes | Description |
 |:--------|:------------|
@@ -266,21 +269,22 @@ rss: true
 |:--------|:------------|
 | Checkout feature | The Checkout feature provides the ability to use our page with a form to collect payments. Merchants can embed Checkout directly into their websites or redirect customers to a Revolv3 hosted checkout page. This feature ensures a seamless payment experience by securely handling customer payment information, supporting various payment methods, and complying with PCI DSS standards. |
 
-# Documentation Portal Updates
+
+**Documentation Portal Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | The new guide for the checkout are available | To assist merchants with the integration process, we have introduced the Checkout Guide. This comprehensive guide provides step-by-step instructions on how to integrate with either the hosted checkout page or the embedded payment page. It covers all aspects of the integration, from initial setup and configuration to customizing the payment form and handling responses. |
 </Update>
 <Update label="May 13th, 2024" description="v1.12.3">
-# API Reference Guide Updates
+**API Reference Guide Updates**
 
 | Changes | Description |
 |:--------|:------------|
 | The BIN number is returned in endpoint responses | The information about the credit card BIN number is now returned in the responses of the following endpoints: Invoices and PaymentMethod |
 </Update>
 <Update label="Apr 29th, 2024" description="v1.12.0">
-# API Reference Guide Updates
+**API Reference Guide Updates**
 
 | Changes | Description |
 |:--------|:------------|
