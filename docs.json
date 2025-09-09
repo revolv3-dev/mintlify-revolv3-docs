@@ -10,7 +10,7 @@
   "favicon": "/e9ea213-favicon.svg",
   "logo": {
     "light": "/logo/normallogo.png",
-    "dark": "/logo/darklogo.svg"
+    "dark": "/logo/darklogo.png"
   },
  "api": {
    "playground": {
