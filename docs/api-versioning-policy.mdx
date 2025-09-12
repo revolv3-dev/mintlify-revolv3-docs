@@ -3,34 +3,22 @@ title: "API Versioning Policy"
 description: "Understand the Revolv3 API versioning policy, including how we handle updates, deprecations, and breaking changes to ensure integration stability."
 ---
 
-Our API follows a versioning strategy designed to ensure backward compatibility for standard releases while providing clear version updates for breaking changes. This approach minimizes disruptions for developers integrating with our API and ensures a smooth experience when new features or improvements are introduced.
-
-**Backward Compatibility**
-
+Our API follows a versioning strategy designed to ensure backward compatibility for standard releases while providing clear version updates for breaking changes. This approach minimizes disruptions for developers integrating with our API and ensures a smooth experience when new features or improvements are introduced.## Backward Compatibility
 For most updates, API endpoints will remain backward compatible. This means that:
 
 * Existing endpoints will continue to function without requiring changes in client implementations.
 * Additions such as new optional parameters or response fields will not impact current integrations.
-* Deprecations, if necessary, will be communicated well in advance, but existing functionality will not be removed abruptly.
-
-**Breaking Changes & Version Updates**
-
+* Deprecations, if necessary, will be communicated well in advance, but existing functionality will not be removed abruptly.## Breaking Changes & Version Updates
 In cases where changes might break existing integrations, we will introduce a new API version. Breaking changes include:
 
 * Modifications to request or response structures that require client-side adjustments.
 * Removal of existing parameters or endpoints.
 * Significant changes in authentication or authorization mechanisms.
 
-When a breaking change is required, the new version will be introduced under a distinct version identifier (e.g., `/v1`, `/v2`). Previous versions will remain available for a period of time to allow for migration.
-
-**Version Deprecation Policy**
-
+When a breaking change is required, the new version will be introduced under a distinct version identifier (e.g., `/v1`, `/v2`). Previous versions will remain available for a period of time to allow for migration.## Version Deprecation Policy
 * Older API versions will remain operational for a defined period before deprecation.
 * Deprecation schedules will be announced in advance to provide ample time for migration.
-* Critical bug fixes may still be applied to older versions during the transition period.
-
-**Recommendations for API Consumers**
-
+* Critical bug fixes may still be applied to older versions during the transition period.## Recommendations for API Consumers
 To ensure seamless integration and future-proofing:
 
 * Always handle additional or unknown fields in API responses gracefully.

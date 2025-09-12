@@ -3,10 +3,7 @@ title: "Canceling a Subscription"
 description: "Learn how to cancel a customer subscription using the Revolv3 API, including options for immediate and end-of-cycle cancellations."
 ---
 
-# Canceling a subscription
-
-**Canceling a Subscription in Revolv3 API**
-
+# Canceling a subscription## Canceling a Subscription in Revolv3 API
 Merchants can **cancel active subscriptions** in Revolv3 using a simple API request. This stops further billing cycles, but it does **not automatically process refunds**—a separate request is required for refunds.
 
 1. **API Endpoint for Subscription Cancellation**
@@ -25,10 +22,7 @@ POST {{Api Root}}/api/Subscriptions/{{Active Subscription Id}}/cancel
 
 1. **Response When Cancelling a Subscription**
 
-Upon successful cancellation, the API returns a confirmation response, including the **subscription ID, customer ID, and cancellation timestamp**.
-
-**Sample API Response**
-
+Upon successful cancellation, the API returns a confirmation response, including the **subscription ID, customer ID, and cancellation timestamp**.## Sample API Response
 ```
 {
   "subscriptionId": 2232,

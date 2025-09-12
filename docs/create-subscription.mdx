@@ -11,20 +11,14 @@ description: "Revolv3 enables merchants to create  for recurring billing, allowi
 
 4. **Optionally create a customerId** before initiating a subscription.
 
-5. **Creating a Subscription**
-
-**API Endpoint for Subscription Creation**
-
+5. **Creating a Subscription**## API Endpoint for Subscription Creation
 ```
 POST {{Api Root}}/api/Subscriptions
 ```
 
 * **Production Environment**: [https://api.revolv3.com](https://api.revolv3.com)
 
-* **Sandbox Environment**: [https://api-sandbox.revolv3.com](https://api-sandbox.revolv3.com)
-
-**Sample API Request**
-
+* **Sandbox Environment**: [https://api-sandbox.revolv3.com](https://api-sandbox.revolv3.com)## Sample API Request
 ```
 {
   "PaymentMethods": [
@@ -99,10 +93,7 @@ POST {{Api Root}}/api/Subscriptions
 
 1. **Subscription Creation Response**
 
-Upon successfully creating a subscription, Revolv3 returns a **subscription ID** and associated customer details.
-
-**Sample API Response**
-
+Upon successfully creating a subscription, Revolv3 returns a **subscription ID** and associated customer details.## Sample API Response
 ```
 {
   "subscriptionId": 1899,
@@ -130,10 +121,7 @@ Upon successfully creating a subscription, Revolv3 returns a **subscription ID**
     }
   ]
 }
-```
-
-**Explanation of API Response Fields**
-
+```## Explanation of API Response Fields
 | **Field**                 | **Description**                                                 |
 | ------------------------- | --------------------------------------------------------------- |
 | subscriptionId            | The unique identifier for the created subscription.             |
@@ -151,26 +139,17 @@ Upon successfully creating a subscription, Revolv3 returns a **subscription ID**
 
 1. **Creating a Customer ID (Optional)**
 
-A customerId can be created separately before initiating a subscription. This step is optional but allows merchants to manage customers independently of subscriptions.
-
-**API Endpoint for Creating a Customer**
-
+A customerId can be created separately before initiating a subscription. This step is optional but allows merchants to manage customers independently of subscriptions.## API Endpoint for Creating a Customer
 ```
 POST {{Api Root}}/api/Customers
-```
-
-**Sample API Request**
-
+```## Sample API Request
 ```
 {
   "FirstName": "John",
   "LastName": "White",
   "MerchantCustomerRefId": "YourCustomerID-123"
 }
-```
-
-**Sample API Response**
-
+```## Sample API Response
 ```
 {
   "customerId": 5405,
@@ -184,10 +163,7 @@ POST {{Api Root}}/api/Customers
 }
 ```
 
-Once the **customerId** is created, use it in the **subscription request** instead of providing FirstName and LastName.
-
-**Using customerId in Subscription Requests**
-
+Once the **customerId** is created, use it in the **subscription request** instead of providing FirstName and LastName.## Using customerId in Subscription Requests
 ```
 "Customer": {
   "Id": 5405

@@ -11,10 +11,7 @@ The url for us to deliver to. Webhook Type will always be Object as Event is dep
 
 You have to copy your Webhook Key and prepare your backend to receive the webhooks.
 
-If your app is ready to receive webhooks, click on the Test Connection button. In case we receive a response with code 200 the Save button will be enabled. After you save the configuration everything is ready to receive information
-
-**The x-revolv3-signature header**
-
+If your app is ready to receive webhooks, click on the Test Connection button. In case we receive a response with code 200 the Save button will be enabled. After you save the configuration everything is ready to receive information## The x-revolv3-signature header
 A hashed signature of the payload is passed along in the headers of each request as x-revolv3-signature. This signature is used to be sure all requests are sent from revolv3 application.
 
 We are using HMACSHA256 algorithm to generate the signature key.

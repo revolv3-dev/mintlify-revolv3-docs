@@ -4,10 +4,7 @@ description: "Before initiating a payment request, ensure your  is properly conf
 ---
 
 * A **supported payment processor**.
-* A valid **API key** included in the request header for authentication.
-
-**API Endpoint**
-
+* A valid **API key** included in the request header for authentication.## API Endpoint
 Use the following endpoint to process a payment:
 
 ```
@@ -54,10 +51,7 @@ Sample Request Payload
       }
   }
   ```
-</CodeGroup>
-
-**Key Fields Explained**
-
+</CodeGroup>## Key Fields Explained
 * NetworkProcessing
 
   * processingType: Determines whether this payment is an initialInstallment, initialRecurring, installment, or recurringtransaction.
@@ -73,10 +67,7 @@ Sample Request Payload
 * Invoice:
 
   * MerchantInvoiceRefId: A unique reference for your invoice, useful for tracking and reconciliation.
-  * Amount: The charge in USD.
-
-**Sample Response**
-
+  * Amount: The charge in USD.## Sample Response
 <CodeGroup>
   ```bash bash
   {
@@ -98,10 +89,7 @@ Sample Request Payload
       "processorMerchantId": "10011222"
   }
   ```
-</CodeGroup>
-
-**Response Fields**
-
+</CodeGroup>## Response Fields
 * **customerId**: Identifies the customer profile associated with the transaction (if applicable).
 
 * **invoiceId**: Unique identifier for the created invoice in Revolv3’s system.
