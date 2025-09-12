@@ -119,12 +119,7 @@
             "group": "Testing & Sandbox Tools",
             "pages": [
               "docs/test-cards-for-sandbox",
-              {
-                "group": "Test Cards for Sandbox",
-                "pages": [
-                  "docs/test-ach-for-validate-person"
-                ]
-              }
+              "docs/test-ach-for-validate-person"
             ]
           },
           {
