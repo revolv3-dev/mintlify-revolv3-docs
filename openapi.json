@@ -1,0 +1,2441 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Revolv3 OpenApi Spec",
+    "description": "API specification for Revolv3 payment processing and account verification services.",
+    "version": "1.25.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.revolv3.com",
+      "description": "Production server for Revolv3 API."
+    }
+  ],
+  "paths": {
+    "/api/account-verification/ach/person": {
+      "post": {
+        "tags": [
+          "AccountVerification"
+        ],
+        "summary": "Validate ACH person account",
+        "description": "Verifies an individual's ACH (Automated Clearing House) account for secure payment processing. Returns 200 (OK) on success, 400 (Bad Request) for invalid fields or unapproved accounts, 401 (Unauthorized) for authentication issues, or 404 (Not Found) if the resource is unavailable.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": "Joe",
+                "lastName": "Doe",
+                "companyName": null,
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": "Joe",
+                "lastName": "Doe",
+                "companyName": null,
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": "Joe",
+                "lastName": "Doe",
+                "companyName": null,
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": "Joe",
+                "lastName": "Doe",
+                "companyName": null,
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The ACH account was successfully verified.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyAchAccountResponse"
+                },
+                "example": {
+                  "isVerified": true,
+                  "message": "Approved",
+                  "responseCode": "000"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyAchAccountResponse"
+                },
+                "example": {
+                  "isVerified": true,
+                  "message": "Approved",
+                  "responseCode": "000"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyAchAccountResponse"
+                },
+                "example": {
+                  "isVerified": true,
+                  "message": "Approved",
+                  "responseCode": "000"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid field or value submitted, or the account number is not approved.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access attempt.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/account-verification/ach/corporate": {
+      "post": {
+        "tags": [
+          "AccountVerification"
+        ],
+        "summary": "Validate ACH corporate account",
+        "description": "Verifies a corporate ACH (Automated Clearing House) account for secure payment processing. Returns 200 (OK) on success, 400 (Bad Request) for invalid fields or unapproved accounts, 401 (Unauthorized) for authentication issues, or 404 (Not Found) if the resource is unavailable.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": null,
+                "lastName": null,
+                "companyName": "Company Inc.",
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": null,
+                "lastName": null,
+                "companyName": "Company Inc.",
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": null,
+                "lastName": null,
+                "companyName": "Company Inc.",
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AchPaymentAccountVerificationDto"
+              },
+              "example": {
+                "amount": null,
+                "firstName": null,
+                "lastName": null,
+                "companyName": "Company Inc.",
+                "address": {
+                  "addressId": null,
+                  "addressLine1": "26 River Street",
+                  "addressLine2": "",
+                  "city": "Cambridge",
+                  "state": "MA",
+                  "postalCode": "02125",
+                  "phoneNumber": "123-456-789",
+                  "email": null,
+                  "country": "US"
+                },
+                "ach": {
+                  "routingNumber": "123456789",
+                  "accountNumber": "123456789",
+                  "accountType": "Checking",
+                  "processingMethodType": 4
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The ACH account was successfully verified.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyAchAccountResponse"
+                },
+                "example": {
+                  "isVerified": true,
+                  "message": "Approved",
+                  "responseCode": "000"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyAchAccountResponse"
+                },
+                "example": {
+                  "isVerified": true,
+                  "message": "Approved",
+                  "responseCode": "000"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyAchAccountResponse"
+                },
+                "example": {
+                  "isVerified": true,
+                  "message": "Approved",
+                  "responseCode": "000"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid field or value submitted, or the account number is not approved.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access attempt.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Authentication/token": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Get Merchant Access Token",
+        "description": "Retrieves an access token for merchants to interact with the Revolv3 API. Requires client identifier and secret, obtainable from the Merchant Settings Profile page. Returns 200 (OK) on success, 400 (Bad Request) for invalid fields, or 401 (Unauthorized) if token retrieval fails.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetAzureAdTokenRequestDTO"
+              },
+              "example": {
+                "clientId": "clientIdentifier",
+                "clientSecret": "clientSecret"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetAzureAdTokenRequestDTO"
+              },
+              "example": {
+                "clientId": "clientIdentifier",
+                "clientSecret": "clientSecret"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetAzureAdTokenRequestDTO"
+              },
+              "example": {
+                "clientId": "clientIdentifier",
+                "clientSecret": "clientSecret"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetAzureAdTokenRequestDTO"
+              },
+              "example": {
+                "clientId": "clientIdentifier",
+                "clientSecret": "clientSecret"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The token was successfully received.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                },
+                "example": {
+                  "token_type": "Bearer",
+                  "expires_in": 3599,
+                  "ext_expires_in": 3599,
+                  "access_token": "thisisagianttokenhash..."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                },
+                "example": {
+                  "token_type": "Bearer",
+                  "expires_in": 3599,
+                  "ext_expires_in": 3599,
+                  "access_token": "thisisagianttokenhash..."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                },
+                "example": {
+                  "token_type": "Bearer",
+                  "expires_in": 3599,
+                  "ext_expires_in": 3599,
+                  "access_token": "thisisagianttokenhash..."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid field or value submitted.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Failed to retrieve AzureAD token.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to retrieve AzureAD token"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to retrieve AzureAD token"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to retrieve AzureAD token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Checkout": {
+      "post": {
+        "tags": [
+          "Checkout"
+        ],
+        "summary": "Create Checkout Link",
+        "description": "Generates a checkout link for processing one-time payments. Returns 200 (OK) with the checkout link, 400 (Bad Request) for invalid fields, or 401 (Unauthorized) for authentication issues.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCheckoutLinkRequestDto"
+              },
+              "example": {
+                "returnUrl": "https%3A%2F%2Fsite.com",
+                "oneTimePayment": {
+                  "checkoutLineItems": [
+                    {
+                      "name": "Item 1",
+                      "description": "Item Description",
+                      "value": 9.99,
+                      "valueType": "Standard"
+                    },
+                    {
+                      "name": "Item 2",
+                      "description": "Item Description",
+                      "value": 21.99,
+                      "valueType": "Standard"
+                    }
+                  ]
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCheckoutLinkRequestDto"
+              },
+              "example": {
+                "returnUrl": "https%3A%2F%2Fsite.com",
+                "oneTimePayment": {
+                  "checkoutLineItems": [
+                    {
+                      "name": "Item 1",
+                      "description": "Item Description",
+                      "value": 9.99,
+                      "valueType": "Standard"
+                    },
+                    {
+                      "name": "Item 2",
+                      "description": "Item Description",
+                      "value": 21.99,
+                      "valueType": "Standard"
+                    }
+                  ]
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCheckoutLinkRequestDto"
+              },
+              "example": {
+                "returnUrl": "https%3A%2F%2Fsite.com",
+                "oneTimePayment": {
+                  "checkoutLineItems": [
+                    {
+                      "name": "Item 1",
+                      "description": "Item Description",
+                      "value": 9.99,
+                      "valueType": "Standard"
+                    },
+                    {
+                      "name": "Item 2",
+                      "description": "Item Description",
+                      "value": 21.99,
+                      "valueType": "Standard"
+                    }
+                  ]
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCheckoutLinkRequestDto"
+              },
+              "example": {
+                "returnUrl": "https%3A%2F%2Fsite.com",
+                "oneTimePayment": {
+                  "checkoutLineItems": [
+                    {
+                      "name": "Item 1",
+                      "description": "Item Description",
+                      "value": 9.99,
+                      "valueType": "Standard"
+                    },
+                    {
+                      "name": "Item 2",
+                      "description": "Item Description",
+                      "value": 21.99,
+                      "valueType": "Standard"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The checkout link was successfully created.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCheckoutLinkResponseDto"
+                },
+                "example": {
+                  "checkoutId": "12345678-ABCD-1234-EFGH-987654321000",
+                  "checkoutLink": "http://localhost:4200/checkout/12345678-ABCD-1234-EFGH-987654321000"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCheckoutLinkResponseDto"
+                },
+                "example": {
+                  "checkoutId": "12345678-ABCD-1234-EFGH-987654321000",
+                  "checkoutLink": "http://localhost:4200/checkout/12345678-ABCD-1234-EFGH-987654321000"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCheckoutLinkResponseDto"
+                },
+                "example": {
+                  "checkoutId": "12345678-ABCD-1234-EFGH-987654321000",
+                  "checkoutLink": "http://localhost:4200/checkout/12345678-ABCD-1234-EFGH-987654321000"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid field or value submitted.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Unable to perform the request action with provided data."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access attempt.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusMessageResponse"
+                },
+                "example": {
+                  "message": "Attempted to perform an unauthorized operation."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Checkout/{checkoutUid}": {
+      "get": {
+        "tags": [
+          "Checkout"
+        ],
+        "summary": "Get Complete Checkout Information",
+        "description": "Retrieves detailed information about a specific checkout using its unique identifier. Returns 200 (OK) with checkout details.",
+        "parameters": [
+          {
+            "name": "checkoutUid",
+            "in": "path",
+            "description": "The unique identifier of the checkout session.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Checkout information successfully retrieved.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCompleteCheckoutInformationResponseDto"
+                },
+                "example": {
+                  "checkoutId": "12345678-ABCD-1234-EFGH-987654321000",
+                  "checkoutStatus": "Pending",
+                  "returnUrl": "https://mysite.com/order/12345678",
+                  "completionDate": null,
+                  "customer": {
+                    "customerId": 328,
+                    "firstName": "Joe",
+                    "lastName": "Doe",
+                    "email": "aa@aa.com"
+                  },
+                  "invoice": {
+                    "invoiceId": 8786,
+                    "invoiceStatus": "Paid",
+                    "total": 10.0,
+                    "billingDate": "2025-09-08T14:50:26.8124152+02:00",
+                    "paymentMethod": {
+                      "paymentMethodId": 0,
+                      "billingAddress": {
+                        "addressId": 4232,
+                        "addressLine1": "20 Bitterwater Street",
+                        "addressLine2": null,
+                        "city": "King City",
+                        "state": "CA",
+                        "postalCode": "11111",
+                        "phoneNumber": "43823527092",
+                        "email": "aa@aa.com",
+                        "country": "US"
+                      },
+                      "billingFirstName": "Joe",
+                      "billingLastName": "Doe",
+                      "type": null,
+                      "achDetails": null,
+                      "creditCardDetails": {
+                        "last4Digit": "1111",
+                        "expirationDate": "11/11"
+                      }
+                    },
+                    "invoiceAttempts": null
+                  },
+                  "checkoutLineItems": [
+                    {
+                      "name": "Checkout Line Item Name",
+                      "description": "Checkout Line Item Description",
+                      "value": 10.0,
+                      "valueType": "Standard"
+                    }
+                  ]
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCompleteCheckoutInformationResponseDto"
+                },
+                "example": {
+                  "checkoutId": "12345678-ABCD-1234-EFGH-987654321000",
+                  "checkoutStatus": "Pending",
+                  "returnUrl": "https://mysite.com/order/12345678",
+                  "completionDate": null,
+                  "customer": {
+                    "customerId": 328,
+                    "firstName": "Joe",
+                    "lastName": "Doe",
+                    "email": "aa@aa.com"
+                  },
+                  "invoice": {
+                    "invoiceId": 8786,
+                    "invoiceStatus": "Paid",
+                    "total": 10.0,
+                    "billingDate": "2025-09-08T14:50:26.8124152+02:00",
+                    "paymentMethod": {
+                      "paymentMethodId": 0,
+                      "billingAddress": {
+                        "addressId": 4232,
+                        "addressLine1": "20 Bitterwater Street",
+                        "addressLine2": null,
+                        "city": "King City",
+                        "state": "CA",
+                        "postalCode": "11111",
+                        "phoneNumber": "43823527092",
+                        "email": "aa@aa.com",
+                        "country": "US"
+                      },
+                      "billingFirstName": "Joe",
+                      "billingLastName": "Doe",
+                      "type": null,
+                      "achDetails": null,
+                      "creditCardDetails": {
+                        "last4Digit": "1111",
+                        "expirationDate": "11/11"
+                      }
+                    },
+                    "invoiceAttempts": null
+                  },
+                  "checkoutLineItems": [
+                    {
+                      "name": "Checkout Line Item Name",
+                      "description": "Checkout Line Item Description",
+                      "value": 10.0,
+                      "valueType": "Standard"
+                    }
+                  ]
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCompleteCheckoutInformationResponseDto"
+                },
+                "example": {
+                  "checkoutId": "12345678-ABCD-1234-EFGH-987654321000",
+                  "checkoutStatus": "Pending",
+                  "returnUrl": "https://mysite.com/order/12345678",
+                  "completionDate": null,
+                  "customer": {
+                    "customerId": 328,
+                    "firstName": "Joe",
+                    "lastName": "Doe",
+                    "email": "aa@aa.com"
+                  },
+                  "invoice": {
+                    "invoiceId": 8786,
+                    "invoiceStatus": "Paid",
+                    "total": 10.0,
+                    "billingDate": "2025-09-08T14:50:26.8124152+02:00",
+                    "paymentMethod": {
+                      "paymentMethodId": 0,
+                      "billingAddress": {
+                        "addressId": 4232,
+                        "addressLine1": "20 Bitterwater Street",
+                        "addressLine2": null,
+                        "city": "King City",
+                        "state": "CA",
+                        "postalCode": "11111",
+                        "phoneNumber": "43823527092",
+                        "email": "aa@aa.com",
+                        "country": "US"
+                      },
+                      "billingFirstName": "Joe",
+                      "billingLastName": "Doe",
+                      "type": null,
+                      "achDetails": null,
+                      "creditCardDetails": {
+                        "last4Digit": "1111",
+                        "last4Digit": "The last four digits of the credit card.",
+                        "expirationDate": "The expiration date of the credit card in MM/YY format."
+                      }
+                    },
+                    "invoiceAttempts": null
+                  },
+                  "checkoutLineItems": [
+                    {
+                      "name": "Checkout Line Item Name",
+                      "description": "Checkout Line Item Description",
+                      "value": 10.0,
+                      "valueType": "Standard"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AchDTO": {
+        "type": "object",
+        "properties": {
+          "routingNumber": {
+            "type": "string",
+            "description": "The 9-digit bank routing number for the ACH account.",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "The bank account number for the ACH transaction.",
+            "nullable": true
+          },
+          "accountType": {
+            "type": "string",
+            "description": "The type of bank account (e.g., Checking, Savings).",
+            "nullable": true
+          },
+          "processingMethodType": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The processing method type identifier for the ACH transaction.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AchPaymentAccountVerificationDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "The amount to verify, if applicable (optional).",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The first name of the account holder (required for person accounts).",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The last name of the account holder (required for person accounts).",
+            "nullable": true
+          },
+          "companyName": {
+            "type": "string",
+            "description": "The company name (required for corporate accounts).",
+            "nullable": true
+          },
+          "address": {
+            "$ref": "#/components/schemas/CreateAddressRequestDTO",
+            "description": "The billing address details for the account holder."
+          },
+          "ach": {
+            "$ref": "#/components/schemas/AchDTO",
+            "description": "The ACH account details for verification."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressDTO": {
+        "type": "object",
+        "properties": {
+          "addressId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the address."
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "The primary address line (e.g., street address).",
+            "nullable": true
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "The secondary address line (e.g., apartment number).",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "The city of the address.",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The state or region of the address.",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "The postal or ZIP code of the address.",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number associated with the address.",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address associated with the address.",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "The country of the address (e.g., US).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdyenOnboardingConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "description": "The API key for Adyen onboarding.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "string",
+            "description": "The merchant identifier for Adyen.",
+            "nullable": true
+          },
+          "accountCode": {
+            "type": "string",
+            "description": "The account code for Adyen processing.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdyenOnboardingConfigurationDtoMerchantProcessorResponseDto": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "description": "The type of object returned.",
+            "nullable": true
+          },
+          "merchantProcessorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the merchant processor."
+          },
+          "processorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the payment processor."
+          },
+          "processorName": {
+            "type": "string",
+            "description": "The name of the payment processor.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the merchant."
+          },
+          "processorFields": {
+            "$ref": "#/components/schemas/AdyenOnboardingConfigurationDto",
+            "description": "Configuration fields specific to Adyen."
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "A currency code supported by the processor."
+            },
+            "description": "List of supported currencies.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AmountResponseDTO": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "The currency code for the amount (e.g., USD).",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "description": "The monetary value of the transaction."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplePayDto": {
+        "type": "object",
+        "properties": {
+          "paymentToken": {
+            "type": "string",
+            "description": "The payment token for Apple Pay transactions.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorizePaymentMethodCommandRequestDTO": {
+        "type": "object",
+        "properties": {
+          "paymentMethod": {
+            "$ref": "#/components/schemas/CreatePaymentMethodRequestDTO",
+            "description": "Details of the payment method to authorize."
+          },
+          "paymentMethodId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier of an existing payment method.",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "The amount to authorize.",
+            "nullable": true
+          },
+          "processorType": {
+            "$ref": "#/components/schemas/ProcessorType",
+            "description": "The type of payment processor to use."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorizePaymentMethodCommandResponseDTO": {
+        "type": "object",
+        "properties": {
+          "paymentMethodAuthorizationId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the payment method authorization."
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodDTO",
+            "description": "Details of the authorized payment method."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorizeRequestDTO": {
+        "required": [
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "networkProcessing": {
+            "$ref": "#/components/schemas/NetworkProcessingDTO",
+            "description": "Details for network processing of the authorization."
+          },
+          "amount": {
+            "$ref": "#/components/schemas/AmountResponseDTO",
+            "description": "The amount to authorize (required)."
+          },
+          "dynamicDescriptor": {
+            "$ref": "#/components/schemas/TransactionDescriptorDTO",
+            "description": "Transaction descriptor for merchant identification."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorizeResponseDTO": {
+        "type": "object",
+        "properties": {
+          "networkTransactionId": {
+            "type": "string",
+            "description": "The transaction identifier from the payment network.",
+            "nullable": true
+          },
+          "paymentMethodAuthorizationId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the payment method authorization."
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodDTO",
+            "description": "Details of the authorized payment method."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorizeWithPaymentMethodRawRequestDTO": {
+        "required": [
+          "paymentMethod"
+        ],
+        "type": "object",
+        "properties": {
+          "networkProcessing": {
+            "$ref": "#/components/schemas/NetworkProcessingDTO",
+            "description": "Details for network processing of the authorization."
+          },
+          "amount": {
+            "$ref": "#/components/schemas/AmountResponseDTO",
+            "description": "The amount to authorize."
+          },
+          "dynamicDescriptor": {
+            "$ref": "#/components/schemas/TransactionDescriptorDTO",
+            "description": "Transaction descriptor for merchant identification."
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/CreatePaymentMethodRequestDTO",
+            "description": "The payment method to authorize (required)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "BridgePayOnboardingConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "description": "The API key for BridgePay onboarding.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "string",
+            "description": "The merchant identifier for BridgePay.",
+            "nullable": true
+          },
+          "terminalId": {
+            "type": "string",
+            "description": "The terminal identifier for BridgePay processing.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BridgePayOnboardingConfigurationDtoMerchantProcessorResponseDto": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "description": "The type of object returned.",
+            "nullable": true
+          },
+          "merchantProcessorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the merchant processor."
+          },
+          "processorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the payment processor."
+          },
+          "processorName": {
+            "type": "string",
+            "description": "The name of the payment processor.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the merchant."
+          },
+          "processorFields": {
+            "$ref": "#/components/schemas/BridgePayOnboardingConfigurationDto",
+            "description": "Configuration fields specific to BridgePay."
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "A currency code supported by the processor."
+            },
+            "description": "List of supported currencies.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CancelSubscriptionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the subscription."
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the customer."
+          },
+          "subscriptionStatus": {
+            "type": "string",
+            "description": "The status of the subscription after cancellation.",
+            "nullable": true
+          },
+          "cancelledAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp when the subscription was cancelled."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateAddressRequestDTO": {
+        "type": "object",
+        "properties": {
+          "addressId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the address, if already created.",
+            "nullable": true
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "The primary address line (e.g., street address).",
+            "nullable": true
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "The secondary address line (e.g., apartment number).",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "The city of the address.",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The state or region of the address.",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "The postal or ZIP code of the address.",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number associated with the address.",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address associated with the address.",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "The country of the address (e.g., US).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCheckoutLineItemRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the checkout line item.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the checkout line item.",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "description": "The monetary value of the line item."
+          },
+          "valueType": {
+            "type": "string",
+            "description": "The type of value (e.g., Standard, Tax).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCheckoutLinkRequestDto": {
+        "type": "object",
+        "properties": {
+          "returnUrl": {
+            "type": "string",
+            "description": "The URL to redirect to after checkout completion.",
+            "nullable": true
+          },
+          "oneTimePayment": {
+            "$ref": "#/components/schemas/OneTimePaymentDto",
+            "description": "Details of the one-time payment for the checkout."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCheckoutLinkResponseDto": {
+        "type": "object",
+        "properties": {
+          "checkoutId": {
+            "type": "string",
+            "description": "The unique identifier for the checkout session.",
+            "nullable": true
+          },
+          "checkoutLink": {
+            "type": "string",
+            "description": "The URL for the checkout session.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCustomerRequestDTO": {
+        "type": "object",
+        "properties": {
+          "merchantCustomerRefId": {
+            "type": "string",
+            "description": "A merchant-specific reference ID for the customer.",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The customer's first name.",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The customer's last name.",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The customer's email address.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateInvoiceLineItemRequestDTO": {
+        "required": [
+          "name",
+          "value",
+          "valueType"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the invoice line item (required)."
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the invoice line item.",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "description": "The monetary value of the line item (required)."
+          },
+          "valueType": {
+            "type": "string",
+            "description": "The type of value (e.g., Standard, Tax) (required)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateInvoiceRequestDTO": {
+        "type": "object",
+        "properties": {
+          "merchantInvoiceRefId": {
+            "type": "string",
+            "description": "A merchant-specific reference ID for the invoice.",
+            "nullable": true
+          },
+          "paymentMethodId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier of the payment method to use.",
+            "nullable": true
+          },
+          "invoiceStatus": {
+            "type": "string",
+            "description": "The status of the invoice (e.g., Pending, Paid).",
+            "nullable": true
+          },
+          "billingDate": {
+            "type": "string",
+            "description": "The date the invoice is billed.",
+            "nullable": true
+          },
+          "parentInvoiceId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier of the parent invoice, if applicable.",
+            "nullable": true
+          },
+          "taxAddress": {
+            "$ref": "#/components/schemas/CreateAddressRequestDTO",
+            "description": "The address used for tax calculation."
+          },
+          "invoiceLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateInvoiceLineItemRequestDTO"
+            },
+            "description": "List of line items for the invoice.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateOneTimePaymentRequestDTO": {
+        "required": [
+          "invoiceLineItems"
+        ],
+        "type": "object",
+        "properties": {
+          "merchantInvoiceRefId": {
+            "type": "string",
+            "description": "A merchant-specific reference ID for the invoice.",
+            "nullable": true
+          },
+          "invoiceLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateInvoiceLineItemRequestDTO"
+            },
+            "description": "List of line items for the one-time payment (required)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateOneTimePaymentResponseDTO": {
+        "type": "object",
+        "properties": {
+          "invoiceId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the invoice."
+          },
+          "merchantInvoiceRefId": {
+            "type": "string",
+            "description": "The merchant-specific reference ID for the invoice.",
+            "nullable": true
+          },
+          "invoiceStatus": {
+            "type": "string",
+            "description": "The status of the invoice (e.g., Paid, Pending).",
+            "nullable": true
+          },
+          "invoiceAttemptStatus": {
+            "type": "string",
+            "description": "The status of the invoice payment attempt.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "A message describing the result of the payment attempt.",
+            "nullable": true
+          },
+          "subtotal": {
+            "type": "number",
+            "format": "double",
+            "description": "The subtotal amount of the invoice."
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "The tax amount for the invoice."
+          },
+          "total": {
+            "type": "number",
+            "format": "double",
+            "description": "The total amount of the invoice."
+          },
+          "paymentMethodTypeId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The identifier for the payment method type."
+          },
+          "processorRawResponse": {
+            "type": "string",
+            "description": "The raw response from the payment processor.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatePaymentMethodRequestDTO": {
+        "type": "object",
+        "properties": {
+          "billingFirstName": {
+            "type": "string",
+            "description": "The first name associated with the billing information.",
+            "nullable": true
+          },
+          "billingLastName": {
+            "type": "string",
+            "description": "The last name associated with the billing information.",
+            "nullable": true
+          },
+          "billingFullName": {
+            "type": "string",
+            "description": "The full name associated with the billing information.",
+            "nullable": true
+          },
+          "billingAddress": {
+            "$ref": "#/components/schemas/CreateAddressRequestDTO",
+            "description": "The billing address for the payment method."
+          },
+          "creditCard": {
+            "$ref": "#/components/schemas/CreditCardDTO",
+            "description": "Credit card details for the payment method."
+          },
+          "ach": {
+            "$ref": "#/components/schemas/AchDTO",
+            "description": "ACH details for the payment method."
+          },
+          "googlePay": {
+            "$ref": "#/components/schemas/GooglePayDTO",
+            "description": "Google Pay details for the payment method."
+          },
+          "applePay": {
+            "$ref": "#/components/schemas/ApplePayDto",
+            "description": "Apple Pay details for the payment method."
+          },
+          "merchantPaymentMethodRefId": {
+            "type": "string",
+            "description": "A merchant-specific reference ID for the payment method.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateSubscriptionRequestDTO": {
+        "type": "object",
+        "properties": {
+          "merchantSubscriptionRefId": {
+            "type": "string",
+            "description": "A merchant-specific reference ID for the subscription.",
+            "nullable": true
+          },
+          "billingIntervalType": {
+            "type": "string",
+            "description": "The type of billing interval (e.g., Day, Month).",
+            "nullable": true
+          },
+          "billingIntervalCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of intervals between billing cycles.",
+            "nullable": true
+          },
+          "initialBillDate": {
+            "type": "string",
+            "description": "The initial billing date for the subscription.",
+            "nullable": true
+          },
+          "taxAddress": {
+            "$ref": "#/components/schemas/CreateAddressRequestDTO",
+            "description": "The address used for tax calculation."
+          },
+          "billingPlans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateSubscriptionBillingPlanRequestDTO"
+            },
+            "description": "List of billing plans for the subscription.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateSubscriptionBillingPlanRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the billing plan.",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "description": "The monetary value of the billing plan."
+          },
+          "startDate": {
+            "type": "string",
+            "description": "The start date of the billing plan.",
+            "nullable": true
+          },
+          "cyclesRemaining": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of billing cycles remaining.",
+            "nullable": true
+          },
+          "cycleCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The total number of billing cycles.",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "The type of value (e.g., Standard, Tax).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreditCardDTO": {
+        "type": "object",
+        "properties": {
+          "cardNumber": {
+            "type": "string",
+            "description": "The full credit card number.",
+            "nullable": true
+          },
+          "expirationDate": {
+            "type": "string",
+            "description": "The expiration date of the credit card in MM/YY format.",
+            "nullable": true
+          },
+          "cvv": {
+            "type": "string",
+            "description": "The card verification value (CVV) code.",
+            "nullable": true
+          },
+          "last4Digit": {
+            "type": "string",
+            "description": "The last four digits of the credit card.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerDTO": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the customer."
+          },
+          "merchantCustomerRefId": {
+            "type": "string",
+            "description": "A merchant-specific reference ID for the customer.",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The customer's first name.",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The customer's last name.",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The customer's email address.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EpxOnboardingConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "description": "The API key for EPX onboarding.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "string",
+            "description": "The merchant identifier for EPX.",
+            "nullable": true
+          },
+          "terminalId": {
+            "type": "string",
+            "description": "The terminal identifier for EPX processing.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EpxOnboardingConfigurationDtoMerchantProcessorResponseDto": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "description": "The type of object returned.",
+            "nullable": true
+          },
+          "merchantProcessorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the merchant processor."
+          },
+          "processorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the payment processor."
+          },
+          "processorName": {
+            "type": "string",
+            "description": "The name of the payment processor.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the merchant."
+          },
+          "processorFields": {
+            "$ref": "#/components/schemas/EpxOnboardingConfigurationDto",
+            "description": "Configuration fields specific to EPX."
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "A currency code supported by the processor."
+            },
+            "description": "List of supported currencies.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExistingPaymentMethodDTO": {
+        "type": "object",
+        "properties": {
+          "paymentMethodId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for an existing payment method.",
+            "nullable": true
+          },
+          "merchantPaymentMethodRefId": {
+            "type": "string",
+            "description": "A merchant-specific reference ID for the payment method.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetAzureAdTokenRequestDTO": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "description": "The unique client identifier for authentication.",
+            "nullable": true
+          },
+          "clientSecret": {
+            "type": "string",
+            "description": "The client secret key for authentication.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetCompleteCheckoutInformationResponseDto": {
+        "type": "object",
+        "properties": {
+          "checkoutId": {
+            "type": "string",
+            "description": "The unique identifier for the checkout session.",
+            "nullable": true
+          },
+          "checkoutStatus": {
+            "type": "string",
+            "description": "The status of the checkout session (e.g., Pending, Completed).",
+            "nullable": true
+          },
+          "returnUrl": {
+            "type": "string",
+            "description": "The URL to redirect to after checkout completion.",
+            "nullable": true
+          },
+          "completionDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time the checkout was completed.",
+            "nullable": true
+          },
+          "customer": {
+            "$ref": "#/components/schemas/CustomerDTO",
+            "description": "Details of the customer associated with the checkout."
+          },
+          "invoice": {
+            "$ref": "#/components/schemas/InvoiceDTO",
+            "description": "Details of the invoice associated with the checkout."
+          },
+          "checkoutLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateCheckoutLineItemRequestDto"
+            },
+            "description": "List of line items in the checkout.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetMerchantProcessorResponseDto": {
+        "type": "object",
+        "properties": {
+          "merchantProcessors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MerchantProcessorResponseDto"
+            },
+            "description": "List of merchant processor configurations.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetSubscriptionsByPANRequestDTO": {
+        "type": "object",
+        "properties": {
+          "paymentAccountNumber": {
+            "type": "string",
+            "description": "The payment account number to query subscriptions.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GooglePayDTO": {
+        "type": "object",
+        "properties": {
+          "paymentToken": {
+            "type": "string",
+            "description": "The payment token for Google Pay transactions.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InitialPaymentResponseDTO": {
+        "type": "object",
+        "properties": {
+          "invoiceId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the invoice."
+          },
+          "merchantInvoiceRefId": {
+            "type": "string",
+            "description": "The merchant-specific reference ID for the invoice.",
+            "nullable": true
+          },
+          "invoiceStatus": {
+            "type": "string",
+            "description": "The status of the invoice (e.g., Paid, Pending).",
+            "nullable": true
+          },
+          "invoiceAttemptStatus": {
+            "type": "string",
+            "description": "The status of the invoice payment attempt.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "A message describing the result of the payment attempt.",
+            "nullable": true
+          },
+          "subtotal": {
+            "type": "number",
+            "format": "double",
+            "description": "The subtotal amount of the invoice."
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "The tax amount for the invoice."
+          },
+          "total": {
+            "type": "number",
+            "format": "double",
+            "description": "The total amount of the invoice."
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntervalEnum": {
+        "enum": [
+          "Day",
+          "Week",
+          "Month",
+          "Year"
+        ],
+        "type": "string",
+        "description": "The type of billing interval (Day, Week, Month, Year)."
+      },
+      "InvoiceAttemptDTO": {
+        "type": "object",
+        "properties": {
+          "invoiceAttemptId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the invoice payment attempt."
+          },
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "The amount of the payment attempt."
+          },
+          "invoiceAttemptStatus": {
+            "type": "string",
+            "description": "The status of the payment attempt (e.g., Success, Failed).",
+            "nullable": true
+          },
+          "invoiceAttemptDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time of the payment attempt."
+          },
+          "paymentProcessor": {
+            "type": "string",
+            "description": "The name of the payment processor used.",
+            "nullable": true
+          },
+          "processorTransactionId": {
+            "type": "string",
+            "description": "The transaction ID from the payment processor.",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "description": "The response code from the payment processor.",
+            "nullable": true
+          },
+          "responseMessage": {
+            "type": "string",
+            "description": "The response message from the payment processor.",
+            "nullable": true
+          },
+          "processorRawResponse": {
+            "type": "string",
+            "description": "The raw response from the payment processor.",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodDTO",
+            "description": "Details of the payment method used in the attempt."
+          },
+          "eligibilityCheckOrderCode": {
+            "type": "string",
+            "description": "The order code for eligibility checks, if applicable.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceDTO": {
+        "type": "object",
+        "properties": {
+          "invoiceId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the invoice."
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the customer.",
+            "nullable": true
+          },
+          "merchantInvoiceRefId": {
+            "type": "string",
+            "description": "The merchant-specific reference ID for the invoice.",
+            "nullable": true
+          },
+          "networkTransactionId": {
+            "type": "string",
+            "description": "The transaction ID from the payment network.",
+            "nullable": true
+          },
+          "invoiceStatus": {
+            "type": "string",
+            "description": "The status of the invoice (e.g., Paid, Pending).",
+            "nullable": true
+          },
+          "subtotal": {
+            "type": "number",
+            "format": "double",
+            "description": "The subtotal amount of the invoice."
+          },
+          "tax": {
+            "type": "number",
+            "format": "double",
+            "description": "The tax amount for the invoice."
+          },
+          "total": {
+            "type": "number",
+            "format": "double",
+            "description": "The total amount of the invoice."
+          },
+          "billingDate": {
+            "type": "string",
+            "description": "The date the invoice was billed.",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodDTO",
+            "description": "Details of the payment method used for the invoice."
+          },
+          "invoiceAttempts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceAttemptDTO"
+            },
+            "description": "List of payment attempts for the invoice.",
+            "nullable": true
+          },
+          "refundedSubtotal": {
+            "type": "number",
+            "format": "double",
+            "description": "The subtotal amount refunded."
+          },
+          "refundedTax": {
+            "type": "number",
+            "format": "double",
+            "description": "The tax amount refunded."
+          },
+          "refundedTotal": {
+            "type": "number",
+            "format": "double",
+            "description": "The total amount refunded."
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceDetailsDTO": {
+        "required": [
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "merchantInvoiceRefId": {
+            "type": "string",
+            "description": "The merchant-specific reference ID for the invoice.",
+            "nullable": true
+          },
+          "amount": {
+            "$ref": "#/components/schemas/AmountResponseDTO",
+            "description": "The amount details for the invoice (required)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "MerchantProcessorResponseDto": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "description": "The type of object returned.",
+            "nullable": true
+          },
+          "merchantProcessorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the merchant processor."
+          },
+          "processorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the payment processor."
+          },
+          "processorName": {
+            "type": "string",
+            "description": "The name of the payment processor.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the merchant."
+          },
+          "processorFields": {
+            "description": "Processor-specific configuration fields.",
+            "nullable": true
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "A currency code supported by the processor."
+            },
+            "description": "List of supported currencies.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NetworkProcessingDTO": {
+        "type": "object",
+        "properties": {
+          "processingType": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The type of processing for the transaction.",
+            "nullable": true
+          },
+          "originalNetworkTransactionId": {
+            "type": "string",
+            "description": "The original transaction ID from the payment network.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NuveiOnboardingConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "description": "The API key for Nuvei onboarding.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "string",
+            "description": "The merchant identifier for Nuvei.",
+            "nullable": true
+          },
+          "merchantSiteId": {
+            "type": "string",
+            "description": "The merchant site identifier for Nuvei.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NuveiOnboardingConfigurationDtoMerchantProcessorResponseDto": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "description": "The type of object returned.",
+            "nullable": true
+          },
+          "merchantProcessorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The unique identifier for the merchant processor."
+          },
+          "processorId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the payment processor."
+          },
+          "processorName": {
+            "type": "string",
+            "description": "The name of the payment processor.",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier for the merchant."
+          },
+          "processorFields": {
+            "$ref": "#/components/schemas/NuveiOnboardingConfigurationDto",
+            "description": "Configuration fields specific to Nuvei."
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "A currency code supported by the processor."
+            },
+            "description": "List of supported currencies.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OneTimePaymentDto": {
+        "type": "object",
+        "properties": {
+          "checkoutLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateCheckoutLineItemRequestDto"
+            },
+            "description": "List of line items for the one-time payment.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentLyncOnboardingConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "description": "The API key for PaymentLync onboarding.",
+            "nullable":

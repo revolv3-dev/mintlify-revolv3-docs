@@ -1,44 +1,46 @@
 ---
-title: "Authorization, Captures and Reversals"
-description: "Defintions of Terms"
+title: "Payment Authorizations, Captures, and Reversals"
+description: "Authorize, capture, and reverse payments with the Revolv3 API. A guide to managing the full lifecycle of a card transaction with examples."
 ---
+ 
+A concise summary: This page explains how to create payment authorizations, perform captures (charge after authorization), and reverse authorizations using Revolv3 APIs. Include the API endpoints and examples below to implement each action.
 
 ## Authorization
 
-To create an authorization use the API call . In this response you will get an PaymentMethodAuthorizationId. You can then use this ID for the capture or a reversal
+To create an authorization use the API call below. In this response you will get a PaymentMethodAuthorizationId. You can then use this ID for the capture or a reversal
 
 ## Capture
 
-For a Capture (charge the customer after authorization) , use either the One Time Payment API or Subscription API call and use the PaymentMethodAuthorizationId instead of PaymentMethod
+For a Capture (charge the customer after authorization), use either the One Time Payment API or Subscription API call and use the PaymentMethodAuthorizationId instead of PaymentMethod
 
-\{Api Root}}/api/Customers/\{\{Customer Id}}/subscriptions
+{{Api Root}}/api/Customers/{{Customer Id}}/subscriptions
 
-```
+```json
 {
-	"MerchantSubscriptionRefId": "1234-5678-9101",
-	"BillingFrequencyType": "Monthly",
+    "MerchantSubscriptionRefId": "1234-5678-9101",
+    "BillingFrequencyType": "Monthly",
   "PaymentMethodAuthorizationId": 1234,
-	"SubscriptionBillingPlans": [
-		{
-			"Name": "Billing Plan 1",
-			"Value": 10.99,
-			"CycleCount": -1,
-			"ValueType": "Standard",
-			"StartCycleDelay": 0
-		}
-	]
+    "SubscriptionBillingPlans": [
+        {
+            "Name": "Billing Plan 1",
+            "Value": 10.99,
+            "CycleCount": -1,
+            "ValueType": "Standard",
+            "StartCycleDelay": 0
+        }
+    ]
 }
 ```
 
 ## Authorization Reversal
 
-To do a Reversal of an authorization use the API call ,use the PaymentMethodAuthorizationId from the previous API call
+To do a Reversal of an authorization use the API call below, use the PaymentMethodAuthorizationId from the previous API call
 
-\{\{Api Root}}/api/PaymentMethod/reverse-auth
+{{Api Root}}/api/PaymentMethod/reverse-auth
 
-```
+```json
 {
-	"PaymentMethodAuthorizationId": 1234
+    "PaymentMethodAuthorizationId": 1234
 }
 ```
 
