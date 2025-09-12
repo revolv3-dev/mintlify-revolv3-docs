@@ -136,10 +136,10 @@
           {
             "group": "Deprecated Pages",
             "pages": [
-              "docs/reusing-the-paymentmethodid-for-one-time-payments",
-              "docs/authorization-captures-and-reversals",
-              "docs/create-a-subscription",
-              "docs/make-a-one-time-payment"
+              "docs/deprecated/reusing-the-paymentmethodid-for-one-time-payments",
+              "docs/deprecated/authorization-captures-and-reversals",
+              "docs/deprecated/create-a-subscription",
+              "docs/deprecated/make-a-one-time-payment"
             ]
           }
         ]
