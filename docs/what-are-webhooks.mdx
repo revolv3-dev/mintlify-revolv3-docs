@@ -13,74 +13,15 @@ Invoice created
 
 ## InvoiceCreated
 
-| Description and headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The webhook is triggered when an invoice is created in the system**Notes:**one-time payment invoicesrecurrent payment invoicesinstallments payment invoices                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| Payload example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `{
-  "Body": "{
-	"Invoice": {
-		"InvoiceId": 836271,
-		"ParentInvoiceId": null,
-		"CustomerId": 220464,
-		"MerchantInvoiceRefId": null,
-		"PaymentMethod": {
-			"PaymentMethodId": 226880,
-			"BillingAddressId": 255838,
-			"BillingFirstName": "John",
-			"BillingLastName": "Doe",
-			"MerchantPaymentMethodRefId": null,
-			"BillingAddress": {
-				"AddressId": 255838,
-				"AddressLine1": null,
-				"AddressLine2": null,
-				"City": null,
-				"State": null,
-				"PostalCode": null,
-				"PhoneNumber": null,
-				"Email": null,
-				"Country": null
-			},
-			"PaymentMethodAchDetails": null,
-			"PaymentMethodCreditCardDetails": {
-				"BinNumber": "411111",
-				"PaymentLast4Digit": "1111",
-				"PaymentExpirationDate": "0330"
-			}
-		},
-		"InvoiceStatus": "RecurringPending",
-		"Subtotal": 15.99,
-		"Tax": 0,
-		"Total": 15.99,
-		"BillingDate": "1/19/2025",
-		"MerchantLegalName": "Adyen recurrent WH ",
-		"MerchantCustomerRefId": null,
-		"CustomerFirstName": "Billie",
-		"CustomerLastName": "Brown",
-		"SubscriptionId": 55578,
-		"InstallmentId": null,
-		"EligibilityFailReason": null,
-		"MerchantSubscriptionRefId": null,
-		"NetworkTransactionId": null,
-		"InvoiceLineItems": [ 			{
-				"InvoiceId": 836271,
-				"InvoiceLineItemId": 946910,
-				"Name": "Billing Plan 1",
-				"Description": null,
-				"Value": 15.99,
-				"ValueType": "Standard",
-				"BillingValueType": "Standard"
-			}
-		],
-		"InvoiceAttempts": [],
-		"InvoiceStatusEnum": "RecurringPending"
-	},
-	"EventDateTime": "2025-01-19T00:01:25.6834033Z",
-	"EventType": "InvoiceCreated",
-	"RevolvMerchantId": 385
-  }",
-  "Entropy": "adfe41d4-4971-4620-a93e-154805d16a18"
-}                ` |
+| Description and headers |
+| --- |
+| The webhook is triggered when an invoice is created in the system. Notes: one-time payment invoices, recurrent payment invoices, installments payment invoices. |
+
+### Payload example
+```json
+{
+  "Body": "{\n\t\"Invoice\": {\n\t\t\"InvoiceId\": 836271,\n\t\t\"ParentInvoiceId\": null,\n\t\t\"CustomerId\": 220464,\n\t\t\"MerchantInvoiceRefId\": null,\n\t\t\"PaymentMethod\": {\n\t\t\t\"PaymentMethodId\": 226880,\n\t\t\t\"BillingAddressId\": 255838,\n\t\t\t\"BillingFirstName\": \"John\",\n\t\t\t\"BillingLastName\": \"Doe\",\n\t\t\t\"MerchantPaymentMethodRefId\": null,\n\t\t\t\"BillingAddress\": {\n\t\t\t\t\"AddressId\": 255838,\n\t\t\t\t\"AddressLine1\": null,\n\t\t\t\t\"AddressLine2\": null,\n\t\t\t\t\"City\": null,\n\t\t\t\t\"State\": null,\n\t\t\t\t\"PostalCode\": null,\n\t\t\t\t\"PhoneNumber\": null,\n\t\t\t\t\"Email\": null,\n\t\t\t\t\"Country\": null\n\t\t\t},\n\t\t\t\"PaymentMethodAchDetails\": null,\n\t\t\t\"PaymentMethodCreditCardDetails\": {\n\t\t\t\t\"BinNumber\": \"411111\",\n\t\t\t\t\"PaymentLast4Digit\": \"1111\",\n\t\t\t\t\"PaymentExpirationDate\": \"0330\"\n\t\t\t}\n\t\t},\n\t\t\"InvoiceStatus\": \"RecurringPending\",\n\t\t\"Subtotal\": 15.99,\n\t\t\"Tax\": 0,\n\t\t\"Total\": 15.99,\n\t\t\"BillingDate\": \"1/19/2025\",\n\t\t\"MerchantLegalName\": \"Adyen recurrent WH \",\n\t\t\"MerchantCustomerRefId\": null,\n\t\t\"CustomerFirstName\": \"Billie\",\n\t\t\"CustomerLastName\": \"Brown\",\n\t\t\"SubscriptionId\": 55578,\n\t\t\"InstallmentId\": null,\n\t\t\"EligibilityFailReason\": null,\n\t\t\"MerchantSubscriptionRefId\": null,\n\t\t\"NetworkTransactionId\": null,\n\t\t\"InvoiceLineItems\": [ {\n\t\t\t\t\"InvoiceId\": 836271,\n\t\t\t\t\"InvoiceLineItemId\": 946910,\n\t\t\t\t\"Name\": \"Billing Plan 1\",\n\t\t\t\t\"Description\": null,\n\t\t\t\t\"Value\": 15.99,\n\t\t\t\t\"ValueType\": \"Standard\",\n\t\t\t\t\"BillingValueType\": \"Standard\"\n\t\t\t}\n\t\t],\n\t\t\"InvoiceAttempts\": [],\n\t\t\"InvoiceStatusEnum\": \"RecurringPending\"\n\t},\n\t\"EventDateTime\": \"2025-01-19T00:01:25.6834033Z\",\n\t\"EventType\": \"InvoiceCreated\",\n\t\"RevolvMerchantId\": 385\n  }",\n  "Entropy": "adfe41d4-4971-4620-a93e-154805d16a18"\n}
+```
 
 Invoice status changed
 
@@ -196,7 +137,8 @@ ACH Invoice status changed (DEPRECATED)
 
 ## ACHInvoiceStatusChanged (DEPRECATED)
 
-The webhook is triggered on any status change of an invoice that is going to be paid with ACH payment method. Initial status assignment is NOT considered as “status change”.## Notes:
+The webhook is triggered on any status change of an invoice that is going to be paid with ACH payment method. Initial status assignment is NOT considered as “status change”.
+## Notes:
 Please use InvoiceStatusChanged webhook instead. These webhooks have the same body structure. This Webhook will be removed in the future.
 
 Invoice attempt created
