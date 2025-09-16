@@ -131,7 +131,6 @@
             "group": "Deprecated Pages",
             "pages": [
               "docs/deprecated/reusing-the-paymentmethodid-for-one-time-payments",
-              "docs/deprecated/authorization-captures-and-reversals",
               "docs/deprecated/create-a-subscription",
               "docs/deprecated/make-a-one-time-payment"
             ]
