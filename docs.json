@@ -102,8 +102,7 @@
             "group": "Webhooks",
             "pages": [
               "docs/webhooks",
-              "docs/creating-a-webhook",
-              "docs/what-are-webhooks"
+              "docs/creating-a-webhook"
             ]
           },
           {
