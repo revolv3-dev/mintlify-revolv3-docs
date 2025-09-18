@@ -12,6 +12,7 @@
     "light": "/logo/normallogo.png",
     "dark": "/logo/darklogo.png"
   },
+ "root": "/",
  "api": {
    "playground": {
      "display": "none"
