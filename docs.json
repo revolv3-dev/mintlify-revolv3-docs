@@ -147,8 +147,16 @@
   "openapi": "api-reference/swagger.json"
       },
       {
-        "tab": "ChangeLog",
-        "pages": ["changelog"]
+"tab": "API Reference",
+  "groups": [
+    {
+      "group": "Overview",
+      "pages": ["api-reference"]   
+    },
+    {
+      "openapi": "api-reference/swagger.json"
+    }
+  ]
       }
     ]
   }
