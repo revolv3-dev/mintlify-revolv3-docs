@@ -142,11 +142,9 @@
         ]
       },
       {
-        "tab": "API Reference",
-        "pages": [
-          "api-reference"
-        ],
-        "openapi": "/swagger.json"
+  "tab": "API Reference",
+  "pages": ["api-reference/index"],
+  "openapi": "api-reference/swagger.json"
       },
       {
         "tab": "ChangeLog",
