@@ -146,7 +146,7 @@
         "pages": [
           "api-reference"
         ],
-        "openapi": "swagger.json"
+        "openapi": "/swagger.json"
       },
       {
         "tab": "ChangeLog",
