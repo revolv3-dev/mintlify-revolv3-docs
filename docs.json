@@ -145,10 +145,6 @@
   "tab": "API Reference",
 
   "openapi": "api-reference/swagger.json"
-      },
-      {
-"tab": "API Reference",
- "openapi": "api-reference/swagger.json"
       }
     ]
   }
