@@ -148,15 +148,7 @@
       },
       {
 "tab": "API Reference",
-  "groups": [
-    {
-      "group": "Overview",
-      "pages": ["api-reference"]   
-    },
-    {
-      "openapi": "api-reference/swagger.json"
-    }
-  ]
+ "openapi": "api-reference/swagger.json"
       }
     ]
   }
