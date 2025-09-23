@@ -17,6 +17,11 @@
       "enabled": false
     }
   },
+  "seo": {
+    "metatags": {
+      "canonical": "https://docs.revolv3.com"
+    }
+  },
   "root": "/",
   "api": {
     "playground": {
