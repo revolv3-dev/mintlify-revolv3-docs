@@ -12,6 +12,11 @@
     "light": "/logo/normallogo.png",
     "dark": "/logo/darklogo.png"
   },
+  "integrations": {
+    "telemetry": {
+      "enabled": false
+    }
+  },
   "root": "/",
   "api": {
     "playground": {
