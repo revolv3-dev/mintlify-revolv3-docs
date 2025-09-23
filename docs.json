@@ -106,7 +106,7 @@
             "group": "Subscriptions",
             "pages": [
               "docs/create-subscription",
-              "docs/subscription-status-and-recycling",
+              "docs/subscription-status-and-recylcing",
               "docs/canceling-a-subscription",
               "docs/refunds",
               "docs/billing-plans"
